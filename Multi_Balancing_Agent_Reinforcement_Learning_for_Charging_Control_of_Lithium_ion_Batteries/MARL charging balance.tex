@@ -2,6 +2,7 @@
 
 \hyphenation{op-tical net-works semi-conduc-tor}
 \usepackage{graphicx}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{amsmath}
@@ -9,9 +10,15 @@
 \usepackage{cite}
 \usepackage{bm}
 \usepackage{amsfonts}
-\usepackage{xcolor}
-\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{color,xcolor}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{float}
 \usepackage{multirow}
+\renewcommand{\thesubfigure}{\alph{subfigure}} 
+\usepackage[labelfont=bf]{caption}
 
 \begin{document}
 
@@ -38,7 +45,7 @@ Zhongmei Li is with the Key Laboratory of Smart Manufacturing in Energy Chemical
 % As a general rule, do not put math, special symbols or citations
 % in the abstract or keywords.
 \begin{abstract}
-Cell balancing during charging is commonly implemented by combining a charging controller with passive or active equalization circuits. Those circuits add dissipative paths or power-conversion stages and require the charging and balancing objectives to be coordinated. This paper presents a multi-balancing-agent reinforcement learning (MBA-RL) controller for an architecture in which each cell is connected to an independently controllable current source. The hardware assumption removes the need for a separate equalization network, while a QMIX-based controller coordinates the cell-level current commands under voltage, temperature, SOC-balancing, and charging-time objectives. The controller is evaluated in simulation using single-particle models with electrolyte and lumped thermal dynamics whose parameters are fitted to measurements from three Samsung 40T cells at different aging states. For the two initial-SOC sets considered, MBA-RL reaches the balancing threshold 1890~s and 2520~s earlier than constant-current--constant-voltage charging, respectively; for the second set, it is 270~s faster than the evaluated deep Q-learning baseline. These results establish simulation-level feasibility under the assumed per-cell current-source architecture. Hardware validation, matched-architecture baselines, and multi-seed statistical evaluation remain necessary before drawing conclusions about energy efficiency or large-pack scalability.
+Efficient and fast charging balancing control of lithium-ion batteries has garnered significant attention in recent years. Traditional charging balancing control methods typically rely on balancing algorithms that operate on equalization topologies, causing varying currents to flow through individual cells to achieve state of charge (SOC) balancing across all cells. However, these methods face several challenges: 1) equalization topologies could reduce charging precision and efficiency; 2) discharging high-SOC cells leads to energy loss; 3) the potential for re-emerging imbalance after initial balancing is frequently overlooked. To address these challenges, this paper introduces a new multi-balancing-agent reinforcement learning (MBA-RL) framework for charging control. In this framework, each agent independently defines a dedicated charging protocol for its respective cell, while coordinating with other agents to achieve SOC balancing across all cells. MBA-RL eliminates the need for equalization topologies and avoids discharging operations on high-SOC cells. It not only facilitates rapid SOC balancing but also supports fast charging under balanced conditions. Experimental results demonstrate that MBA-RL significantly reduces the time required to achieve SOC balancing while optimizing the overall charging process. It outperforms both the single-agent deep Q-learning method and the traditional constant current-constant voltage approach.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
@@ -50,21 +57,23 @@ Charging control, SOC balancing, lithium-ion battery, multi-agent reinforcement 
 
 \section{Introduction}
 
-\IEEEPARstart{L}{ithium-ion} batteries are widely used in electric vehicles (EVs) because of their high energy density, low self-discharge rate, and long cycle life \cite{1, 2}. A traction battery therefore connects many cells to meet pack-level voltage and capacity requirements \cite{3, 4}. Manufacturing variation, operating history, and nonuniform thermal conditions produce cell-to-cell differences that reduce usable capacity, charging performance, and service life and may increase safety risk \cite{5, 6}. Charging control must consequently limit voltage and temperature while reducing both charging time and inter-cell SOC dispersion. Most existing strategies combine a balancing algorithm with an active or passive equalization circuit that redistributes or dissipates energy within the pack \cite{7, 8}. Controller design and power architecture are coupled: the same control law may perform differently across topologies, and a topology may impose limits on current resolution, conversion loss, and cost \cite{ma2024two}.
+\IEEEPARstart{L}{ithium-ion} batteries have been extensively adopted in the electric vehicle (EV) industry due to their environment-friendly nature, high energy density, low self-discharge rate, and long cycle life \cite{1, 2}. However, individual lithium-ion batteries are inherently limited in meeting the high voltage and capacity demands required by EVs \cite{3, 4}. As a result, practical energy storage systems are composed of hundreds to thousands of individual battery cells. However, inevitable inconsistencies in manufacturing and operational conditions introduce variations in internal states and lifespan across battery cells, which can significantly compromise a battery pack’s overall capacity, charging efficiency, and durability while also increasing safety risks \cite{5, 6}. Therefore, it is crucial to formulate an efficient and practical charging equalization strategy that reduces charging time under safety constraints while ensuring inter-cell balance within the battery pack. To achieve this objective, researchers have developed numerous equalization strategies. Most of these strategies employ a framework that combines equalization topologies with balancing algorithms, where the balancing algorithm regulates the topology structure to achieve the redistribution of charge and energy within the battery pack \cite{7, 8}. Different balancing algorithms applied to the same equalization topology can yield varying results, and vice versa. A reasonable equalization strategy should strike a balance between these two aspects, taking into account the specific requirements of the application \cite{ma2024two}. A detailed overview of the framework is provided as follows.
 
-\subsubsection*{Equalization topologies} Active equalizers redistribute energy from higher-energy cells through switched capacitors, inductors \cite{9}, transformers \cite{10}, or DC--DC converters \cite{11}. They can recover part of the transferred energy but add switches, converters, sensing, and control complexity as the pack grows. Passive equalizers place discharge resistors across selected cells and dissipate excess energy as heat \cite{12}. Both categories can reduce SOC dispersion, but many conventional implementations do so by removing charge from higher-SOC cells. The resulting conversion or dissipation loss motivates architectures that regulate each cell's charging current directly.
+\subsubsection*{Equalization topologies}The equalization topologies can be categorized into active equalization topologies and passive equalization topologies. The active equalization topologies involve redistributing excess charge from high-energy cells to those with lower energy levels via switched capacitors, inductors \cite{9}, transformers \cite{10}, or DC-DC converters \cite{11}, thereby facilitating an efficient discharging process for high-energy cells while simultaneously charging low-energy cells. Despite the higher energy utilization efficiency offered by active balancing, designing an effective equalization topology becomes increasingly intricate when managing a large number of cells configured in both series and parallel arrangements. This significantly increases the complexity of the system and the associated design costs. Passive equalization topologies achieve charging equalization by employing discharge resistors connected in parallel with the cells within the battery pack \cite{12}. These resistors serve as a channel for high-energy cells to dissipate excess charge, with the energy being converted into heat during the process. Although the design of passive balancing is relatively straightforward, the dissipation of energy through resistors substantially reduces energy efficiency, leading to significant resource wastage. Additionally,  regardless of whether active or passive equalization topologies are used, discharging higher-SOC cells to achieve faster balancing is unavoidable. This not only reduces energy efficiency but also increases safety risks.
 
 \subsubsection*{Balancing algorithms}Traditional balancing algorithms are typically based on constant current-constant voltage (CC-CV) methods to achieve voltage or SOC balancing among battery cells. Aizpuru {\it et al.} \cite{13} integrated the CC-CV method with single-cell experimental data to construct a passive balancing system. Hoque {\it et al.} \cite{14} applied particle swarm optimization (PSO) to optimize the CC-CV balancing controller, aiming to improve balancing performance. Although CC-CV based balancing algorithms are straightforward to design, they fail to consider temperature variations within the battery pack and rely on overly conservative constraints to mitigate safety risks. With the advancement of control theory, an increasing number of studies have combined control theory with charging equalization topologies. In \cite{15}, a balancing algorithm employing fuzzy logic control was proposed to adaptively manage the equalization process for lithium-ion batteries. Fan {\it et al.} \cite{16} introduced a fast-balancing strategy based on model predictive control to resolve the issue of imbalance among individual cells in lithium-ion battery packs. While these approaches can enhance the precision and efficiency of charging equalization, they still fail to adapt to dynamic changes in battery parameters during the charging process. To address the aforementioned issues, Yang {\it et al.} \cite{17} presented a balancing awareness charging control framework based on deep reinforcement learning (DRL). In \cite{18}, a DRL-based controller was introduced for active equalization of redundant battery systems. These approaches leverage DRL’s adaptability to dynamic environments and its strong exploration capabilities to determine the optimal charging policy. Nevertheless, the previously mentioned DRL methods exhibit several issues: 1) depending on an equalization topology to enable charge and energy redistribution among cells, which compromises both charging efficiency and precision; 2) overlooking the possibility that, despite achieving an initially balanced state, variations in the charging environment may lead to SOC inconsistencies re-emerging in subsequent charging cycles.
 
-Multi-agent reinforcement learning (MARL) provides a mechanism for learning decentralized cell-level policies against a shared pack-level objective \cite{19, 20}. Liang {\it et al.} \cite{21} applied MARL to the operation of a battery swapping and charging system, while Dong {\it et al.} \cite{22} studied MARL-based scheduling for vehicle-to-grid integration. These studies coordinate energy-system decisions rather than cell-level charging currents. Their results nevertheless motivate a controller in which local agents respond to cell states while a joint value function represents pack-level balancing and charging objectives. Whether such coordination is effective must be separated from the hardware question of how independent cell currents are supplied.
+% Nevertheless, the previously mentioned methods necessitates the integration of a equalization topology to facilitate energy transfer among cells, thereby compromising both charging efficiency and precision. Furthermore, due to disparities in the initial states of individual cells, these methods inevitably involve discharging certain cells within the battery pack, which diminishes energy utilization efficiency and exacerbates safety risks.
 
-This paper investigates a multi-balancing-agent reinforcement learning (MBA-RL) controller under a per-cell controllable-current architecture. The controller coordinates charging until the SOC-dispersion threshold and reference SOC are satisfied jointly. Its evaluation is simulation-based; experimental cell data are used to identify the battery-model parameters, not to execute the learned policy on hardware. The contributions are as follows.
+Recently, a novel technique called multi-agent reinforcement learning (MARL) has been introduced \cite{19, 20}. It implements an experience-sharing mechanism among agents while ensuring that each agent independently follows its own policy. This approach accelerates convergence to optimal policies and enhances robustness, making it highly suitable for complex control and decision-making problems. Liang {\it et al.} \cite{21} utilized MARL for real-time management of a battery swapping and charging system. Dong {\it et al.} \cite{22} proposed an MARL mechanism to optimize the peak shaving performance of the electric grid. In a charging balancing control problem, MARL effectively coordinates the fast charging of individual cells with the balancing control requirements across the entire battery pack. This approach eliminates the necessity for traditional equalization topologies, thus simplifying the charging process. However, despite this advantage, MARL has not yet been explored for charging balancing control in battery management systems.
+
+Based on these considerations, this paper proposes a new multi-balancing-agent reinforcement learning (MBA-RL) framework for charging control that operates independently of any specific equalization topology. MBA-RL not only facilitates fast SOC balancing but also ensures sustained SOC balancing within the battery pack throughout subsequent charging cycles. Moreover, we employ a battery pack composed of real battery cells with varying lifespans to validate the effectiveness of MBA-RL, thereby making it more representative of real-world scenarios. The main contributions of this paper are summarized as follows.
 \begin{enumerate}
-    \item A per-cell current-source architecture and Dec-POMDP formulation are combined so that charging and balancing are expressed as one constrained control problem. The removal of a separate equalization network follows from this hardware architecture rather than from the learning algorithm alone.
+    \item A general MBA-RL charging control framework is proposed, which is adaptable to various MARL algorithms and battery models. Additionally, it eliminates the need for equalization topologies, enhancing both the precision and efficiency of the charging balancing process.
     
-    \item A QMIX-based MBA-RL controller is developed to coordinate cell-level current commands using local voltage, temperature, and SOC observations and a pack-level reward. The controller continues charging under the balancing constraint until the reference SOC is reached.
+    \item MBA-RL provides several substantial advantages. First, it demonstrates exceptional flexibility, enabling the application of different constraints to individual battery cells to meet practical engineering requirements. Second, MBA-RL effectively eliminates the need for discharging actions, thereby optimizing energy utilization and reducing charging costs. Lastly, it ensures rapid SOC balancing across all batteries while simultaneously improving the charging speed under balanced conditions.
     
-    \item The simulation environment uses SPMe and lumped-thermal models fitted to measurements from three Samsung 40T cells at different aging states. The resulting tests assess feasibility under cell-to-cell parameter variation while retaining a clear distinction between model identification and controller validation.
+    \item Unlike most DRL algorithms that are evaluated solely through simulations, this study validates MBA-RL using real battery data with different cycle lifetimes, thereby making the proposed algorithm more realistic and reliable.
 \end{enumerate}
 
 The remainder of this paper is structured as follows. The charging balancing problem is briefly revisited in Section II. The proposed MBA-RL framework is detailed in Section III, followed by validation results and discussions in Section IV. Finally, Section V concludes this paper.
@@ -74,7 +83,7 @@ First, the electrochemical-thermal model used for charging balancing control is 
 
 \subsection{Electrochemical-Thermal Model}
 \subsubsection{Electrochemical Model}
-The electrochemical model characterizes the electrochemical dynamic behaviors of the lithium-ion battery. Given the efficiency and accuracy of the single particle model with electrolyte (SPMe) \cite{23}, it is adopted in our study. SPMe extends the single particle model (SPM) by incorporating electrolyte dynamics while maintaining computational efficiency, making it suitable for charging control applications. Since SPMe assumes a uniform distribution of solid-phase potential within each electrode while accounting for electrolyte concentration gradients, the reaction overpotential and the lithium-ion intercalation/deintercalation rates remain homogeneous across each electrode, allowing a single particle to represent each electrode. More details of SPMe can be found in \cite{24, 25}. Based on the characteristics of SPMe, the voltage can be calculated as:
+The electrochemical model characterizes the electrochemical dynamic behaviors of the lithium-ion battery. Given the efficiency and accuracy of the single particle model (SPM) \cite{23}, it is adopted in our study. Since SPM assumes a uniform distribution of solid-phase and electrolyte potential within the battery, the reaction overpotential and the lithium-ion intercalation/deintercalation rates are consistently homogeneous, allowing a single particle to represent the entire electrode. More details of SPM can be found in \cite{24, 25}. Based on the characteristics of SPM, the voltage can be calculated as:
 \begin{equation}\label{eqn:voltage}
     V(t) = U^{ref}_{p} \left( \frac{c_{s,\text{surf},p}(r,t)}{c_{s,\text{max},p}} \right) - U^{ref}_{n} \left( \frac{c_{s,\text{surf},n}(r,t)}{c_{s,\text{max},n}} \right)
 \end{equation}
@@ -85,11 +94,11 @@ where $t$ is the temporal coordinate, $r$ is the radial coordinate, $U^{ref}_{p}
 where $C_{\min}$ indicates the lithium-ion concentration in the positive electrode particles at a SOC of 0\%, $C_{\max}$ represents the lithium-ion concentration in the positive electrode particles at a SOC of 100\%, and $R_p$ denotes the thickness of the battery’s positive electrode.
 
 \subsubsection{Thermal Model}
-The thermal model describes the thermal dynamics of the battery using a lumped-parameter formulation, which assumes uniform temperature distribution within the cell:
+The thermal model describes the thermal dynamics of the battery:
 \begin{equation}\label{eqn:thermal}
-    \rho c_p \frac{\text{d} T}{\text{d} t} = h A_{s} (T_{\text{amb}} - T) + I (V - E) - I T \frac{\text{d}E}{\text{d}T}
+    \rho c_p \frac{\partial T}{\partial t} = k \nabla^2 T + I (E - V) + IT \frac{\text{d}E}{\text{d}T}
 \end{equation}
-where $I$ indicates the total current passing through the battery, $T$ represents the battery temperature, $E$ is the equilibrium potential, $\frac{\text{d}E}{\text{d}T}$ denotes the entropy coefficient, $\rho$ stands for the density of the battery material, $c_p$ indicates the specific heat capacity, $h$ is the convective heat transfer coefficient, $A_{s}$ is the cell surface area, and $T_{\text{amb}}$ is the ambient temperature.
+where $I$ indicates the total current passing through the battery, $T$ represents the battery temperature, $E$ is the equilibrium potential, $\frac{\text{d}E}{\text{d}T}$ denotes the entropy coefficient, $\rho$ stands for the density of the battery material, $c_p$ indicates the specific heat capacity, $k$ represents the thermal conductivity, and $\nabla^2 T$ is the Laplacian operator, which describes the spatial distribution of the battery temperature.
 
 
 \subsection{Charging Balancing Control Problem}
@@ -103,7 +112,7 @@ with terminal conditions:
 \begin{equation}\label{terminal condition}
     \sigma = \sqrt{\frac{1}{n} \sum_{i=1}^{n} \left(SOC_i(t_b) - \overline{SOC}(t_b)\right)^2} \leq \beta
 \end{equation}
-\begin{equation}\label{terminal condition soc}
+\begin{equation}\label{terminal condition}
     SOC_i(t_b) \geq SOC_{ref}, \, i = 1,2,...,n
 \end{equation}
 where $\bm{\mathbb{I}}(t) = \left[ I_1(t), \dots, I_n(t) \right]^{\mathrm{T}} \in \mathbb{R}^{n}$ represents the vector of currents for $n$ cells in the battery pack at the time step $t$, $t_0$ and $t_b$ correspond to the initial and final times of the charging process, respectively, $\sigma$ denotes the standard deviation of the SOC across all batteries in the battery pack $\mathcal{B}$, $\beta$ specifies the predefined threshold for charging balancing, $SOC_i(t_b)$ denotes the SOC of the $i$-th cell in $\mathcal{B}$ at $t_b$, $\overline{SOC}(t_b)$ indicates the mean SOC of all cells in $\mathcal{B}$ at $t_b$, and $SOC_{ref}$ represents the reference SOC for each cell.
@@ -119,7 +128,7 @@ To prevent any cell within the battery pack $\mathcal{B}$ from violating safety 
 \end{equation}
 where the charging current of each cell $I_i(t)$ is constrained between $I_{\min}$ and $I_{\max}$, and $T_{\max}$ and $V_{\max}$ are the upper limits of temperature and voltage for the $i$-th cell, respectively.
 
-Charging balancing control must preserve cell-level voltage and temperature limits while reducing pack-level SOC dispersion and charging time. The MBA-RL formulation below represents these local and global objectives in a common reward and terminal condition.
+Charging balancing control must ensure the safe and stable charging of individual cells, while also accelerating the SOC balancing process across the entire battery pack. However, there is currently a limited body of research that effectively balance the requirements of both individual cells and the entire battery pack. To fill this gap, this paper proposes an MBA-RL framework for solving the charging balancing control problem, which will be comprehensively discussed in the following section. 
 
 % In this framework, each agent independently establishes a dedicated charging protocol for its respective cell while communicating with other agents to achieve SOC balance across the entire battery pack.
 
@@ -130,18 +139,18 @@ Charging balancing control must preserve cell-level voltage and temperature limi
      \label{fig:MARL_Schematic}
  \end{figure}
 
-\begin{figure*}
+\textbf{\begin{figure*}
     \centering
     \includegraphics[width=0.9\textwidth,height=\textheight,keepaspectratio]{image/figure2.png}
     \caption{Schematic of the MBA-RL charging control framework. The left diagram depicts an agent network structure, which includes two multilayer perceptrons (MLP) and a gated recurrent unit (GRU). $\theta$ represents the parameters of the agent network. The right diagram illustrates the balancing network structure, where the hypernetworks (in blue) generate the weights and biases for the layers of the balancing network (shown in red), and $W_1$ and $W_2$  represent the two MLP layers.}
     \label{fig:schematic_method}
-\end{figure*}
+\end{figure*}}
 
 
 \section{Proposed MBA-RL for Charging Balancing Control}
 As shown in Fig. \ref{fig:MARL_Schematic}, in the conventional MARL-based framework, each agent independently defines a dedicated charging protocol for its respective cell while communicating with other agents to achieve SOC balancing across the entire battery pack. Consequently, each agent’s behavior is influenced not only by the environment but also by the actions of other agents, leading to a continuous evolution of each agent’s strategy. This creates a dynamically changing environment, making convergence in MARL particularly challenging. Additionally, gradient-based methods, such as the multi-agent deep deterministic policy gradient, struggle to quantify each agent’s contribution, hindering the effective capture of cooperative behavior.
 
-To address this problem, we adopt QMIX as the MARL algorithm \cite{26} and use multiple SPMe models as the environment. The framework coordinates balancing across the cells while selecting a charging current for each cell. The architecture and learning mechanism are described below.
+To address this, we adopt QMIX as the MARL algorithm \cite{26} and integrate it with multiple SPMs as the environment to establish the charging control framework. The framework is capable of simultaneously implementing balancing control for multiple batteries and enabling fast charging for individual batteries. Afterward, we first present the MBA-RL charging control framework, followed by a detailed explanation of the MBA-RL design.
 
 
 \subsection{MBA-RL Charging Control Framework}
@@ -158,7 +167,7 @@ To further elaborate on how MBA-RL addresses the charging balancing control prob
 \end{equation}
 where the $i$-th agent’s observation $o_t^i$ consists of three components: the battery voltage (denoted as $V_i(t)$), average temperature (denoted as $T_i(t)$), and SOC (denoted as $SOC_i(t)$).
 
-\subsubsection{Action Space} The action space $\mathcal{A}$ consists of the cell-current commands selected by the agents. In the released implementation, the discrete grid is $\{-2.0,-1.5,\ldots,7.0\}$~A. For states below the voltage, temperature, and upper-SOC limits, the action mask admits non-negative commands; negative commands remain available as a safety fallback near the upper SOC or safety limits. Therefore, the present implementation should not be interpreted as eliminating discharge actions. At time step $t$, the agents form the joint action $\mathbf{a}_t \in \mathcal{A}$:
+\subsubsection{Action Space} The action space $\mathcal{A}$ consists of the charging currents output by all agents. At the time step $t$, each agent chooses an action $a_t^i$ (i.e., $I_i(t)$), collectively forming a joint action $\mathbf{a}_t \in \mathcal{A}$:
 \begin{equation}
 \mathbf{a}_t = \left[ a_t^1, a_t^2, \dots, a_t^n \right]^{\mathrm{T}}.
 \end{equation}
@@ -204,7 +213,7 @@ where $\delta_{v,i}$ and $\delta_{t,i}$ represent the overvoltage and overtemper
 0, & \text{otherwise}
 \end{cases}  .
 \end{equation}
-\subsubsection{Others} $\mathbf{s}_{t+1} \in \mathcal{S'}$ is the next pack state after applying $\mathbf{a}_t$. $\mathcal{P}(\mathbf{s}_{t+1}|\mathbf{s}_t, \mathbf{a}_t)$ is the corresponding state-transition function. The indicator $done$ is true only when both terminal conditions in \eqref{terminal condition} and \eqref{terminal condition soc} are satisfied.
+\subsubsection{Others} $\mathbf{s}_{t+1} \in \mathcal{S'}$ is the states at the next time step of the battery pack after taking $\mathbf{a}_t$. $\mathcal{P}(\mathbf{s}_{t+1}|\mathbf{s}_t, \mathbf{a}_t)$ is the state transition function, representing the probability of transitioning from $\mathbf{s}_t$ to $\mathbf{s}_{t+1}$ given the joint action $\mathbf{a}_t$. $done$ denotes the indicator for the completion of the balancing process.
 
 \begin{algorithm}[t]
     \caption{MBA-RL charging control framework}
@@ -226,7 +235,6 @@ where $\delta_{v,i}$ and $\delta_{t,i}$ represent the overvoltage and overtemper
                 \ENDFOR
                 \STATE Execute the joint action $\mathbf{a}_t$, observe the reward $r_t$, and get the next state $\mathbf{s}_{t+1}$
                 \STATE $\mathcal{D} \leftarrow \mathcal{D} \cup \{ \langle\mathbf{s}_t, \mathbf{a}_t, r_t, \mathbf{s}_{t+1}, done\rangle \}$
-                \STATE $\mathbf{s}_t \leftarrow \mathbf{s}_{t+1}$, $t \leftarrow t+1$
             \ENDWHILE
             
             // \textbf{Network Update}
@@ -290,7 +298,7 @@ Next, the weights of the balancing network are generated by different hyper-netw
 
 The initial parameters of the multiple target agent networks (denoted as $Q_i(\tau_t^i, a_t^i|\theta'), i = 1, ..., n$) and the target balancing network (denoted as $Q_{tot}(\boldsymbol{\tau}_t, \mathbf{a}_t|\bm{\theta}')$) are directly copied from  $\theta$  and  $\bm{\theta}$, respectively. Moreover, $\theta'$  and  $\bm{\theta}'$ are updated less frequently, with updates occurring every $N_t$ episodes. The global target Q-value can be computed using target networks:
 \begin{equation}\label{target Q}
-y^{\text{tot}} = r_t + \gamma (1-done) \max_{\mathbf{a}_{t+1}} Q_{\text{tot}}(\boldsymbol{\tau}_{t+1}, \mathbf{a}_{t+1}|\bm{\theta}').
+y^{\text{tot}} = r_t + \gamma \max_{\mathbf{a}_{t+1}} Q_{\text{tot}}(\boldsymbol{\tau}_{t+1}, \mathbf{a}_{t+1}|\bm{\theta}').
 \end{equation}
 
 Additionally, to obtain sufficient data for training MBA-RL, the experience tuple $\langle\mathbf{s}_t, \mathbf{a}_t, r_t, \mathbf{s}_{t+1}, done\rangle$ is stored in the replay buffer $\mathcal{D}$. During training, we randomly sample a batch of episodes to update the network parameters. The replay buffer effectively mitigates data correlation and enhances sampling efficiency. Moreover, employing batch updates stabilizes the training process and mitigates the risk of overfitting.
@@ -299,80 +307,143 @@ In summary, the details of the MBA-RL charging control framework are described i
 
 \begin{figure}[t]
     \centering
-    \subfloat[]{\includegraphics[width=0.48\linewidth]{image/Voltage.png}}
+
+    \begin{subfigure}[t]{0.24\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{image/Voltage.png}
+        \caption{}
+    \end{subfigure}
     \hfill
-    \subfloat[]{\includegraphics[width=0.48\linewidth]{image/Temperature.png}}
+    \begin{subfigure}[t]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/Temperature.png} 
+        \caption{}
+    \end{subfigure}
+
     \caption{Voltage and temperature curves of the three batteries at 1 C discharging current. (a) Voltage curve. (b) Temperature curve.}
     \label{fig:three_aging}
 \end{figure}
 
 \begin{figure}[t]
     \centering
-    \subfloat[]{\includegraphics[width=0.48\linewidth]{image/Battery1_volt.png}}
+
+    \begin{subfigure}[t]{0.24\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{image/Battery1_volt.png}
+        \caption{}
+    \end{subfigure}
     \hfill
-    \subfloat[]{\includegraphics[width=0.48\linewidth]{image/Battery1_temp.png}}
+    \begin{subfigure}[t]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/Battery1_temp.png} 
+        \caption{}
+    \end{subfigure}
+
     \caption{Parameter identification results for $Battery\;1$. (a) Electrochemical model parameter identification. (b) Thermal model parameter identification.}
     \label{battery1}
 \end{figure}
 
 \begin{figure}[t]
     \centering
-    \subfloat[]{\includegraphics[width=0.48\linewidth]{image/Battery2_volt.png}}
+
+    \begin{subfigure}[t]{0.24\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{image/Battery2_volt.png}
+        \caption{}
+    \end{subfigure}
     \hfill
-    \subfloat[]{\includegraphics[width=0.48\linewidth]{image/Battery2_temp.png}}
+    \begin{subfigure}[t]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/Battery2_temp.png} 
+        \caption{}
+    \end{subfigure}
+
     \caption{Parameter identification results for $Battery\;2$. (a) Electrochemical model parameter identification. (b) Thermal model parameter identification.}
     \label{battery2}
 \end{figure}
 
 \begin{figure}[t]
     \centering
-    \subfloat[]{\includegraphics[width=0.48\linewidth]{image/Battery3_volt.png}}
+
+    \begin{subfigure}[t]{0.24\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{image/Battery3_volt.png}
+        \caption{}
+    \end{subfigure}
     \hfill
-    \subfloat[]{\includegraphics[width=0.48\linewidth]{image/Battery3_temp.png}}
+    \begin{subfigure}[t]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/Battery3_temp.png} 
+        \caption{}
+    \end{subfigure}
+
     \caption{Parameter identification results for $Battery\;3$. (a) Electrochemical model parameter identification. (b) Thermal model parameter identification.}
     \label{battery3}
 \end{figure}
 
 \section{Results and Discussions}
-The evaluation contains two distinct stages. First, three Samsung 40T 21700 cells, denoted as $Battery\;1$, $Battery\;2$, and $Battery\;3$, were cycled and measured with a NEWARE CT-4008-5V20A-A battery tester. Each cell was connected to an independently controlled tester channel; the cells were not directly paralleled during current control. The measured voltage and temperature trajectories were used only for parameter identification. Second, the identified SPMe and thermal models were used as the PyBaMM simulation environment for training and evaluating MBA-RL. The learned controller was not deployed on the battery tester. The simulated comparisons include a single-agent deep Q-learning (DQL) method and CC--CV charging, both coupled to the cell-to-cell equalization topology described in \cite{10}. Because these baselines do not use the same per-cell current-source architecture as MBA-RL, the comparison reflects both controller and hardware-architecture differences and does not isolate the effect of QMIX alone.
+The performance of the MBA-RL framework was evaluated in this section. Three Samsung 40T 21700 batteries, denoted as $Battery\;1$, $Battery\;2$, and $Battery\;3$, were used in this study. These are high-performance cylindrical lithium-ion batteries with a nominal capacity of 4000 mAh and a maximum discharge rate of 35 A. In the experimental process, real-world data were initially gathered from the experimental platform, as outlined in Fig.~\ref{fig:experiment_Schematic}. Parameter identification was then performed using the PSO algorithm. This step seeks to model the variability in battery lifespans across different cells, providing a more authentic representation of practical scenarios. Furthermore, a system comprised of batteries with varying levels of degradation presents a more rigorous test for the control framework, thereby strengthening the robustness of the proposed method. Then, we validated the effectiveness of the MBA-RL framework on the NEWARE CT-4008-5V20A-A battery testing equipment, which enables the input of different charging currents to individual cells, thus eliminating the need for an equalization topology. In addition, we compared the MBA-RL framework against two methods: a single-agent deep Q-learning (DQL) method and the CC-CV method, both of which rely on the cell-to-cell topology from \cite{ghaeminezhad2021active}. Additionally, the multiple batteries involved in this paper were subjected to charge and discharge experiments in a laboratory environment. The batteries were connected in parallel, a configuration that ensures different currents are directed to individual batteries.
 
 \begin{figure*}[htbp]
     \centering
-    \subfloat[]{\includegraphics[width=0.32\textwidth]{image/MBA_RL 0.1 0.2 0.3.png}}
+        \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/MBA_RL 0.1 0.2 0.3.png}
+        \caption{}
+    \end{subfigure}
     \hfill
-    \subfloat[]{\includegraphics[width=0.32\textwidth]{image/DQN 0.1 0.2 0.3.png}}
+        \begin{subfigure}[t]{0.32\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{image/DQN 0.1 0.2 0.3.png}
+        \caption{}
+    \end{subfigure}
     \hfill
-    \subfloat[]{\includegraphics[width=0.32\textwidth]{image/CC-CV 0.1 0.2 0.3.png}}
+        \begin{subfigure}[t]{0.32\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{image/CC-CV 0.1 0.2 0.3.png}
+        \caption{}
+    \end{subfigure}
 
     \vspace{0.1cm}
 
-    \subfloat[]{\includegraphics[width=0.32\textwidth]{image/MBA_RL 0.3 0.5 0.7.png}}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/MBA_RL 0.3 0.5 0.7.png}
+        \caption{}
+    \end{subfigure}
     \hfill
-    \subfloat[]{\includegraphics[width=0.32\textwidth]{image/DQN 0.3 0.5 0.7.png}}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/DQN 0.3 0.5 0.7.png}
+        \caption{}
+    \end{subfigure}
     \hfill
-    \subfloat[]{\includegraphics[width=0.32\textwidth]{image/CC-CV 0.3 0.5 0.7.png}}
+    \begin{subfigure}[t]{0.32\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{image/CC-CV 0.3 0.5 0.7.png}
+        \caption{}
+    \end{subfigure}
 
     \caption{Performance evaluations for MBA-RL, DQL, and CC-CV. The green dashed line indicates the time step at which balancing is reached, while the yellow dashed line marks the point at which the CC phase of the CC-CV charging protocol ends. (a) MBA-RL in $Set\;A$. (b) DQL in $Set\;A$. (c) CC-CV in $Set\;A$. (d) MBA-RL in $Set\;B$. (e) DQL in $Set\;B$. (f) CC-CV in $Set\;B$.}
     \label{fig:overall_figure}
 \end{figure*}
 
 \subsection{Parameter Identification for Batteries with Various Lifespans}
-To obtain cells at different aging states, $Battery\;2$ and $Battery\;3$ underwent 140 and 260 charge--discharge cycles, respectively. Charging followed a CC--CV protocol: a 2~C constant-current stage was followed by a 4.2~V constant-voltage stage until the current decreased to 0.1~C. Discharge was performed at 1~C to a 2.5~V cutoff. Voltage and temperature were then recorded during 1~C discharge for all three cells, as shown in Fig.~\ref{fig:three_aging}. The trajectories show increasing differences among the cells after cycling.
+ To simulate battery aging, $Battery\;2$ and $Battery\;3$ underwent 140 and 260 charge-discharge cycles, respectively. The charging process followed a CC-CV protocol, beginning with a constant current charging at 2 C. Once the battery voltage reached 4.2 V, the charging transitioned to constant voltage mode, continuing until the current dropped to 0.1 C. The discharging process used a CC discharging at 1 C, and the discharging process was terminated when the voltage dropped to 2.5 V. Subsequently, the voltage and temperature data of the three batteries were recorded at a 1 C discharging current, as illustrated in Fig.~\ref{fig:three_aging}. The results clearly indicate that $Battery\;2$ and $Battery\;3$ exhibit noticeable signs of aging.
 
-Particle swarm optimization (PSO) was used because it does not require model gradients \cite{28}. The objective minimized the RMSE between simulated and measured voltage and temperature. The SPMe structure and nominal LG M50 parameter set from \cite{Chen2020} served as the initial template; selected electrochemical and thermal parameters were then fitted to the measurements from each Samsung 40T cell. Three independent identification runs were averaged. Figs.~\ref{battery1}--\ref{battery3} present the fitted trajectories, and Table~\ref{tab:rmse} reports voltage and temperature RMSE separately. These fits support use of the identified models for simulation, but they do not constitute hardware validation of the MBA-RL policy.
+The PSO algorithm was chosen for parameter identification due to its gradient-free and fast convergence capability \cite{28}. Specifically, it minimizes the root mean squared error (RMSE) by aligning the voltage and temperature outputs of the simulated model with the experimentally measured data. Three independent experiments were conducted, and the results were subsequently averaged. The results of the parameter identification are presented in Figs.~\ref{battery1}-\ref{battery3}. The identification errors in voltage and temperature measurements for the three batteries are summarized in Table I. The RMSE values are all below 0.1, demonstrating a strong agreement between the simulated and measured data, thus confirming the effectiveness of the parameter identification process. This also ensures that the simulated SPM more closely reflects real-world battery behavior, reducing the gap between simulation results and actual conditions.
 
 
 \begin{table}[t]
 \centering
 \caption{RMSEs for the three identified batteries}
-\label{tab:rmse}
 \begin{tabular}{c c c c}
 \noalign{\hrule height 0.3mm}
 \textbf{} & $Battery1$ & $Battery2$ & $Battery3$ \\
 \noalign{\hrule height 0.3mm}
-$V_{RMSE}$ (V) & 0.026 & 0.035 & 0.029 \\
+$V_{RMSE}$ & 0.026 & 0.035 & 0.029 \\
 \hline
-$T_{RMSE}$ (K) & 0.068 & 0.091 & 0.093 \\
+$T_{RMSE}$ & 0.068 & 0.091 & 0.093 \\
 \hline
 \noalign{\hrule height 0.3mm}
 \end{tabular}
@@ -381,7 +452,6 @@ $T_{RMSE}$ (K) & 0.068 & 0.091 & 0.093 \\
 \begin{table}[t]
 \centering
 \caption{Parameters of MBA-RL}
-\label{tab:params}
 \begin{tabular}{c c}
 \noalign{\hrule height 0.3mm}
 \textbf{Parameters} & \textbf{Value} \\
@@ -394,23 +464,11 @@ The upper thresholds $T_{\text{max}}, V_{\text{max}}$ & 309, 4.2 \\
 \hline
 Learning rate $\alpha$ & 2e-4 \\
 \hline
-Discount factor $\gamma$ & 0.99 \\
-\hline
 Number of episodes $N_{episode}$ & 1200 \\
 \hline
 Batch size $N$ & 128 \\
 \hline
-Replay-buffer capacity & 800 episodes \\
-\hline
 Target network update frequency $N_t$ & 50 \\
-\hline
-Gradient clipping norm & 10 \\
-\hline
-DRQN hidden dimension & 128 \\
-\hline
-QMIX hidden dimension & 256 \\
-\hline
-Optimizer & RMSprop \\
 \hline
 \noalign{\hrule height 0.3mm}
 \end{tabular}
@@ -439,20 +497,23 @@ Optimizer & RMSprop \\
 
 
 \subsection{Performance Evaluation of MBA-RL}
-The identified models were implemented in PyBaMM \cite{29}, and all controller comparisons were simulated at an ambient temperature of $25\,^{\circ}\mathrm{C}$. Two initial-SOC vectors were evaluated: $Set\; A = [10, 20, 30]^\text{T}$ and $Set\; B = [30, 50, 70]^\text{T}$, as listed in Table~\ref{tab:soc_vectors}. Table~\ref{tab:params} gives the MBA-RL settings used for the reported results. The released implementation discretizes current commands from $-2.0$ to $7.0$~A in 0.5~A increments and applies a state-dependent action mask. Under normal voltage, temperature, and SOC conditions, the mask admits non-negative commands; negative fallback actions remain available near the upper SOC or safety limits. Each selected command is held for a 90~s decision cycle. DQL selects both cell currents and activation of the cell-to-cell transfer topology using the same decision cycle. The CC--CV baseline uses a 4~A CC stage and switches to CV operation at 4~V. For MBA-RL, termination requires both $\sigma\leq\beta$ and $SOC_i\geq SOC_{ref}$ for all cells. The baseline traces mark the first attainment of the balancing threshold; continued charging after that point is shown separately in Fig.~\ref{fig:overall_figure}. These stopping rules are not identical, so balancing time and time-to-reference-SOC must be interpreted as distinct outcomes.
+We first constructed the battery model using the PyBaMM simulation platform \cite{29} and subsequently updated the model parameters with the identified values. All the experiments were conducted at an ambient temperature of 25 °C. In the comparison experiments, two sets of initial SOC values, $Set\; A = [10, 20, 30]^\text{T}$ and $Set\; B = [30, 50, 70]^\text{T}$, were selected for testing, as detailed in Table III. These sets highlight significant discrepancies in SOC across the battery pack, effectively emulating a real-world scenario where batteries typically exhibit inconsistent SOC distributions. In the experimental settings, the parameters of MBA-RL are detailed in Table II. The action space of MBA-RL was discretized from 0 to 7.5 A with increments of 0.5 A. Notably, the decision cycle of MBA-RL was set to 90 seconds, during which the selected actions remained unchanged. This configuration helps reduce the computational burden on the agent, as well as the complexity and time required during the training process. The action space of DQL consists of two components: determining the charging current for each battery and deciding when to adopt the cell-to-cell topology to facilitate the transfer of energy. The current range and decision cycle in DQL are consistent with those of MBA-RL. The reward function in DQL encompasses three key factors: charging time, balancing effectiveness, and charging safety. These factors are carefully balanced through a weighted approach, promoting the efficient convergence of the DQL algorithm. For the CC-CV method, the charging current during the CC stage is 4 A, and the voltage threshold for switching to the CV stage is 4 V. The termination condition for all three methods is the achievement of balance. As shown in Fig. 8 (a) and (d), to verify whether MBA-RL can optimize the charging trajectory while maintaining balance, we further investigated its performance after reaching the termination condition.
 
 The balancing mode of MBA-RL operates at a current-level granularity. During each decision cycle, it dynamically adjusts the charging current based on the battery's state and the SOCs of the other batteries, ensuring that the output current allows multiple batteries to safely and rapidly reach balance. In contrast, DQL’s balancing mode determines the charging current for multiple batteries during each decision cycle and also decides whether to enable the cell-to-cell topology to facilitate energy transfer between cells. The balancing mode of CC-CV, on the other hand, activates the cell-to-cell topology when the CV phase begins and keeps it running until all batteries reach balance.
 
-Fig.~\ref{fig:overall_figure} shows that both learned controllers attain the SOC-dispersion threshold earlier than the evaluated CC--CV configuration. In the latter, balancing is activated mainly during the CV stage, so the preceding CC stage contributes to the longer time before the threshold is reached. The learned controllers include voltage and temperature penalties in their objectives. The plotted cases remain simulation results, however, and do not establish closed-loop safety under model mismatch or hardware disturbances.
+As shown in Fig.~\ref{fig:overall_figure}, we first compared the performance of DRL-based methods (i.e., MBA-RL and DQL) with the traditional CC-CV method for charging balancing control. The results revealed that the DRL-based methods significantly reduce the time required to achieve SOC balancing. Furthermore, the CC-CV employs a two-stage charging protocol, with balancing operations predominantly executed during the CV phase. This requires the completion of the CC phase before initiating balancing control, thereby considerably extending the overall balancing time. Moreover, during the phase transition in the CC-CV protocol, failure to account for safety constraints could result in issues such as overcharging or exceeding voltage and temperature safety thresholds, which may accelerate degradation and reduce the overall battery pack lifetime \cite{14, 17}. In contrast, the DRL-based methods effectively satisfy both safety and charging constraints while dynamically adapting to environmental changes. 
 
-For $Set\;A$, MBA-RL reaches the balancing threshold at approximately the same time as DQL and 1890~s earlier than CC--CV. For $Set\;B$, it reaches the threshold 270~s earlier than DQL and 2520~s earlier than CC--CV. MBA-RL then continues charging while enforcing the balancing condition until $SOC_{ref}$ is reached. This behavior follows from the joint terminal condition and should not be attributed solely to QMIX; DQL or rule-based controllers could be evaluated under the same stopping rule. Likewise, the absence of a dedicated equalization topology follows from the assumed per-cell current-source architecture. The present data do not report converter loss, cell energy throughput, or matched-architecture baselines, so no quantitative energy-efficiency advantage is claimed.
+Subsequently, we analyzed the advantages of MBA-RL compared to the other two methods (i.e., DQL and CC-CV) from two perspectives. First, MBA-RL demonstrates a similar balancing time to DQL on $Set\; A$, being 1890 seconds faster than CC-CV. On $Set\; B$, it outperforms DQL by 270 seconds and CC-CV by 2520 seconds. A thorough analysis of the experimental results reveals that, despite a well-designed balancing algorithm (i.e., DQL) yielding excellent outcomes even when coupled with a simple topology (i.e., cell-to-cell), the issues of reduced control precision and efficiency due to the topology are inevitable. In contrast, MBA-RL effectively mitigates this problem by eliminating the need for an equalization topology, resulting in better balancing time and energy utilization efficiency compared to DQL. Moreover, MBA-RL achieves balancing control without discharging actions, effectively preventing the energy consumption associated with discharging. Second, MBA-RL simultaneously optimizes the balancing control for multiple batteries and the charging protocol for individual cells. It not only achieves effective balancing but also ensures that the SOC of the battery pack remains within the predefined threshold throughout the charging process, thereby preventing the recurrence of imbalance. In contrast, DQL and CC-CV separate the balancing and charging tasks. Once balancing is achieved, they continue to charge the batteries until the charging task is completed, which may lead to the reoccurrence of imbalance. In summary, the experimental results demonstrate that MBA-RL effectively addresses the inherent trade-offs among charging time, balancing speed, and safety constraints, resulting in a highly efficient and robust charging control system.
 
-\subsection{Limitations and Engineering Scope}
-The evaluation uses three cells and two initial-SOC vectors. It does not include independent training seeds, uncertainty intervals, ablation studies, or tests with larger packs. The learned policy is evaluated only in simulation; the battery tester supplies data for parameter identification but is not used for closed-loop policy execution. The DQL and CC--CV baselines use a different power architecture and a different post-balancing stopping rule, which confounds algorithmic and architectural effects. A conclusive comparison requires all controllers to use the same per-cell current-source interface and to report both time-to-balance and time-to-reference-SOC. Finally, independently controllable cell channels require isolated converters or equivalent power electronics. Their cost and complexity may be acceptable in modular or small-to-medium packs but can limit direct deployment at large pack scale. Matched-hardware baselines, multi-seed tests, sensitivity analysis, larger-$n$ experiments, and hardware-in-the-loop validation are therefore required.
 
+% unlike DQL and CC-CV, where the terminal SOC after balancing is significantly lower than the reference $SOC_{ref}$, potentially leading to the re-emergence of imbalance in subsequent charging cycles, MBA-RL not only achieves effective balancing but also ensures that the SOC of the battery pack remains within the predefined threshold throughout the charging process, thereby preventing the recurrence of imbalance. In summary, the experimental results demonstrate that MBA-RL effectively addresses the inherent trade-offs among charging time, balancing speed, and safety constraints, resulting in a highly efficient and robust charging control system.
+
+% First, MBA-RL eliminates the need for an equalization topology in the balancing control process, effectively addressing issues of low energy utilization efficiency and imprecise charging caused by hardware constraints. Additionally, MBA-RL achieves balancing control without discharging actions, effectively preventing the energy consumption associated with discharging. Moreover, unlike DQL and CC-CV, where the terminal SOC after balancing is significantly lower than the reference $SOC_{ref}$, potentially leading to the re-emergence of imbalance in subsequent charging cycles, MBA-RL not only achieves effective balancing but also ensures that the SOC of the battery pack remains within the predefined threshold throughout the charging process, thereby preventing the recurrence of imbalance. In summary, the experimental results demonstrate that MBA-RL effectively addresses the inherent trade-offs among charging time, balancing speed, and safety constraints, resulting in a highly efficient and robust charging control system.
+
+% As shown in Figs. 7(a) and (c), MBA-RL achieves balancing 1890 seconds faster than CC-CV, while also delivering an average terminal SOC that is 37.73\% higher upon reaching the termination conditions. Similarly, in Fig. 7(b), (d), MBA-RL reduces the balancing time by 2520 seconds and achieves an average terminal SOC that exceeds CC-CV by 12.98\%. These results highlight MBA-RL's ability to deliver faster and more effective balanced charging control. Additionally, MBA-RL offers several further advantages over CC-CV, which are analyzed below: 1) MBA-RL eliminates the need for a equalization topology to perform balancing control, thereby effectively avoiding the issue of low energy utilization efficiency caused by hardware structures; 2) MBA-RL achieves balancing control without discharging actions, effectively avoiding the energy consumption associated with discharging; 3) CC-CV's terminal SOC falls below $SOC_{ref}$ during the balancing process, which may lead to the re-emergence of imbalance in subsequent charging cycles. In contrast, MBA-RL not only achieves balancing but also maintains the battery pack's SOC within the predefined threshold in charging process, effectively preventing the recurrence of imbalance. Additionally, CC-CV employs a two-stage charging protocol, with balancing operations predominantly executed during the CV phase. This necessitates the completion of the CC phase prior to initiating balancing control, thereby significantly extending the overall balancing time. Moreover, during the phase transition in CC-CV protocol, the lack of consideration for safety constraints may lead to issues such as overcharging or exceeding voltage and temperature safety thresholds, potentially leading to accelerated degradation and reduced lifespan of the battery pack. The MBA-RL adeptly addresses the inherent trade-offs among charging time, balancing speed, and safety constraints, thereby achieving a highly efficient and robust charging control protocol.
 
 \section{Conclusion}
-This paper formulates cell-level charging and pack-level SOC balancing as a Dec-POMDP and implements the controller with QMIX. Each agent observes its cell voltage, temperature, and SOC, while the joint value function coordinates the current commands. Under the assumed per-cell controllable-current architecture, a separate equalization network is not required. In simulations based on models fitted to three cells at different aging states, MBA-RL reaches the balancing threshold earlier than the evaluated CC--CV baseline for both initial-SOC sets and earlier than DQL for $Set\;B$. It also continues charging under the balancing constraint until the reference SOC is reached. These findings support feasibility for the simulated three-cell cases, not a general claim of higher energy efficiency, hardware safety, or large-pack scalability. Future work will use matched-architecture baselines, independent training seeds, larger packs, energy-throughput measurements, and hardware-in-the-loop experiments.
+In this paper, we present an MBA-RL charging control framework based on MARL to address the dual challenges of fast balancing and accelerated charging for lithium-ion batteries. The problem is systematically formulated as a Dec-POMDP, where the voltage, temperature, and SOC of each cell serve as the observations available to individual agents. Each agent is responsible for optimizing the charging protocol for its respective cell while coordinating the balancing control across all cells. By employing the MBA-RL charging control framework, the need for a dedicated equalization topology is eliminated, and discharging operations for high-SOC cells are effectively avoided. MBA-RL significantly improves energy utilization efficiency and charging precision. Furthermore, it facilitates rapid SOC balancing and enables all batteries to quickly reach the reference SOC under balanced conditions. This integrated charging and balancing mechanism ensures both speed and reliability across the charging process, making the framework highly suitable for deployment in diverse industrial applications. Moving forward, we aim to extend the validation of this method to large-scale battery systems, demonstrating its scalability and robustness.
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,conf}
 
@@ -486,3 +547,43 @@ Dr. Li was a recipient of the 2023 IFAC Best Paper Prize and the 2020 IEEE CSS B
 \fi
 
 \end{document}
+
+% By leveraging the cooperation between the agent networks and the balancing network, lower currents are applied to batteries with higher SOC, while the maximum allowable current within safety limits is applied to batteries with lower SOC. Agents interact with batteries of varying initial SOC values to derive a generalized charge balancing strategy. 
+
+
+% In QMIX, each agent $i$ has its own local stochastic policy $\pi^i \left( a_t^i \mid \tau^i \right)$, which makes decisions based on $o_t^i$ and $\tau^i$. The joint policy $\pi$ has a joint action-value function $Q^\pi(s_t, \mathbf{a_t})$, which describes the expected future discounted return given the state $s_t$ and the joint action $\mathbf{a_t}$:
+% \begin{equation}
+%     Q^\pi(s_t, \mathbf{a_t}) = \mathbb{E}_{s_{t+1:\infty}, \mathbf{a_{t+1:\infty}}} \left[ R_t \mid s_t, \mathbf{a_t} \right]
+% \end{equation}
+% where $R_t = \sum_{i=0}^{\infty} \gamma^i r_{t+i}$ indicates the expected cumulative discounted return.
+
+% During design process, we utilize $Q_{tot}(\boldsymbol{\tau}, \mathbf{a}|\bm{\theta})$ to approximate $Q^\pi(s_t, \mathbf{a_t})$, where $\boldsymbol{\tau}$ denotes the joint action-observation history. Additionally, we employ $Q_i(\tau^i, a_t^i|\theta)$ to assess the efficacy of each agent’s actions, evaluating the expected return of executing action $a_t^i$ given the observation history $\tau^i$. This serves as a basis for guiding the optimization of the agent’s policy. It is crucial to emphasize that, to improve sample efficiency and strengthen the framework’s generalization capacity, all agents employ a unified set of parameters $\theta$. The objective of QMIX is to maximize the global Q-value $Q_{tot}(\boldsymbol{\tau}, \mathbf{a}|\bm{\theta})$. QMIX accomplishes this by decomposing the global Q-value into the Q-values of individual agents, while ensuring that the relationship between the global Q-value and each agent’s Q-value adheres to a monotonicity constraint. This constraint guarantees that maximizing each agent’s Q-value leads to the maximization of the global Q-value:
+% \begin{equation}\label{QMIX_constraints}
+% \arg\max_{\mathbf{a}} Q_{tot}(\boldsymbol{\tau}, \mathbf{a}|\bm{\theta}) =
+% \begin{pmatrix}
+% \arg\max_{a^1} Q_1(\tau^1, a^1|\theta) \\
+% \vdots \\
+% \arg\max_{a^n} Q_n(\tau^n, a^n|\theta)
+% \end{pmatrix}
+% \end{equation}
+% where \eqref{QMIX_constraints} enables each agent $i$ to greedily select the action that maximize $Q_i(\tau^i, a_t^i|\theta)$ for decentralized execution.
+
+% For each agent $i$, the agent network is modeled as a deep recurrent Q-network (DRQN), which integrates the current observation $o_t^i$ at each time step with the previous action $a_{t-1}^i$ to construct the action-observation history $\tau^i$. Each agent chooses current action $a_t^i$ using the $\epsilon$-greedy strategy, which can be described as follows:
+% \begin{equation}\label{epsilon-greedy}
+% a_t^i =
+% \begin{cases}
+% \text{random action} & \text{with probability } \epsilon \\
+% \arg\max_{a_t^i} Q_i(\tau^i, a_t^i|\theta) & \text{with probability } 1 - \epsilon
+% \end{cases}
+% \end{equation}
+% then $Q_i(\tau^i, a_t^i|\theta)$ is computed based on the $\tau^i$ and the $a_t^i$.
+
+% The mixing network is a feed-forward neural network that receives the outputs of all agent networks as input and combines them monotonically, generating the values of $Q_{tot}(\boldsymbol{\tau}, \mathbf{a}|\bm{\theta})$:
+% \begin{equation}\label{Q-value}
+%     Q_{tot}(\boldsymbol{\tau}, \mathbf{a}|\bm{\theta}) = f(Q_1(\tau^1, a_t^1|\theta), ..., Q_n(\tau^n, a_t^n|\theta), s_t).
+% \end{equation}
+
+% The mixing network’s weights are generated by distinct hypernetworks. Each hypernetwork receives the state $s_t$ as input and outputs the weights for a specific layer of the mixing network. To enforce \eqref{QMIX_constraints}, the weights of the mixing network are strictly constrained to be non-negative:
+% \begin{equation}
+% \frac{\partial Q_{tot}}{\partial Q_i} \geq 0, \, i = 1, 2, ..., n.
+% \end{equation}

@@ -17,26 +17,6 @@ class DRQN(nn.Module):
         q = self.fc2(h)
         return q, h
 
-
-class CentralDRQN(nn.Module):
-    """Single recurrent DQL controller over the Cartesian joint-action set."""
-
-    def __init__(self, input_shape, conf):
-        super().__init__()
-        self.conf = conf
-        self.fc1 = nn.Linear(input_shape, conf.drqn_hidden_dim)
-        self.rnn = nn.GRUCell(conf.drqn_hidden_dim, conf.drqn_hidden_dim)
-        self.fc2 = nn.Linear(
-            conf.drqn_hidden_dim, conf.n_actions ** conf.n_agents
-        )
-
-    def forward(self, state, hidden_state):
-        x = F.relu(self.fc1(state))
-        hidden = self.rnn(
-            x, hidden_state.reshape(-1, self.conf.drqn_hidden_dim)
-        )
-        return self.fc2(hidden), hidden
-
 class QMIXNET(nn.Module):
     def __init__(self, conf):
         super(QMIXNET, self).__init__()
@@ -87,15 +67,3 @@ class QMIXNET(nn.Module):
         q_total = q_total.view(episode_num, -1, 1)
 
         return q_total
-
-
-class VDNMixer(nn.Module):
-    """Parameter-free additive mixer for a matched-architecture VDN baseline."""
-
-    def __init__(self, conf):
-        super().__init__()
-        self.conf = conf
-
-    def forward(self, q_values, states):
-        del states
-        return q_values.sum(dim=2, keepdim=True)

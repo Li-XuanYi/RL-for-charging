@@ -1,14 +1,9 @@
-"""Episode rollout and replay storage utilities."""
-
-from __future__ import annotations
-
-import threading
-
 import numpy as np
-
+import threading
 
 class RolloutWorker:
     def __init__(self, env, agents, conf):
+        super().__init__()
         self.conf = conf
         self.agents = agents
         self.env = env
@@ -17,201 +12,177 @@ class RolloutWorker:
         self.n_agents = conf.n_agents
         self.state_shape = conf.state_shape
         self.obs_shape = conf.obs_shape
-        self.last_trace = []
 
-    def generate_episode(self, epsilon, initial_socs=None):
-        soc_history = [[], [], []]
-        observations = []
-        actions_buffer = []
-        rewards = []
-        states = []
-        available_buffer = []
-        action_onehot_buffer = []
-        terminated_buffer = []
-        padded = []
+        print('Rollout Worker inited!')
 
-        self.env.reset(initial_socs=initial_socs)
-        cells = (self.env.spm1, self.env.spm2, self.env.spm3)
-        for index, cell in enumerate(cells):
-            soc_history[index].append(cell.soc)
+    def generate_episode(self, epsilon):
+        soc1 = []
+        soc2 = []
+        soc3 = []
 
+        o, u, r, s, avail_u, u_onehot, terminate, padded = [], [], [], [], [], [], [], []
+        self.env.reset()
+        soc1.append(self.env.spm1.soc)
+        soc2.append(self.env.spm2.soc)
+        soc3.append(self.env.spm3.soc)
         terminated = False
-        episode_reward = 0.0
-        last_action = np.zeros((self.n_agents, self.n_actions))
+        episode_reward = 0
+        last_action = np.zeros((self.conf.n_agents, self.conf.n_actions))
         self.agents.policy.init_hidden(1)
-        self.last_trace = []
 
         step = 0
-        final_obs = self.env.get_obs()
-        final_state = self.env.get_state(final_obs)
+        beta = 0.02
         while not terminated and step < self.episode_limit:
             obs = self.env.get_obs()
             state = self.env.get_state(obs)
-            actions = []
-            available_actions = []
-            actions_onehot = []
+            actions, avail_actions, actions_onehot = [], [], []
 
-            available_actions = [
-                self.env.get_avail_agent_actions(agent_id)
-                for agent_id in range(self.n_agents)
-            ]
-            if self.conf.algorithm == "dql":
-                actions = self.agents.choose_joint_action(
-                    state, available_actions, epsilon
-                )
-            else:
-                actions = []
-                for agent_id, available in enumerate(available_actions):
-                    action = self.agents.choose_action(
-                        obs[agent_id],
-                        last_action[agent_id],
-                        agent_id,
-                        available,
-                        epsilon,
-                    )
-                    actions.append(action)
+            for agent_id in range(self.n_agents):
+                avail_action = self.env.get_avail_agent_actions(agent_id)
+                action = self.agents.choose_action(obs[agent_id], last_action[agent_id], agent_id, avail_action, epsilon)
 
-            for agent_id, action in enumerate(actions):
-                available = available_actions[agent_id]
-                if not available[action]:
-                    raise RuntimeError(
-                        f"Selected unavailable action {action} for agent {agent_id}"
-                    )
-                onehot = np.zeros(self.n_actions)
-                onehot[action] = 1.0
-                actions_onehot.append(onehot)
-                last_action[agent_id] = onehot
+                # 生成动作的onehot编码
+                action_onehot = np.zeros(self.n_actions)
+                action_onehot[action] = 1
+                actions.append(action)
+                actions_onehot.append(action_onehot)
+                avail_actions.append(avail_action)
+                last_action[agent_id] = action_onehot
 
-            reward, terminated = self.env.multi_step(actions, self.conf.beta)
-            final_obs = self.env.get_obs()
-            final_state = self.env.get_state(final_obs)
-            for index, cell in enumerate(cells):
-                soc_history[index].append(cell.soc)
+            # print("actions: ", actions)
+            reward, terminated = self.env.multi_step(actions, beta)
 
-            observations.append(obs)
-            states.append(state)
-            actions_buffer.append(np.reshape(actions, [self.n_agents, 1]))
-            action_onehot_buffer.append(actions_onehot)
-            available_buffer.append(available_actions)
-            rewards.append([reward])
-            terminated_buffer.append([terminated])
-            padded.append([0.0])
+            soc1.append(self.env.spm1.soc)
+            soc2.append(self.env.spm2.soc)
+            soc3.append(self.env.spm3.soc)
+
+            o.append(obs)
+            s.append(state)
+            u.append(np.reshape(actions, [self.n_agents, 1]))
+            u_onehot.append(actions_onehot)
+            avail_u.append(avail_actions)
+            r.append([reward])
+            terminate.append([terminated])
+            padded.append([0.])
             episode_reward += reward
             step += 1
 
-            transition = dict(self.env.last_transition)
-            transition["step"] = step
-            transition["time_s"] = step * self.conf.sample_time
-            self.last_trace.append(transition)
+        # 最后一个动作
+        o.append(obs)
+        s.append(state)
+        o_ = o[1:]
+        s_ = s[1:]
+        o = o[:-1]
+        s = s[:-1]
 
-        observations.append(final_obs)
-        states.append(final_state)
-        next_observations = observations[1:]
-        next_states = states[1:]
-        observations = observations[:-1]
-        states = states[:-1]
+        # target q 在last obs需要avail_action
+        avail_actions = []
+        for agent_id in range(self.n_agents):
+            avail_action = self.env.get_avail_agent_actions(agent_id)
+            avail_actions.append(avail_action)
+        avail_u.append(avail_actions)
+        avail_u_ = avail_u[1:]
+        avail_u = avail_u[:-1]
 
-        final_available = [
-            self.env.get_avail_agent_actions(agent_id)
-            for agent_id in range(self.n_agents)
-        ]
-        available_buffer.append(final_available)
-        next_available_buffer = available_buffer[1:]
-        available_buffer = available_buffer[:-1]
-
-        for _ in range(step, self.episode_limit):
-            observations.append(np.zeros((self.n_agents, self.obs_shape)))
-            actions_buffer.append(np.zeros([self.n_agents, 1]))
-            states.append(np.zeros(self.state_shape))
-            rewards.append([0.0])
-            next_observations.append(np.zeros((self.n_agents, self.obs_shape)))
-            next_states.append(np.zeros(self.state_shape))
-            action_onehot_buffer.append(np.zeros((self.n_agents, self.n_actions)))
-            available_buffer.append(np.zeros((self.n_agents, self.n_actions)))
-            next_available_buffer.append(
-                np.zeros((self.n_agents, self.n_actions))
-            )
-            padded.append([1.0])
-            terminated_buffer.append([1.0])
-
-        episode = {
-            "o": observations,
-            "s": states,
-            "u": actions_buffer,
-            "r": rewards,
-            "o_": next_observations,
-            "s_": next_states,
-            "avail_u": available_buffer,
-            "avail_u_": next_available_buffer,
-            "u_onehot": action_onehot_buffer,
-            "padded": padded,
-            "terminated": terminated_buffer,
-        }
-        for key in episode:
+        # 当step<self.episode_limit时，输入数据加padding
+        for i in range(step, self.episode_limit):
+            o.append(np.zeros((self.n_agents, self.obs_shape)))
+            u.append(np.zeros([self.n_agents, 1]))
+            s.append(np.zeros(self.state_shape))
+            r.append([0.])
+            o_.append(np.zeros((self.n_agents, self.obs_shape)))
+            s_.append(np.zeros(self.state_shape))
+            u_onehot.append(np.zeros((self.n_agents, self.n_actions)))
+            avail_u.append(np.zeros((self.n_agents, self.n_actions)))
+            avail_u_.append(np.zeros((self.n_agents, self.n_actions)))
+            padded.append([1.])
+            terminate.append([1.])
+        
+        episode = dict(
+                    o=o.copy(),
+                    s=s.copy(),
+                    u=u.copy(),
+                    r=r.copy(),
+                    o_=o_.copy(),
+                    s_=s_.copy(),
+                    avail_u=avail_u.copy(),
+                    avail_u_=avail_u_.copy(),
+                    u_onehot=u_onehot.copy(),
+                    padded=padded.copy(),
+                    terminated=terminate.copy()
+                )
+        for key in episode.keys():
             episode[key] = np.array([episode[key]])
-
-        return episode, episode_reward, *soc_history
+        
+        return episode, episode_reward, soc1, soc2, soc3
 
 
 class ReplayBuffer:
     def __init__(self, conf):
+        self.conf = conf
         self.episode_limit = conf.episode_limit
         self.n_actions = conf.n_actions
         self.n_agents = conf.n_agents
         self.state_shape = conf.state_shape
         self.obs_shape = conf.obs_shape
         self.size = conf.buffer_size
+
         self.current_idx = 0
         self.current_size = 0
-        self.buffers = {
-            "o": np.empty(
-                [self.size, self.episode_limit, self.n_agents, self.obs_shape]
-            ),
-            "u": np.empty([self.size, self.episode_limit, self.n_agents, 1]),
-            "s": np.empty([self.size, self.episode_limit, self.state_shape]),
-            "r": np.empty([self.size, self.episode_limit, 1]),
-            "o_": np.empty(
-                [self.size, self.episode_limit, self.n_agents, self.obs_shape]
-            ),
-            "s_": np.empty([self.size, self.episode_limit, self.state_shape]),
-            "avail_u": np.empty(
-                [self.size, self.episode_limit, self.n_agents, self.n_actions]
-            ),
-            "avail_u_": np.empty(
-                [self.size, self.episode_limit, self.n_agents, self.n_actions]
-            ),
-            "u_onehot": np.empty(
-                [self.size, self.episode_limit, self.n_agents, self.n_actions]
-            ),
-            "padded": np.empty([self.size, self.episode_limit, 1]),
-            "terminated": np.empty([self.size, self.episode_limit, 1]),
-        }
+
+        self.buffers = {'o': np.empty([self.size, self.episode_limit, self.n_agents, self.obs_shape]),
+                        'u': np.empty([self.size, self.episode_limit, self.n_agents, 1]),    
+                        's': np.empty([self.size, self.episode_limit, self.state_shape]),    
+                        'r': np.empty([self.size, self.episode_limit, 1]),    
+                        'o_': np.empty([self.size, self.episode_limit, self.n_agents, self.obs_shape]),  
+                        's_': np.empty([self.size, self.episode_limit, self.state_shape]),    
+                        'avail_u': np.empty([self.size, self.episode_limit, self.n_agents, self.n_actions]),    
+                        'avail_u_': np.empty([self.size, self.episode_limit, self.n_agents, self.n_actions]),    
+                        'u_onehot': np.empty([self.size, self.episode_limit, self.n_agents, self.n_actions]),    
+                        'padded': np.empty([self.size, self.episode_limit, 1]),    
+                        'terminated': np.empty([self.size, self.episode_limit, 1]),    
+            }
         self.lock = threading.Lock()
+        print("Replay Buffer inited!")
 
     def store_episode(self, episode_batch):
-        batch_size = episode_batch["o"].shape[0]
+        batch_size = episode_batch['o'].shape[0]
         with self.lock:
-            indices = self._get_storage_idx(inc=batch_size)
-            for key in self.buffers:
-                self.buffers[key][indices] = episode_batch[key]
+            idxs = self._get_storage_idx(inc=batch_size)
+            self.buffers['o'][idxs] = episode_batch['o']
+            self.buffers['u'][idxs] = episode_batch['u']
+            self.buffers['s'][idxs] = episode_batch['s']
+            self.buffers['r'][idxs] = episode_batch['r']
+            self.buffers['o_'][idxs] = episode_batch['o_']
+            self.buffers['s_'][idxs] = episode_batch['s_']
+            self.buffers['avail_u'][idxs] = episode_batch['avail_u']
+            self.buffers['avail_u_'][idxs] = episode_batch['avail_u_']
+            self.buffers['u_onehot'][idxs] = episode_batch['u_onehot']
+            self.buffers['padded'][idxs] = episode_batch['padded']
+            self.buffers['terminated'][idxs] = episode_batch['terminated']
 
     def sample(self, batch_size):
-        indices = np.random.randint(0, self.current_size, batch_size)
-        return {key: value[indices] for key, value in self.buffers.items()}
+        temp_buffer = {}
+        idx = np.random.randint(0, self.current_size, batch_size)
+        for key in self.buffers.keys():
+            temp_buffer[key] = self.buffers[key][idx]
+        return temp_buffer
 
     def _get_storage_idx(self, inc=None):
         inc = inc or 1
         if self.current_idx + inc <= self.size:
-            indices = np.arange(self.current_idx, self.current_idx + inc)
+            idx = np.arange(self.current_idx, self.current_idx+inc)
             self.current_idx += inc
         elif self.current_idx < self.size:
             overflow = inc - (self.size - self.current_idx)
-            indices = np.concatenate(
-                [np.arange(self.current_idx, self.size), np.arange(0, overflow)]
-            )
+            idx_a = np.arange(self.current_idx, self.size)
+            idx_b = np.arange(0, overflow)
+            idx = np.concatenate([idx_a, idx_b])
             self.current_idx = overflow
         else:
-            indices = np.arange(0, inc)
+            idx = np.arange(0, inc)
             self.current_idx = inc
         self.current_size = min(self.size, self.current_size + inc)
-        return indices[0] if inc == 1 else indices
+        if inc == 1:
+            idx = idx[0]
+        return idx

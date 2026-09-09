@@ -1,7 +1,6 @@
 import pybamm
 import numpy as np
-
-from reward import pack_reward, safety_reward, terminal_status
+import math
 
 
 def cal_soc(c):
@@ -16,29 +15,17 @@ def normalize_outputs(soc, voltage, temperature):
     return norm_output
 
 class SPM:
-    def __init__(
-        self,
-        init_v=3.2,
-        init_t=298,
-        init_soc=0.1,
-        param='Chen2020',
-        sample_time=90,
-        max_voltage=4.2,
-        max_temperature=309.0,
-        initialization_mode="soc_consistent",
-        parameter_overrides=None,
-    ):
+    def __init__(self, init_v=3.2, init_t=298, init_soc=0.1, param='Chen2020'):
         # 传递参数
         self.reward = None
         self.param = param
-        self.initialization_mode = initialization_mode
-        self.sett = {'sample_time': sample_time,
+        self.sett = {'sample_time': 30*3,
                      'periodic_test': 20,
                      'number_of_training_episodes': 1000,
                      'number_of_training': 3,
                      'episodes_number_test': 10,
-                     'constraints temperature max': max_temperature,
-                     'constraints voltage max': max_voltage}
+                     'constraints temperature max': 309,
+                     'constraints voltage max': 4.2}
         # 设置一下日志信息
         # pybamm.set_logging_level("DEBUG")
         # 模型初始化
@@ -48,32 +35,19 @@ class SPM:
 
         model = pybamm.lithium_ion.SPMe(options=options)
         param = pybamm.ParameterValues(self.param)
-        if parameter_overrides:
-            param.update(parameter_overrides, check_already_exists=True)
-        param["Upper voltage cut-off [V]"] = max_voltage
-        param["Initial temperature [K]"] = init_t
-        # Reset a previously input-driven current before PyBaMM computes the
-        # voltage-based initial stoichiometries during an episode reset.
-        param["Current function [A]"] = 0.0
+        param["Upper voltage cut-off [V]"] = 4.2
 
-        if initialization_mode == "soc_consistent":
-            param.set_initial_state(float(init_soc))
-        elif initialization_mode == "legacy_mixed":
-            param.set_initial_state("{} V".format(init_v))
-        else:
-            raise ValueError(f"Unknown initialization mode: {initialization_mode}")
+        # 根据所给的电压初始化参数
+        param.set_initial_stoichiometries("{} V".format(init_v))
+        # param.set_initial_stoichiometries(init_soc)
         # 改变电流函数为输入模型
         param["Current function [A]"] = "[input]"
 
-        if initialization_mode == "legacy_mixed":
-            c_initial = init_soc * (30171.3 - 873.0) + 873.0
-            param["Initial concentration in negative electrode [mol.m-3]"] = c_initial
+        c_initial = init_soc * (30171.3 - 873.0) + 873.0
+        param["Initial concentration in negative electrode [mol.m-3]"] = c_initial
 
         self.model = model
         self.param = param
-        self.simulation = pybamm.Simulation(
-            self.model, parameter_values=self.param
-        )
         self.temp = init_t
         self.voltage = init_v
         self.soc = init_soc
@@ -83,32 +57,19 @@ class SPM:
         self.sol = None
         self.info = None
         self.done = False
-        if initialization_mode == "soc_consistent":
-            inputs = {"Current function [A]": 0.0}
-            self.sol = self.simulation.solve(
-                np.array([0.0, 1e-6]), inputs=inputs
-            )
-            self.voltage = self.sol["Voltage [V]"].entries[0]
-            self.temp = self.sol[
-                "X-averaged cell temperature [K]"
-            ].entries[0]
-            concentration = self.sol[
-                "R-averaged negative particle concentration [mol.m-3]"
-            ].entries[0][-1]
-            self.soc = cal_soc(concentration)
 
     def step(self, action, st=None):
-        duration = float(st if st is not None else self.sett['sample_time'])
-        model_input = -float(action)
-        inputs = {"Current function [A]": model_input}
-        if self.sol is None:
-            sol = self.simulation.solve(
-                np.linspace(0.0, duration, 2), inputs=inputs
-            )
+        # 连续求解状态替换
+        if self.sol is not None:
+            self.model.set_initial_conditions_from(self.sol)
+        # 仿真设置
+        simulation = pybamm.Simulation(self.model, parameter_values=self.param)
+        # 时间间隔设置
+        if st is not None:
+            t_eval = np.linspace(0, st, 2)
         else:
-            sol = self.simulation.step(
-                duration, npts=2, save=False, inputs=inputs
-            )
+            t_eval = np.linspace(0, self.sett['sample_time'], 2)
+        sol = simulation.solve(t_eval, inputs={"Current function [A]": -action})
         self.voltage = sol["Voltage [V]"].entries[-1]
         self.temp = sol["X-averaged cell temperature [K]"].entries[-1]
         c = sol["R-averaged negative particle concentration [mol.m-3]"].entries[-1][-1]
@@ -117,63 +78,14 @@ class SPM:
         # 数据的更新
         self.sol = sol
 
-        observation = normalize_outputs(self.soc, self.voltage, self.temp)
-        reward, voltage_reward, temperature_reward = safety_reward(
-            [self.voltage],
-            [self.temp],
-            self.sett['constraints voltage max'],
-            self.sett['constraints temperature max'],
-        )
-        info = {
-            "termination": self.info,
-            "voltage_reward": voltage_reward,
-            "temperature_reward": temperature_reward,
-        }
-        return observation, reward, info
-
     def reset(self, init_v=3.2, init_t=298, init_soc=0.1):
-        self.__init__(
-            init_v,
-            init_t,
-            init_soc,
-            param=self.param,
-            sample_time=self.sett['sample_time'],
-            max_voltage=self.sett['constraints voltage max'],
-            max_temperature=self.sett['constraints temperature max'],
-            initialization_mode=self.initialization_mode,
-        )
+        self.__init__(init_v, init_t, init_soc)
 
         return
 
 class MultiSPM:
 
-    def __init__(
-        self,
-        num_of_agent,
-        state_shape,
-        obs_shape,
-        n_actions,
-        episode_limit,
-        action_space,
-        *,
-        beta=0.02,
-        soc_ref=0.90,
-        time_penalty=-0.75,
-        balance_penalty_scale=-50.0,
-        voltage_penalty_scale=-20.0,
-        temperature_penalty_scale=-2.0,
-        max_voltage=4.2,
-        max_temperature=309.0,
-        sample_time=90,
-        initial_socs=(0.3, 0.5, 0.7),
-        initialization_mode="soc_consistent",
-        cell_parameter_overrides=None,
-    ):
-        if num_of_agent != 3:
-            raise NotImplementedError(
-                "The released identified-cell environment currently supports three cells. "
-                "The larger-n experiment requires an explicit virtual-cell generation rule."
-            )
+    def __init__(self, num_of_agent, state_shape, obs_shape, n_actions, episode_limit, action_space):
         self.initial_conditions = {}
         # 初始化四个 SPM 电池，每个电池有不同的初始参数
         self.num_of_agent = num_of_agent
@@ -182,29 +94,10 @@ class MultiSPM:
         self.n_actions = n_actions
         self.episode_limit = episode_limit
         self.action_space = action_space
-        self.beta = float(beta)
-        self.soc_ref = float(soc_ref)
-        self.time_penalty = float(time_penalty)
-        self.balance_penalty_scale = float(balance_penalty_scale)
-        self.voltage_penalty_scale = float(voltage_penalty_scale)
-        self.temperature_penalty_scale = float(temperature_penalty_scale)
-        self.max_voltage = float(max_voltage)
-        self.max_temperature = float(max_temperature)
-        self.sample_time = int(sample_time)
-        self.initial_socs = tuple(float(value) for value in initial_socs)
-        self.initialization_mode = initialization_mode
-        if cell_parameter_overrides is None:
-            cell_parameter_overrides = ({}, {}, {})
-        if len(cell_parameter_overrides) != 3:
-            raise ValueError(
-                "cell_parameter_overrides must contain three parameter mappings"
-            )
-        self.cell_parameter_overrides = tuple(cell_parameter_overrides)
-        self.last_transition = None
 
-        self.spm1 = SPM(init_v=2.8, init_t=298, init_soc=self.initial_socs[0], sample_time=sample_time, max_voltage=max_voltage, max_temperature=max_temperature, initialization_mode=initialization_mode, parameter_overrides=self.cell_parameter_overrides[0])
-        self.spm2 = SPM(init_v=3.2, init_t=300, init_soc=self.initial_socs[1], sample_time=sample_time, max_voltage=max_voltage, max_temperature=max_temperature, initialization_mode=initialization_mode, parameter_overrides=self.cell_parameter_overrides[1])
-        self.spm3 = SPM(init_v=3.6, init_t=302, init_soc=self.initial_socs[2], sample_time=sample_time, max_voltage=max_voltage, max_temperature=max_temperature, initialization_mode=initialization_mode, parameter_overrides=self.cell_parameter_overrides[2])
+        self.spm1 = SPM(init_v=2.8, init_t=298, init_soc=0.1)
+        self.spm2 = SPM(init_v=3.2, init_t=300, init_soc=0.2)
+        self.spm3 = SPM(init_v=3.6, init_t=302, init_soc=0.3)
 
     def get_env_info(self):
         env_info = {
@@ -217,20 +110,15 @@ class MultiSPM:
 
         return env_info
 
-    def reset(self, initial_socs=None):
-
-        if initial_socs is not None:
-            if len(initial_socs) != 3:
-                raise ValueError("initial_socs must contain exactly three SOC values")
-            self.initial_socs = tuple(float(value) for value in initial_socs)
+    def reset(self):
 
         self.initial_conditions['init_v'] = np.random.uniform(low=2.8, high=3.2)
         self.initial_conditions['init_t'] = np.random.uniform(low=298, high=303)
-        self.spm1.reset(init_v=self.initial_conditions['init_v'], init_t=self.initial_conditions['init_t'], init_soc=self.initial_socs[0])
+        self.spm1.reset(init_v=self.initial_conditions['init_v'], init_t=self.initial_conditions['init_t'], init_soc=0.3)
 
         self.initial_conditions['init_v'] = np.random.uniform(low=2.8, high=3.2)
         self.initial_conditions['init_t'] = np.random.uniform(low=298, high=303)
-        self.spm2.reset(init_v=self.initial_conditions['init_v'], init_t=self.initial_conditions['init_t'], init_soc=self.initial_socs[1])
+        self.spm2.reset(init_v=self.initial_conditions['init_v'], init_t=self.initial_conditions['init_t'], init_soc=0.5)
         # self.spm2.param.update({
         #     "Initial inner SEI thickness [m]": 3.5e-09,
         #     "Initial outer SEI thickness [m]": 3.7e-09,
@@ -241,7 +129,7 @@ class MultiSPM:
 
         self.initial_conditions['init_v'] = np.random.uniform(low=2.8, high=3.2)
         self.initial_conditions['init_t'] = np.random.uniform(low=298, high=303)
-        self.spm3.reset(init_v=self.initial_conditions['init_v'], init_t=self.initial_conditions['init_t'], init_soc=self.initial_socs[2])
+        self.spm3.reset(init_v=self.initial_conditions['init_v'], init_t=self.initial_conditions['init_t'], init_soc=0.7)
         # self.spm3.param.update({
         #     "Initial inner SEI thickness [m]": 5e-09,
         #     "Initial outer SEI thickness [m]": 5.5e-09,
@@ -360,42 +248,31 @@ class MultiSPM:
 
             return avail_actions
 
-    def multi_step(self, actions, beta=None):
+    def multi_step(self, actions, beta):
 
-        beta = self.beta if beta is None else float(beta)
+        reward_bal = 0
+        terminated = False
 
         action1 = self.action_space[actions[0]]
         action2 = self.action_space[actions[1]]
         action3 = self.action_space[actions[2]]
 
-        self.spm1.step(action1)
-        self.spm2.step(action2)
-        self.spm3.step(action3)
+        single_obs1, reward1, _ = self.spm1.step(action1)
+        single_obs2, reward2, _ = self.spm2.step(action2)
+        single_obs3, reward3, _ = self.spm3.step(action3)
 
-        socs = [self.spm1.soc, self.spm2.soc, self.spm3.soc]
-        voltages = [self.spm1.voltage, self.spm2.voltage, self.spm3.voltage]
-        temperatures = [self.spm1.temp, self.spm2.temp, self.spm3.temp]
-        reward, components = pack_reward(
-            socs,
-            voltages,
-            temperatures,
-            beta=beta,
-            time_penalty=self.time_penalty,
-            balance_scale=self.balance_penalty_scale,
-            max_voltage=self.max_voltage,
-            max_temperature=self.max_temperature,
-            voltage_scale=self.voltage_penalty_scale,
-            temperature_scale=self.temperature_penalty_scale,
-        )
-        terminated, _ = terminal_status(socs, beta=beta, soc_ref=self.soc_ref)
-        self.last_transition = {
-            "actions_a": [float(action1), float(action2), float(action3)],
-            "socs": [float(value) for value in socs],
-            "voltages_v": [float(value) for value in voltages],
-            "temperatures_k": [float(value) for value in temperatures],
-            "reward_components": components,
-            "terminated": terminated,
-        }
+        mean_soc = (self.spm1.soc + self.spm2.soc + self.spm3.soc) / 3
+        unbal_all_1 = (self.spm1.soc - mean_soc) ** 2
+        unbal_all_2 = (self.spm2.soc - mean_soc) ** 2
+        unbal_all_3 = (self.spm3.soc - mean_soc) ** 2
+        unbal = math.sqrt((unbal_all_1 + unbal_all_2 + unbal_all_3) / 3)
+
+        if unbal > beta:
+            reward_bal = -50 * (unbal - beta)
+        if unbal <= beta and self.spm1.soc > 0.9 and self.spm2.soc > 0.9 and self.spm3.soc > 0.9:
+            terminated = True
+
+        reward = reward1 + reward2 + reward3 + reward_bal
 
         return reward, terminated
 

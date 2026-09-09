@@ -1,9 +1,0 @@
-{
-  "run_id": "SUP-001",
-  "status": "complete",
-  "started_at_utc": "2026-08-29T07:10:54.520159+00:00",
-  "command": ".\\.venv\\Scripts\\python.exe main.py --algorithm qmix --soc-set A --seed 17 --episodes 800 --target-update 200 --variant legacy_declared --initialization-mode legacy_mixed --beta 0.02 --max-temperature 309.0 --sample-time 90 --time-penalty -0.75 --balance-penalty-scale -50.0 --voltage-penalty-scale -20.0 --temperature-penalty-scale -2.0 --output-dir \"results/provenance/legacy_declared/set_a_seed_17\"",
-  "log_path": "D:\\Users\\aa133\\Desktop\\CHJK\\multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\results\\run_logs\\SUP-001.log",
-  "completed_at_utc": "2026-08-29T08:31:59.889073+00:00",
-  "exit_code": 0
-}
