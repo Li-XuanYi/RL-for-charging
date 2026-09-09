@@ -1,0 +1,23 @@
+# Virtual environments
+.venv/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# macOS junk
+.DS_Store
+__MACOSX/
+
+# MCP tool logs (not part of the project)
+/logs/
+
+# LaTeX build artifacts (keep .tex/.bib/.md sources and compiled .pdf)
+Multi_Balancing_Agent_Reinforcement_Learning_for_Charging_Control_of_Lithium_ion_Batteries/*.aux
+Multi_Balancing_Agent_Reinforcement_Learning_for_Charging_Control_of_Lithium_ion_Batteries/*.bbl
+Multi_Balancing_Agent_Reinforcement_Learning_for_Charging_Control_of_Lithium_ion_Batteries/*.blg
+Multi_Balancing_Agent_Reinforcement_Learning_for_Charging_Control_of_Lithium_ion_Batteries/*.fls
+Multi_Balancing_Agent_Reinforcement_Learning_for_Charging_Control_of_Lithium_ion_Batteries/*.fdb_latexmk
+Multi_Balancing_Agent_Reinforcement_Learning_for_Charging_Control_of_Lithium_ion_Batteries/*.log
+Multi_Balancing_Agent_Reinforcement_Learning_for_Charging_Control_of_Lithium_ion_Batteries/latexmk-final.log
