@@ -1,0 +1,124 @@
+{
+  "source": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\revision_results\\experiment_1\\20260920_105021_516059",
+  "sha256": "be8aa3ddbdad618ccbd7d26a1e08d61101282f3a92cb25038bd2e96c2da541bd",
+  "handoff": {
+    "schema_version": 1,
+    "model_family": "SPMe",
+    "current_A_assumption": 5.0,
+    "parameter_vectors": [
+      [
+        5.944848776965584,
+        4.277216619348511,
+        3.98,
+        4.18,
+        6.197805586981084,
+        5.453561579810551,
+        7.107123731704847,
+        1.2576934800643227
+      ],
+      [
+        6.0,
+        4.336837725028014,
+        3.98,
+        4.18,
+        5.840497269676596,
+        5.447862671882639,
+        8.425465929959808,
+        1.4576650467942196
+      ],
+      [
+        6.0,
+        4.291521548650796,
+        3.98,
+        4.18,
+        5.575522453100932,
+        5.279808559475787,
+        5.0,
+        1.7029273918024315
+      ]
+    ],
+    "source": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\revision_results\\experiment_1\\20260920_105021_516059",
+    "assumptions": [
+      "Control calibration current was specified before fitting; physical measurement current is unconfirmed unless metadata supplied.",
+      "SPMe/lumped-thermal model and modified Chen2020 source parameters are reconstruction assumptions.",
+      "Initial discharge concentrations follow original source defaults; control SOC uses consistent electrode stoichiometries.",
+      "No independent experimental cycles, charging measurements, sensor uncertainty or hardware validation are supplied.",
+      "Heat-capacity multiplier and heat-transfer coefficient may compensate for model mismatch; fitted parameters are not uniquely identified."
+    ],
+    "readiness": {
+      "status": "READY_FOR_EXPLORATORY_SIMULATION",
+      "numerical_precision_passed": true,
+      "model_screening_passed": true,
+      "physical_validation_complete": false
+    },
+    "quality": {
+      "computation_completed": true,
+      "numerical_precision_passed": true,
+      "model_screening_thresholds_predeclared": {
+        "minimum_coverage_fraction": 0.99,
+        "maximum_voltage_RMSE_V": 0.05,
+        "maximum_temperature_RMSE_C": 1.0
+      },
+      "model_screening_passed": true,
+      "model_screening_interpretation": "Engineering gate for exploratory numerical control experiments; these are not paper accuracy targets or independent physical validation.",
+      "all_control_fits_cover_entire_curve": false,
+      "metadata_fields_complete": false,
+      "metadata_independently_verified": false,
+      "independent_experimental_validation": false,
+      "charging_domain_validated": false,
+      "paper_temperature_RMSE_reference_C": [
+        0.068,
+        0.091,
+        0.093
+      ],
+      "paper_temperature_RMSE_thresholds_met_in_sample": false,
+      "warning": "Passing numerical checks does not imply physical validation. Temperature accuracy, incomplete metadata and lack of independent charge/discharge cycles remain explicit limitations."
+    },
+    "numerical_settings": {
+      "mode": "safe",
+      "rtol": 1e-06,
+      "atol": 1e-08,
+      "mesh": {
+        "x_n": 120,
+        "x_s": 120,
+        "x_p": 120,
+        "r_n": 40,
+        "r_p": 40
+      }
+    },
+    "initialization": "Source/Chen2020 initial electrode concentrations; first measured temperature; no initial_soc override",
+    "ambient_temperature_K": [
+      298.15,
+      298.15,
+      298.15
+    ],
+    "source_hashes": [
+      {
+        "cell": 1,
+        "voltage_sha256": "cac091feb1b9633e22eae68ccd1b9520627e0d486b118d11c2320deadf13518f",
+        "temperature_sha256": "2eadc2c686477e5dbeabc3d204dfb53110c373869285101d558aecd7bfadcda0"
+      },
+      {
+        "cell": 2,
+        "voltage_sha256": "8b2143dd6a4489060a28af144eae64ac23acbf163cf8505fdb757ea22a17847e",
+        "temperature_sha256": "2cf933e9cc70eaefb6c2d6dfec2ac25f956609167471c47258371ac22fc15454"
+      },
+      {
+        "cell": 3,
+        "voltage_sha256": "ef7e87ce0eb11928fe9620aa9dd51f4fe0643a8453bbe4a78512de1fe519dbfd",
+        "temperature_sha256": "568f05e481be046f3b8b9708cb8c6c6b0a14f775a1ceb32f8cd210fd540415dd"
+      }
+    ],
+    "artifact_hashes": {
+      "protocol.json": "5d3b2ad7c50a3620cd73e448bb49f8590f1a5b8036b4dc75c75c1b802e9b7943",
+      "data_audit.json": "9680af3fc11f1f2486bcb5143e4d59faebb1d1868394263be1668fc16bc55dc9",
+      "summary.json": "1c60bd583a6a7a401724fc4fb8d9c1ff9c5c570c9dfffda1d9ebb0facdf05ca6",
+      "metrics.json": "fbe06169d873fec5a92cf2581615df2f50ef294bfa23d8bf51f2f3ac357f860b"
+    },
+    "code_hashes": {
+      "experiment1.py": "3b6d43ee29ed806edf8e13ab5513e3f27e78d59cc38f3d672ed6d3f03201d64e",
+      "model.py": "8d3e65edf2bbac2f79df5f906565ad5b14c472f46eb3a83f1a7da4ac7cb2ae05",
+      "original_parameters.json": "80ba843f481036e12e1487b97765d1d892ceb72d41254d1dc4f1b2751772c1ca"
+    }
+  }
+}

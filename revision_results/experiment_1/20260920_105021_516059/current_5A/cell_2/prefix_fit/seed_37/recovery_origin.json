@@ -1,0 +1,12 @@
+{
+  "source_fit": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\revision_results\\experiment_1\\20260920_092446_348273\\current_5A\\cell_2\\prefix_fit\\seed_37\\fit.json",
+  "sha256": "406723bb1211d92c8bed711e1a47a0ca39cb4043f43f095d07abdacada2f5378",
+  "original_optimization_mesh": {
+    "x_n": 30,
+    "x_s": 30,
+    "x_p": 30,
+    "r_n": 10,
+    "r_p": 10
+  },
+  "new_optimizer_run": false
+}

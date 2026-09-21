@@ -1,0 +1,131 @@
+{
+  "config": {
+    "seeds": [
+      7,
+      17,
+      27,
+      37,
+      47
+    ],
+    "particles": 20,
+    "iterations": 50,
+    "train_fraction": 0.8,
+    "currents": [
+      4.0,
+      5.0
+    ],
+    "current_for_control": 5.0,
+    "protocol_version": "E1-1.0",
+    "metadata_file": "revision_experiments/data_metadata.json",
+    "scope": "numerical_model_audit_with_unconfirmed_physical_metadata",
+    "loss_voltage_scale_V": 0.03,
+    "loss_temperature_scale_C": 0.3,
+    "precision_thresholds": {},
+    "model_screening_thresholds": {}
+  },
+  "model_family": "SPMe",
+  "parameter_source": "modified Chen2020 plus supplied hardcoded dictionary",
+  "fixed_particle_radii_m": [
+    3.98e-06,
+    4.18e-06
+  ],
+  "free_parameter_indices": [
+    0,
+    1,
+    4,
+    5,
+    6,
+    7
+  ],
+  "parameter_names": [
+    "Positive electrode diffusivity [m2.s-1]",
+    "Negative electrode diffusivity [m2.s-1]",
+    "Positive particle radius [m]",
+    "Negative particle radius [m]",
+    "Negative electrode active material volume fraction",
+    "Positive electrode active material volume fraction",
+    "Total heat transfer coefficient [W.m-2.K-1]",
+    "Heat capacity multiplier"
+  ],
+  "scaled_parameter_bounds": [
+    [
+      5.0,
+      6.0
+    ],
+    [
+      4.0,
+      5.0
+    ],
+    [
+      3.8,
+      5.0
+    ],
+    [
+      3.8,
+      5.0
+    ],
+    [
+      4.5,
+      7.5
+    ],
+    [
+      4.0,
+      6.6
+    ],
+    [
+      5.0,
+      50.0
+    ],
+    [
+      0.4,
+      2.5
+    ]
+  ],
+  "objective": "(voltage_RMSE/0.03 V)^2 + (temperature_RMSE/0.3 degC)^2 + 200*m + 1000*m^2; m is missing sample fraction",
+  "candidate_solve_grid": "up to 401 equally spaced output points; final metrics use every measured timestamp",
+  "selection": "Each current/cell/fit-prefix is independent. Select smallest training objective among optimizer seeds; never select by suffix error or current hypothesis.",
+  "validation": "Chronological suffix is a forecast within the same discharge, not an independent cycle or cell validation. Original hardcoded priors may themselves have been derived from these same curves; prefix withholding does not erase that historical information.",
+  "spm_comparison": "Model-form sensitivity using refitted SPMe parameters unchanged in SPM; not an independently optimized SPM baseline.",
+  "initialization": "Source/Chen2020 initial electrode concentrations; first measured temperature; no initial_soc override",
+  "solver": {
+    "mode": "safe",
+    "rtol": 1e-06,
+    "atol": 1e-08,
+    "mesh": {
+      "x_n": 30,
+      "x_s": 30,
+      "x_p": 30,
+      "r_n": 10,
+      "r_p": 10
+    }
+  },
+  "strict_solver": {
+    "rtol": 1e-08,
+    "atol": 1e-10,
+    "refined_mesh": {
+      "x_n": 60,
+      "x_s": 60,
+      "x_p": 60,
+      "r_n": 20,
+      "r_p": 20
+    }
+  },
+  "precision_thresholds_predeclared": {
+    "max_voltage_difference_V": 0.002,
+    "max_temperature_difference_C": 0.05,
+    "max_end_time_difference_s": "max(1 s, one sampling interval)",
+    "min_common_coverage_fraction": 0.95
+  },
+  "model_screening_thresholds_predeclared": {
+    "minimum_coverage_fraction": 0.99,
+    "maximum_voltage_RMSE_V": 0.05,
+    "maximum_temperature_RMSE_C": 1.0
+  },
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "numpy": "1.26.4",
+    "pybamm": "25.4.2"
+  },
+  "uncertainty": "Optimizer-seed spread quantifies optimization instability only. It is not a confidence interval on physical parameters or repeated measurements."
+}

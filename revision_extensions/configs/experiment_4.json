@@ -1,0 +1,11 @@
+{
+  "protocol_version": "E4-1.0",
+  "seeds": [7, 17, 27, 37, 47],
+  "decision_s": 90.0,
+  "training_steps": 60000,
+  "checkpoint_every_steps": 10000,
+  "bootstrap_seed": 490903,
+  "bootstrap_replicates": 2000,
+  "cpu_threads": 4,
+  "scope": "retrained_component_ablations_with_E3_cases_protocol_and_selected_learning_rate"
+}

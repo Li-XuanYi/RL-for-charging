@@ -1,0 +1,16 @@
+OUTPUT: C:\Users\zhengzihao\Desktop\RL-for-charging-main\reproduction_results\20260919_212713_119169_smoke
+Fit battery 1: 0/1, objective=4.71158
+Fit battery 1: 1/1, objective=4.71158
+Fit battery 2: 0/1, objective=4.41468
+Fit battery 2: 1/1, objective=4.34183
+Fit battery 3: 0/1, objective=4.66484
+Fit battery 3: 1/1, objective=4.66484
+Scenario A: initial SOC [0.1, 0.2, 0.3]; 2 training episodes
+  A episode 1/2: reward=-16.105, loss=None, target=False
+  A episode 2/2: reward=-15.087, loss=17.879505157470703, target=False
+Scenario B: initial SOC [0.3, 0.5, 0.7]; 2 training episodes
+  B episode 1/2: reward=-32.351, loss=None, target=False
+  B episode 2/2: reward=-31.084, loss=62.3901481628418, target=False
+Completed PARTIAL NUMERICAL RECONSTRUCTION. See summary.csv and status.json.
+Short-run completion does not establish convergence or reproduce the paper's numeric claims.
+OUTPUT: C:\Users\zhengzihao\Desktop\RL-for-charging-main\reproduction_results\20260919_212713_119169_smoke

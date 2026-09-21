@@ -1,10 +1,19 @@
 # Virtual environments
 .venv/
+.venv-reproduce/
 
 # Python caches
 __pycache__/
+**/__pycache__/
 *.py[cod]
 *.egg-info/
+
+# Local/generated experiment artifacts
+**/build/
+**/$build/
+**/reproduction_cache/
+**/revision_cache/
+*.pt
 
 # macOS junk
 .DS_Store

@@ -1,0 +1,20 @@
+{
+  "validation": "passed",
+  "checked_trajectories": [
+    "CC_baseline_set_A.csv",
+    "CC_baseline_set_B.csv",
+    "MBA_RL_set_A.csv",
+    "MBA_RL_set_B.csv"
+  ],
+  "checks": [
+    "finite values",
+    "common 90-second time steps",
+    "SOC standard deviation",
+    "voltage/temperature bounds",
+    "nonnegative MBA currents",
+    "summary target agreement"
+  ],
+  "plot_update": "Current plots regenerated with zero-order hold; numerical CSV unchanged.",
+  "plot_source_sha256": "0966780d4551a974a253ec7d4b8861c9ac7da24fc7cca21a75252ebb18af8ec1",
+  "scope": "partial numerical reconstruction; no convergence or exact-paper-match certification"
+}

@@ -1,0 +1,32 @@
+{
+  "thresholds_predeclared": {
+    "max_voltage_difference_V": 0.002,
+    "max_temperature_difference_C": 0.05,
+    "max_end_time_difference_s": 1.0,
+    "min_common_coverage_fraction": 0.95
+  },
+  "variants": [
+    {
+      "variant": "strict_tolerance",
+      "max_voltage_difference_V": 3.290619664975125e-05,
+      "max_temperature_difference_C": 0.014422910809514633,
+      "end_time_difference_s": 0.0,
+      "common_coverage_fraction": 1.0,
+      "reference_coverage_fraction": 1.0,
+      "variant_coverage_fraction": 1.0,
+      "passed": true
+    },
+    {
+      "variant": "refined_mesh_and_strict_tolerance",
+      "max_voltage_difference_V": 0.0018486284086618454,
+      "max_temperature_difference_C": 0.013977691710010731,
+      "end_time_difference_s": 0.0,
+      "common_coverage_fraction": 1.0,
+      "reference_coverage_fraction": 1.0,
+      "variant_coverage_fraction": 1.0,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "interpretation": "Numerical convergence on the available discharge trajectory only; this does not establish physical accuracy or charging-domain validity."
+}

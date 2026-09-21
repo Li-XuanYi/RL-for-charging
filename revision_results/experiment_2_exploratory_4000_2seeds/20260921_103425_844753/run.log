@@ -1,0 +1,4 @@
+OUTPUT: C:\Users\zhengzihao\Desktop\RL-for-charging-main\revision_results\experiment_2_exploratory_4000_2seeds\20260921_103425_844753
+NOTICE: fewer than five seeds; output will be labelled exploratory.
+USING EXPERIMENT 1: C:\Users\zhengzihao\Desktop\RL-for-charging-main\revision_results\experiment_1\20260920_105021_516059
+TRAIN raw dt=90s seed=7

@@ -1,0 +1,36 @@
+OUTPUT: C:\Users\zhengzihao\Desktop\RL-for-charging-main\revision_results\experiment_2_exploratory_2500_2seeds\20260921_104159_389837
+NOTICE: fewer than five seeds; output will be labelled exploratory.
+USING EXPERIMENT 1: C:\Users\zhengzihao\Desktop\RL-for-charging-main\revision_results\experiment_1\20260920_105021_516059
+TRAIN raw dt=90s seed=7
+dt=90 seed=7 shield=False steps=394/2500 ep=10 target=False constraints=False
+dt=90 seed=7 shield=False steps=921/2500 ep=20 target=True constraints=False
+dt=90 seed=7 shield=False steps=1369/2500 ep=30 target=False constraints=False
+dt=90 seed=7 shield=False steps=1796/2500 ep=40 target=True constraints=False
+dt=90 seed=7 shield=False steps=2274/2500 ep=50 target=False constraints=False
+TRAIN shield_aware dt=90s seed=7
+dt=90 seed=7 shield=True steps=369/2500 ep=10 target=True constraints=True
+dt=90 seed=7 shield=True steps=751/2500 ep=20 target=False constraints=True
+dt=90 seed=7 shield=True steps=1050/2500 ep=30 target=True constraints=True
+dt=90 seed=7 shield=True steps=1357/2500 ep=40 target=True constraints=True
+dt=90 seed=7 shield=True steps=1671/2500 ep=50 target=True constraints=True
+dt=90 seed=7 shield=True steps=2044/2500 ep=60 target=True constraints=True
+dt=90 seed=7 shield=True steps=2427/2500 ep=70 target=True constraints=True
+TRAIN raw dt=90s seed=17
+dt=90 seed=17 shield=False steps=460/2500 ep=10 target=True constraints=False
+dt=90 seed=17 shield=False steps=920/2500 ep=20 target=True constraints=False
+dt=90 seed=17 shield=False steps=1431/2500 ep=30 target=True constraints=False
+dt=90 seed=17 shield=False steps=1885/2500 ep=40 target=True constraints=False
+dt=90 seed=17 shield=False steps=2328/2500 ep=50 target=True constraints=False
+TRAIN shield_aware dt=90s seed=17
+dt=90 seed=17 shield=True steps=369/2500 ep=10 target=True constraints=True
+dt=90 seed=17 shield=True steps=745/2500 ep=20 target=True constraints=True
+dt=90 seed=17 shield=True steps=1115/2500 ep=30 target=True constraints=True
+dt=90 seed=17 shield=True steps=1475/2500 ep=40 target=True constraints=True
+dt=90 seed=17 shield=True steps=1795/2500 ep=50 target=True constraints=True
+dt=90 seed=17 shield=True steps=2134/2500 ep=60 target=True constraints=True
+TRAIN raw dt=30s seed=7
+dt=30 seed=7 shield=False steps=1252/2500 ep=10 target=True constraints=False
+dt=30 seed=7 shield=False steps=2500/2500 ep=20 target=False constraints=True
+TRAIN shield_aware dt=30s seed=7
+dt=30 seed=7 shield=True steps=1119/2500 ep=10 target=True constraints=True
+dt=30 seed=7 shield=True steps=2145/2500 ep=20 target=True constraints=True

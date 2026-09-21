@@ -1,0 +1,163 @@
+{
+  "selection": {
+    "seed": 37,
+    "vector": [
+      5.99860522843156,
+      4.0900484900614344,
+      3.98,
+      4.18,
+      4.654421612070821,
+      4.426496120593482,
+      13.888968234889058,
+      0.7326542709560269
+    ],
+    "objective": 0.6248165453023108,
+    "training_samples": 2385,
+    "training_end_s": 2384.0,
+    "solver_failures": 0,
+    "evaluations": 1020,
+    "failure_examples": [],
+    "success": true,
+    "selection_uses_suffix": false
+  },
+  "metrics": {
+    "full": {
+      "requested_samples": 2982,
+      "covered_samples": 2802,
+      "coverage_fraction": 0.9396378269617707,
+      "full_coverage": false,
+      "model_end_s": 2801.2527553810637,
+      "solver_failure": null,
+      "voltage_V": {
+        "n": 2802,
+        "rmse": 0.07822693725927,
+        "mae": 0.035081060049018516,
+        "bias": -0.027784850336795276,
+        "max_abs": 0.5083220039299903
+      },
+      "temperature_C": {
+        "n": 2802,
+        "rmse": 0.3058368347044134,
+        "mae": 0.1942085759656783,
+        "bias": -0.06669104061574434,
+        "max_abs": 1.4515531154521781
+      },
+      "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+    },
+    "early_0_20pct": {
+      "requested_samples": 597,
+      "covered_samples": 597,
+      "coverage_fraction": 1.0,
+      "full_coverage": true,
+      "model_end_s": 2801.2527553810637,
+      "solver_failure": null,
+      "voltage_V": {
+        "n": 597,
+        "rmse": 0.031041920789565403,
+        "mae": 0.025694913533207388,
+        "bias": -0.025694913533207388,
+        "max_abs": 0.07461142122629738
+      },
+      "temperature_C": {
+        "n": 597,
+        "rmse": 0.20026332802747043,
+        "mae": 0.16840942239467713,
+        "bias": 0.16200281939192454,
+        "max_abs": 0.4884955619926572
+      },
+      "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+    },
+    "middle_20_80pct": {
+      "requested_samples": 1788,
+      "covered_samples": 1788,
+      "coverage_fraction": 1.0,
+      "full_coverage": true,
+      "model_end_s": 2801.2527553810637,
+      "solver_failure": null,
+      "voltage_V": {
+        "n": 1788,
+        "rmse": 0.010613169686375457,
+        "mae": 0.008823229915198861,
+        "bias": 0.002610763157312054,
+        "max_abs": 0.02168248200975098
+      },
+      "temperature_C": {
+        "n": 1788,
+        "rmse": 0.1345732719543,
+        "mae": 0.11274178147344044,
+        "bias": -0.023229462847090477,
+        "max_abs": 0.3593608287905674
+      },
+      "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+    },
+    "late_80_100pct": {
+      "requested_samples": 597,
+      "covered_samples": 417,
+      "coverage_fraction": 0.6984924623115578,
+      "full_coverage": false,
+      "model_end_s": 2801.2527553810637,
+      "solver_failure": null,
+      "voltage_V": {
+        "n": 417,
+        "rmse": 0.19813301495493268,
+        "mae": 0.16110631124616184,
+        "bias": -0.16110631124616184,
+        "max_abs": 0.5083220039299903
+      },
+      "temperature_C": {
+        "n": 417,
+        "rmse": 0.7024533990275923,
+        "mae": 0.5804549146563472,
+        "bias": -0.5804549146563472,
+        "max_abs": 1.4515531154521781
+      },
+      "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+    },
+    "prefix_fit": {
+      "requested_samples": 2385,
+      "covered_samples": 2385,
+      "coverage_fraction": 1.0,
+      "full_coverage": true,
+      "model_end_s": 2801.2527553810637,
+      "solver_failure": null,
+      "voltage_V": {
+        "n": 2385,
+        "rmse": 0.018045701361225536,
+        "mae": 0.01304645638058716,
+        "bias": -0.004474557171509792,
+        "max_abs": 0.07461142122629738
+      },
+      "temperature_C": {
+        "n": 2385,
+        "rmse": 0.15367413928502094,
+        "mae": 0.12667619725120913,
+        "bias": 0.023136856858021467,
+        "max_abs": 0.4884955619926572
+      },
+      "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+    },
+    "suffix_forecast": {
+      "requested_samples": 597,
+      "covered_samples": 417,
+      "coverage_fraction": 0.6984924623115578,
+      "full_coverage": false,
+      "model_end_s": 2801.2527553810637,
+      "solver_failure": null,
+      "voltage_V": {
+        "n": 417,
+        "rmse": 0.19813301495493268,
+        "mae": 0.16110631124616184,
+        "bias": -0.16110631124616184,
+        "max_abs": 0.5083220039299903
+      },
+      "temperature_C": {
+        "n": 417,
+        "rmse": 0.7024533990275923,
+        "mae": 0.5804549146563472,
+        "bias": -0.5804549146563472,
+        "max_abs": 1.4515531154521781
+      },
+      "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+    }
+  }
+}

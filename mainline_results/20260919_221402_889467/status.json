@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "error": "Numerical ceiling reached; not a successful charging episode: event: Maximum voltage [V]",
+  "elapsed_s": 118.23319149017334,
+  "partial_results": []
+}

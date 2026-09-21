@@ -1,0 +1,84 @@
+OUTPUT: C:\Users\zhengzihao\Desktop\RL-for-charging-main\reproduction_results\20260919_214055_003189_quick
+Fit battery 1: 0/5, objective=4.68428
+Fit battery 1: 1/5, objective=4.32372
+Fit battery 1: 2/5, objective=4.22291
+Fit battery 1: 3/5, objective=4.20731
+Fit battery 1: 4/5, objective=3.90327
+Fit battery 1: 5/5, objective=3.73187
+Fit battery 2: 0/5, objective=4.35150
+Fit battery 2: 1/5, objective=4.26010
+Fit battery 2: 2/5, objective=4.21279
+Fit battery 2: 3/5, objective=4.05259
+Fit battery 2: 4/5, objective=3.91994
+Fit battery 2: 5/5, objective=3.73834
+Fit battery 3: 0/5, objective=4.28483
+Fit battery 3: 1/5, objective=4.28483
+Fit battery 3: 2/5, objective=4.17249
+Fit battery 3: 3/5, objective=4.13615
+Fit battery 3: 4/5, objective=4.12705
+Fit battery 3: 5/5, objective=4.09499
+Scenario A: initial SOC [0.1, 0.2, 0.3]; 30 training episodes
+  A episode 1/30: reward=-153.434, loss=None, target=True
+  A episode 2/30: reward=-144.475, loss=10.392836570739746, target=True
+  A episode 3/30: reward=-257.193, loss=5.494706153869629, target=False
+  A episode 4/30: reward=-235.401, loss=3.263016700744629, target=False
+  A episode 5/30: reward=-197.563, loss=1.5949257612228394, target=False
+  A episode 6/30: reward=-147.653, loss=1.211986780166626, target=False
+  A episode 7/30: reward=-149.646, loss=1.521452784538269, target=True
+  A episode 8/30: reward=-97.402, loss=0.91832435131073, target=True
+  A episode 9/30: reward=-97.667, loss=1.1851907968521118, target=True
+  A episode 10/30: reward=-161.353, loss=0.9589338302612305, target=True
+  A episode 11/30: reward=-185.968, loss=1.1425994634628296, target=False
+  A episode 12/30: reward=-141.590, loss=1.0806337594985962, target=True
+  A episode 13/30: reward=-163.300, loss=1.0044630765914917, target=True
+  A episode 14/30: reward=-83.404, loss=0.9685598015785217, target=True
+  A episode 15/30: reward=-70.660, loss=0.9909095168113708, target=True
+  A episode 16/30: reward=-137.836, loss=0.9282748699188232, target=True
+  A episode 17/30: reward=-168.137, loss=0.8231266140937805, target=False
+  A episode 18/30: reward=-154.250, loss=0.8053989410400391, target=True
+  A episode 19/30: reward=-92.842, loss=0.8386570811271667, target=True
+  A episode 20/30: reward=-151.467, loss=0.814434826374054, target=True
+  A episode 21/30: reward=-53.097, loss=0.857623815536499, target=True
+  A episode 22/30: reward=-101.606, loss=0.8077625036239624, target=True
+  A episode 23/30: reward=-42.926, loss=0.8352423906326294, target=True
+  A episode 24/30: reward=-94.880, loss=0.7881444692611694, target=True
+  A episode 25/30: reward=-44.684, loss=0.7895529866218567, target=True
+  A episode 26/30: reward=-60.916, loss=0.7612507939338684, target=True
+  A episode 27/30: reward=-43.710, loss=0.7533907294273376, target=True
+  A episode 28/30: reward=-47.073, loss=0.7326117753982544, target=True
+  A episode 29/30: reward=-46.427, loss=0.7161586284637451, target=True
+  A episode 30/30: reward=-53.870, loss=0.6901388764381409, target=True
+Scenario B: initial SOC [0.3, 0.5, 0.7]; 30 training episodes
+  B episode 1/30: reward=-197.192, loss=None, target=True
+  B episode 2/30: reward=-128.369, loss=22.8179931640625, target=True
+  B episode 3/30: reward=-153.602, loss=9.261090278625488, target=True
+  B episode 4/30: reward=-167.244, loss=5.090343475341797, target=True
+  B episode 5/30: reward=-226.607, loss=2.568701982498169, target=False
+  B episode 6/30: reward=-258.181, loss=1.9671276807785034, target=False
+  B episode 7/30: reward=-125.107, loss=2.4807217121124268, target=True
+  B episode 8/30: reward=-218.665, loss=1.3457401990890503, target=False
+  B episode 9/30: reward=-117.984, loss=1.502885341644287, target=True
+  B episode 10/30: reward=-192.530, loss=1.146801471710205, target=False
+  B episode 11/30: reward=-139.102, loss=1.093927025794983, target=True
+  B episode 12/30: reward=-152.447, loss=0.9809321165084839, target=True
+  B episode 13/30: reward=-234.882, loss=0.8638918399810791, target=True
+  B episode 14/30: reward=-185.260, loss=0.8930349946022034, target=False
+  B episode 15/30: reward=-173.054, loss=0.7300623059272766, target=True
+  B episode 16/30: reward=-194.165, loss=0.9525012969970703, target=False
+  B episode 17/30: reward=-113.969, loss=0.8296129107475281, target=True
+  B episode 18/30: reward=-169.622, loss=0.8545310497283936, target=False
+  B episode 19/30: reward=-129.270, loss=0.7876707911491394, target=True
+  B episode 20/30: reward=-154.765, loss=0.7570866346359253, target=True
+  B episode 21/30: reward=-121.211, loss=0.7544931769371033, target=True
+  B episode 22/30: reward=-164.812, loss=0.7096577286720276, target=False
+  B episode 23/30: reward=-119.381, loss=0.7383748888969421, target=False
+  B episode 24/30: reward=-160.323, loss=0.6756290793418884, target=False
+  B episode 25/30: reward=-123.448, loss=0.6892675757408142, target=True
+  B episode 26/30: reward=-199.017, loss=0.7322280406951904, target=False
+  B episode 27/30: reward=-84.471, loss=0.7172015309333801, target=True
+  B episode 28/30: reward=-104.711, loss=0.6843504309654236, target=True
+  B episode 29/30: reward=-137.164, loss=0.7091456055641174, target=False
+  B episode 30/30: reward=-316.541, loss=1.1170371770858765, target=False
+Completed PARTIAL NUMERICAL RECONSTRUCTION. See summary.csv and status.json.
+Short-run completion does not establish convergence or reproduce the paper's numeric claims.
+OUTPUT: C:\Users\zhengzihao\Desktop\RL-for-charging-main\reproduction_results\20260919_214055_003189_quick

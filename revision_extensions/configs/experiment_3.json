@@ -1,0 +1,19 @@
+{
+  "protocol_version": "E3-1.0",
+  "seeds": [7, 17, 27, 37, 47],
+  "decision_s": 90.0,
+  "training_steps": 60000,
+  "checkpoint_every_steps": 10000,
+  "tuning_learning_rates": [0.0001, 0.0002, 0.0005],
+  "tuning_seeds": [101, 102, 103],
+  "tuning_steps": 12000,
+  "cc_current_candidates_A": [2.0, 4.0, 7.5],
+  "validation_count": 8,
+  "test_count": 48,
+  "validation_seed": 390901,
+  "test_seed": 390902,
+  "bootstrap_seed": 390903,
+  "bootstrap_replicates": 2000,
+  "cpu_threads": 4,
+  "scope": "validation_selected_modern_baselines_discrete_and_continuous_tracks"
+}

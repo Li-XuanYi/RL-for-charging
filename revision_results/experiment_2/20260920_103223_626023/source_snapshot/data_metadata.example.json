@@ -1,0 +1,29 @@
+{
+  "_README": [
+    "此文件是空白元数据模板，不是测量证据，程序默认不会读取它。",
+    "确认原始实验记录后，另存为本目录 data_metadata.json；未知字段保持 null，不能为了通过审计而填写猜测值。",
+    "time_step_s 是原始数组相邻采样点的时间间隔，单位秒；当前代码只支持等间隔采样。",
+    "voltage_unit 支持 V 或 mV；temperature_unit 支持 degC、C 或 K。数值会统一转为 V 和摄氏度。",
+    "current_A 表示恒流放电实验的正值电流，不能从文件名 1C 或最小拟合误差反推。若确认是 4 A，请同时在 configs/experiment_1.json 将 current_for_control 改为 4.0；矛盾会终止运行。",
+    "ambient_temperature_K 是实际环境温度，以开尔文记录；初始电芯温度由测量曲线首个样本确定。",
+    "capacity_Ah 是相应电芯在指定条件下的真实容量，请在 measurement_source 中给出来源及测量条件；不得用待验证论文的标称值冒充测量结果。",
+    "cell_identity 描述可追溯的电芯型号、样品编号及状态；begin、middle、age 仅对应现有数据文件后缀，不自动证明具体老化程度。",
+    "measurement_source 应写明原始记录、测试设备、日期、记录路径等可核查来源；initialization_protocol 描述试验前充电、静置及起始状态处理。",
+    "顶层字段应用于全部三组数据；cells 中非空字段可提供各电芯独立元数据。请勿把总体数据覆盖为不适用的单组数值。",
+    "缺失信息时，代码仍可执行明确标注的数值假设：1秒等间隔、V、摄氏度、25摄氏度环境；这些不会被标记为已确认。",
+    "传感器位置、精度、独立充放电循环等额外资料仍需人工审阅；字段完整不等于独立物理验证。"
+  ],
+  "time_step_s": null,
+  "voltage_unit": null,
+  "temperature_unit": null,
+  "current_A": null,
+  "ambient_temperature_K": null,
+  "capacity_Ah": null,
+  "measurement_source": null,
+  "initialization_protocol": null,
+  "cells": {
+    "begin": {"cell_identity": null},
+    "middle": {"cell_identity": null},
+    "age": {"cell_identity": null}
+  }
+}

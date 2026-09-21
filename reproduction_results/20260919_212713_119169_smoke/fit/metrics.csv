@@ -1,0 +1,4 @@
+﻿battery,voltage_RMSE_V,temperature_RMSE_C,model_coverage_fraction,identification_current_A,evaluation
+1,0.1724346180558501,1.2642868550024144,1.0,4.0,in_sample_fit_not_independent_validation
+2,0.17864242065782218,0.7684055524999249,1.0,4.0,in_sample_fit_not_independent_validation
+3,0.19128059547869183,0.8400570481624943,1.0,4.0,in_sample_fit_not_independent_validation

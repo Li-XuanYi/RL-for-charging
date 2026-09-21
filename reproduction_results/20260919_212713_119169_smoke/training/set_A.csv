@@ -1,0 +1,3 @@
+﻿episode,reward,loss,epsilon,steps,target_reached
+1,-16.104533498823724,,0.25,4,False
+2,-15.087374981695245,17.879505157470703,0.0,4,False

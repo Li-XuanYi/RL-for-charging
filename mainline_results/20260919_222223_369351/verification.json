@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "static_model_checks": [
+    {
+      "cell": 1,
+      "tight_static_vs_cached_voltage_difference_V": 9.422227442712483e-10,
+      "tight_static_vs_cached_temperature_difference_C": 1.5774901385157136e-08,
+      "saved_fit_vs_tight_voltage_difference_V": 0.00010706437792062928,
+      "saved_fit_vs_tight_temperature_difference_C": 0.046721849374250723,
+      "tight_voltage_RMSE_V": 0.02010261228700935,
+      "tight_temperature_RMSE_C": 0.40947446885470956
+    },
+    {
+      "cell": 2,
+      "tight_static_vs_cached_voltage_difference_V": 6.403007457578269e-09,
+      "tight_static_vs_cached_temperature_difference_C": 7.730869810984586e-08,
+      "saved_fit_vs_tight_voltage_difference_V": 5.1580847062915325e-05,
+      "saved_fit_vs_tight_temperature_difference_C": 0.02260427842526269,
+      "tight_voltage_RMSE_V": 0.023063819031378274,
+      "tight_temperature_RMSE_C": 0.3443256092457445
+    },
+    {
+      "cell": 3,
+      "tight_static_vs_cached_voltage_difference_V": 1.1685092893287674e-08,
+      "tight_static_vs_cached_temperature_difference_C": 1.2756868272845168e-07,
+      "saved_fit_vs_tight_voltage_difference_V": 7.070565178768362e-05,
+      "saved_fit_vs_tight_temperature_difference_C": 0.030861079705573502,
+      "tight_voltage_RMSE_V": 0.022126166080608512,
+      "tight_temperature_RMSE_C": 0.41506423394676545
+    }
+  ],
+  "target_sync_checks": [
+    "A_50.pt",
+    "B_50.pt"
+  ],
+  "trajectory_checks": [
+    "final_A.csv",
+    "final_B.csv"
+  ],
+  "checkpoint_replay_checks": [
+    {
+      "scenario": "A",
+      "max_difference": 0.0
+    },
+    {
+      "scenario": "B",
+      "max_difference": 0.0
+    }
+  ],
+  "solver_tolerance_note": "Saved fits: rtol 1e-5/atol 1e-7. Independent static and cached comparison: 1e-8/1e-10. Saved-fit sensitivity limits: 0.002 V/0.1 C; same-tight-tolerance implementation limits: 1e-5 V/1e-4 C.",
+  "meaning": "Implementation and data consistency checks; not proof of convergence or exact-paper replication"
+}

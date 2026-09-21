@@ -1,0 +1,42 @@
+OUTPUT: C:\Users\zhengzihao\Desktop\RL-for-charging-main\mainline_results\20260919_221402_889467
+Train Set A, 200 episodes, initial=[0.1, 0.2, 0.3]
+A 10/200: reward=-198.65, target=False, safe=False
+A 20/200: reward=-140.79, target=False, safe=False
+Greedy evaluation: {"scenario": "A", "training_episode": 25, "first_balance_s": null, "soc_target90_s": null, "soc_target_reached": false, "balance_maintained_after_first": false, "max_std_after_first": null, "final_soc_1": 0.36468525883572095, "final_soc_2": 0.333796351460391, "final_soc_3": 0.41081192255290055, "final_soc_std": 0.031645943912863427, "max_voltage_V": 3.7408926581286446, "max_temperature_K": 298.6047608343047, "voltage_violating_cell_intervals": 0, "temperature_violating_cell_intervals": 0, "constraints_satisfied": true, "charging_task_success": false, "total_charged_Ah": 2.0875, "terminal_input_Wh": 7.508513171327714, "lookahead_filter_interventions": 0, "final_time_s": 5400.0}
+A 30/200: reward=-121.61, target=False, safe=False
+A 40/200: reward=-179.49, target=False, safe=False
+A 50/200: reward=-175.38, target=False, safe=False
+Greedy evaluation: {"scenario": "A", "training_episode": 50, "first_balance_s": null, "soc_target90_s": null, "soc_target_reached": false, "balance_maintained_after_first": false, "max_std_after_first": null, "final_soc_1": 0.8528825140215971, "final_soc_2": 0.934324161503556, "final_soc_3": 0.3879977032037851, "final_soc_std": 0.2406526377056219, "max_voltage_V": 4.183416521629102, "max_temperature_K": 300.3593926548498, "voltage_violating_cell_intervals": 0, "temperature_violating_cell_intervals": 0, "constraints_satisfied": true, "charging_task_success": false, "total_charged_Ah": 6.4875, "terminal_input_Wh": 25.01556738127177, "lookahead_filter_interventions": 0, "final_time_s": 5400.0}
+A 60/200: reward=-126.76, target=False, safe=False
+A 70/200: reward=-223.57, target=False, safe=False
+Greedy evaluation: {"scenario": "A", "training_episode": 75, "first_balance_s": 810.0, "soc_target90_s": null, "soc_target_reached": false, "balance_maintained_after_first": false, "max_std_after_first": 0.17828731873889073, "final_soc_1": 0.9705204068374768, "final_soc_2": 0.9156549031602531, "final_soc_3": 0.6324357676585849, "final_soc_std": 0.1481457711013001, "max_voltage_V": 4.313741855736328, "max_temperature_K": 303.1177023772073, "voltage_violating_cell_intervals": 7, "temperature_violating_cell_intervals": 0, "constraints_satisfied": false, "charging_task_success": false, "total_charged_Ah": 7.85, "terminal_input_Wh": 30.73865635076671, "lookahead_filter_interventions": 0, "final_time_s": 5400.0}
+A 80/200: reward=-151.85, target=True, safe=False
+Traceback (most recent call last):
+  File "C:\Users\zhengzihao\Desktop\RL-for-charging-main\mainline_reproduction\run_mainline.py", line 160, in main
+    ep,rows=rollout(pack,learner,epsilon)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zhengzihao\Desktop\RL-for-charging-main\mainline_reproduction\run_mainline.py", line 55, in rollout
+    reward,done,stats,parts=pack.step(ACTIONS[choices])
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zhengzihao\Desktop\RL-for-charging-main\mainline_reproduction\battery.py", line 97, in step
+    stats=[c.step(a) for c,a in zip(self.cells,actions)]
+           ^^^^^^^^^
+  File "C:\Users\zhengzihao\Desktop\RL-for-charging-main\mainline_reproduction\battery.py", line 67, in step
+    raise RuntimeError('Numerical ceiling reached; not a successful charging episode: '+str(sol.termination))
+RuntimeError: Numerical ceiling reached; not a successful charging episode: event: Maximum voltage [V]
+Traceback (most recent call last):
+  File "C:\Users\zhengzihao\Desktop\RL-for-charging-main\mainline_reproduction\run_mainline.py", line 195, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\Users\zhengzihao\Desktop\RL-for-charging-main\mainline_reproduction\run_mainline.py", line 160, in main
+    ep,rows=rollout(pack,learner,epsilon)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zhengzihao\Desktop\RL-for-charging-main\mainline_reproduction\run_mainline.py", line 55, in rollout
+    reward,done,stats,parts=pack.step(ACTIONS[choices])
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zhengzihao\Desktop\RL-for-charging-main\mainline_reproduction\battery.py", line 97, in step
+    stats=[c.step(a) for c,a in zip(self.cells,actions)]
+           ^^^^^^^^^
+  File "C:\Users\zhengzihao\Desktop\RL-for-charging-main\mainline_reproduction\battery.py", line 67, in step
+    raise RuntimeError('Numerical ceiling reached; not a successful charging episode: '+str(sol.termination))
+RuntimeError: Numerical ceiling reached; not a successful charging episode: event: Maximum voltage [V]

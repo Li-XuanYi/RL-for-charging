@@ -1,0 +1,4 @@
+﻿cell,voltage_RMSE_V,temperature_RMSE_C,model_end_s,measured_end_s,current_A_assumption,solver_failed_candidates,evaluation
+1,0.020103993728792298,0.4035879840840858,2976.7811670502742,2981.0,5.0,0,in_sample_fit_not_independent_validation
+2,0.023063025404238845,0.34157501623960523,2807.0,2807.0,5.0,0,in_sample_fit_not_independent_validation
+3,0.022123332068125112,0.4127526042676942,2676.0,2676.0,5.0,0,in_sample_fit_not_independent_validation

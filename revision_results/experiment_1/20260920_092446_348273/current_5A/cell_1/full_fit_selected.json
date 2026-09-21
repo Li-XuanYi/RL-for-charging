@@ -1,0 +1,163 @@
+{
+  "selection": {
+    "seed": 27,
+    "vector": [
+      5.944848776965584,
+      4.277216619348511,
+      3.98,
+      4.18,
+      6.197805586981084,
+      5.453561579810551,
+      7.107123731704847,
+      1.2576934800643227
+    ],
+    "objective": 2.3100432597123493,
+    "training_samples": 2982,
+    "training_end_s": 2981.0,
+    "solver_failures": 0,
+    "evaluations": 1020,
+    "failure_examples": [],
+    "success": true,
+    "selection_uses_suffix": false
+  },
+  "metrics": {
+    "full": {
+      "requested_samples": 2982,
+      "covered_samples": 2982,
+      "coverage_fraction": 1.0,
+      "full_coverage": true,
+      "model_end_s": 2981.0,
+      "solver_failure": null,
+      "voltage_V": {
+        "n": 2982,
+        "rmse": 0.02018309262880813,
+        "mae": 0.015427240467756818,
+        "bias": -0.003873945670699638,
+        "max_abs": 0.07718163354971175
+      },
+      "temperature_C": {
+        "n": 2982,
+        "rmse": 0.4093990146452344,
+        "mae": 0.3285754506095228,
+        "bias": -0.010238959582018552,
+        "max_abs": 1.692600699183366
+      },
+      "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+    },
+    "early_0_20pct": {
+      "requested_samples": 597,
+      "covered_samples": 597,
+      "coverage_fraction": 1.0,
+      "full_coverage": true,
+      "model_end_s": 2981.0,
+      "solver_failure": null,
+      "voltage_V": {
+        "n": 597,
+        "rmse": 0.03654279353860474,
+        "mae": 0.03287988051104274,
+        "bias": -0.03287988051104274,
+        "max_abs": 0.07718163354971175
+      },
+      "temperature_C": {
+        "n": 597,
+        "rmse": 0.1677141931783541,
+        "mae": 0.1431036659544735,
+        "bias": -0.022748956296956675,
+        "max_abs": 0.41683001561132116
+      },
+      "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+    },
+    "middle_20_80pct": {
+      "requested_samples": 1788,
+      "covered_samples": 1788,
+      "coverage_fraction": 1.0,
+      "full_coverage": true,
+      "model_end_s": 2981.0,
+      "solver_failure": null,
+      "voltage_V": {
+        "n": 1788,
+        "rmse": 0.013207047449529302,
+        "mae": 0.011079631928221267,
+        "bias": 0.001498415851447992,
+        "max_abs": 0.024257907099226816
+      },
+      "temperature_C": {
+        "n": 1788,
+        "rmse": 0.3433493456528298,
+        "mae": 0.31365371130062814,
+        "bias": 0.05883550239456498,
+        "max_abs": 0.6185778469763932
+      },
+      "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+    },
+    "late_80_100pct": {
+      "requested_samples": 597,
+      "covered_samples": 597,
+      "coverage_fraction": 1.0,
+      "full_coverage": true,
+      "model_end_s": 2981.0,
+      "solver_failure": null,
+      "voltage_V": {
+        "n": 597,
+        "rmse": 0.013302690161704345,
+        "mae": 0.010995578763984397,
+        "bias": 0.009041901394769165,
+        "max_abs": 0.02836753840121986
+      },
+      "temperature_C": {
+        "n": 597,
+        "rmse": 0.6752729468685673,
+        "mae": 0.5587374695766383,
+        "bias": -0.2046052409477024,
+        "max_abs": 1.692600699183366
+      },
+      "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+    },
+    "prefix_fit": {
+      "requested_samples": 2385,
+      "covered_samples": 2385,
+      "coverage_fraction": 1.0,
+      "full_coverage": true,
+      "model_end_s": 2981.0,
+      "solver_failure": null,
+      "voltage_V": {
+        "n": 2385,
+        "rmse": 0.021564521677061094,
+        "mae": 0.016536549498009284,
+        "bias": -0.007106969024194344,
+        "max_abs": 0.07718163354971175
+      },
+      "temperature_C": {
+        "n": 2385,
+        "rmse": 0.30890187094969135,
+        "mae": 0.270962567874358,
+        "bias": 0.038413732231529996,
+        "max_abs": 0.6185778469763932
+      },
+      "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+    },
+    "suffix_forecast": {
+      "requested_samples": 597,
+      "covered_samples": 597,
+      "coverage_fraction": 1.0,
+      "full_coverage": true,
+      "model_end_s": 2981.0,
+      "solver_failure": null,
+      "voltage_V": {
+        "n": 597,
+        "rmse": 0.013302690161704345,
+        "mae": 0.010995578763984397,
+        "bias": 0.009041901394769165,
+        "max_abs": 0.02836753840121986
+      },
+      "temperature_C": {
+        "n": 597,
+        "rmse": 0.6752729468685673,
+        "mae": 0.5587374695766383,
+        "bias": -0.2046052409477024,
+        "max_abs": 1.692600699183366
+      },
+      "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+    }
+  }
+}

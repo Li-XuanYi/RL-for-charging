@@ -1,0 +1,26 @@
+[
+  {
+    "path": "battery.py",
+    "sha256": "18d6617d05a94acb818ff96142f5a34a99a14ed3bbef0c7abdd4a1038310ff0e"
+  },
+  {
+    "path": "bootstrap.py",
+    "sha256": "c380ecc19d5457556931b73a15aa824d32abc68923c57a954c69ed6954345c90"
+  },
+  {
+    "path": "learner.py",
+    "sha256": "2543ed9a75bd116490b517f05dbb8bf55a855b42d23bffbc8ae8af2ec145ac4d"
+  },
+  {
+    "path": "run.py",
+    "sha256": "0966780d4551a974a253ec7d4b8861c9ac7da24fc7cca21a75252ebb18af8ec1"
+  },
+  {
+    "path": "selfcheck.py",
+    "sha256": "402dde15b20e52f031277123c2e731a973b1225f92b5cc2d865b57fd15949c90"
+  },
+  {
+    "path": "vendor\\NN.py",
+    "sha256": "74c2c58153e8f96319b65c889ff16708763695f4926d766942a858886b813af8"
+  }
+]

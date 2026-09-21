@@ -1,0 +1,81 @@
+{
+  "root": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main",
+  "episodes": 200,
+  "seed": 7,
+  "particles": 20,
+  "fit_iterations": 35,
+  "current": 5.0,
+  "fit_from": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\mainline_results\\calibration_initial",
+  "fit_only": false,
+  "eval_every": 25,
+  "scope": "restored_numerical_mainline_not_exact_paper_replication",
+  "model": "SPMe with supplied Chen2020-based dictionary",
+  "current_assumption": "5 A follows supplied fitting code; 4 A in paper remains unresolved",
+  "particle_radii": "fixed to original values; four electrochemical and two thermal coefficients refitted",
+  "observation": "SOC, voltage, temperature",
+  "actions_A": [
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0,
+    3.5,
+    4.0,
+    4.5,
+    5.0,
+    5.5,
+    6.0,
+    6.5,
+    7.0,
+    7.5
+  ],
+  "decision_s": 90.0,
+  "reward": {
+    "time": -0.75,
+    "balance": -50,
+    "voltage": -20,
+    "temperature": -2
+  },
+  "control_mask": "original state mask adapted to nonnegative paper actions; zero current at SOC>=.95; <=1 A at measured V>=4.2 or T>=309",
+  "lookahead_current_replacement": false,
+  "soft_limits": {
+    "voltage_V": 4.2,
+    "temperature_K": 309.0
+  },
+  "numerical_stops": {
+    "voltage_V": 4.5,
+    "temperature_K": 330,
+    "handling": "fail run, never label success"
+  },
+  "training": {
+    "gamma": 0.99,
+    "learning_rate": 0.0002,
+    "optimizer": "RMSprop",
+    "replay": 800,
+    "batch": 128,
+    "target_sync_episodes": 50,
+    "episode_limit": 50,
+    "epsilon": "0.5*(1-(epoch+1)/episode_budget)"
+  },
+  "evaluation": "greedy on the same two initial SOC scenarios; not an independent generalization test",
+  "paper_reference": {
+    "first_balance_s": {
+      "A": 630,
+      "B": 1170
+    },
+    "voltage_RMSE_V": [
+      0.026,
+      0.035,
+      0.029
+    ],
+    "temperature_RMSE": [
+      0.068,
+      0.091,
+      0.093
+    ]
+  },
+  "hardware": "out_of_scope",
+  "DQL": "out_of_scope_for_this_mainline; missing source not replaced with an invented baseline"
+}

@@ -1,0 +1,7 @@
+{
+  "status": "completed",
+  "selected_checkpoints": {
+    "raw": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\revision_results\\experiment_2_exploratory_2500_2seeds\\20260921_104159_389837\\decision_90s\\seed_17\\raw\\selected.pt",
+    "shield_aware": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\revision_results\\experiment_2_exploratory_2500_2seeds\\20260921_104159_389837\\decision_90s\\seed_17\\shield_aware\\selected.pt"
+  }
+}

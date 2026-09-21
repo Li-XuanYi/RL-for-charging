@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "error": "Run run_experiment_1.cmd successfully first; no completed E1 result exists.",
+  "error_type": "FileNotFoundError",
+  "elapsed_s": 3.2912562000001344
+}

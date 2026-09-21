@@ -1,0 +1,21 @@
+{
+  "seed": 27,
+  "vector": [
+    6.0,
+    4.801957671794344,
+    3.98,
+    4.18,
+    4.5,
+    4.0,
+    22.112984696532163,
+    0.8678203500135889
+  ],
+  "objective": 0.8487341875113152,
+  "training_samples": 2141,
+  "training_end_s": 2140.0,
+  "solver_failures": 0,
+  "evaluations": 1020,
+  "failure_examples": [],
+  "success": true,
+  "selection_uses_suffix": false
+}

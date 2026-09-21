@@ -1,0 +1,11 @@
+{
+  "protocol_version": "E1-1.0",
+  "seeds": [7, 17, 27, 37, 47],
+  "particles": 20,
+  "iterations": 50,
+  "train_fraction": 0.8,
+  "currents": [4.0, 5.0],
+  "current_for_control": 5.0,
+  "metadata_file": "revision_experiments/data_metadata.json",
+  "scope": "numerical_model_audit_with_unconfirmed_physical_metadata"
+}

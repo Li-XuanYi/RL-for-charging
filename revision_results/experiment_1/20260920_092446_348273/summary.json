@@ -1,0 +1,238 @@
+{
+  "experiment": 1,
+  "quality": {
+    "computation_completed": true,
+    "numerical_precision_passed": false,
+    "model_screening_thresholds_predeclared": {
+      "minimum_coverage_fraction": 0.99,
+      "maximum_voltage_RMSE_V": 0.05,
+      "maximum_temperature_RMSE_C": 1.0
+    },
+    "model_screening_passed": true,
+    "model_screening_interpretation": "Engineering gate for exploratory numerical control experiments; these are not paper accuracy targets or independent physical validation.",
+    "all_control_fits_cover_entire_curve": true,
+    "metadata_fields_complete": false,
+    "metadata_independently_verified": false,
+    "independent_experimental_validation": false,
+    "charging_domain_validated": false,
+    "paper_temperature_RMSE_reference_C": [
+      0.068,
+      0.091,
+      0.093
+    ],
+    "paper_temperature_RMSE_thresholds_met_in_sample": false,
+    "warning": "Passing numerical checks does not imply physical validation. Temperature accuracy, incomplete metadata and lack of independent charge/discharge cycles remain explicit limitations."
+  },
+  "selected_control_current_A_assumption": 5.0,
+  "selected_cells": [
+    {
+      "cell": 1,
+      "vector": [
+        5.944848776965584,
+        4.277216619348511,
+        3.98,
+        4.18,
+        6.197805586981084,
+        5.453561579810551,
+        7.107123731704847,
+        1.2576934800643227
+      ],
+      "seed": 27,
+      "precision": {
+        "thresholds_predeclared": {
+          "max_voltage_difference_V": 0.002,
+          "max_temperature_difference_C": 0.05,
+          "max_end_time_difference_s": 1.0,
+          "min_common_coverage_fraction": 0.95
+        },
+        "variants": [
+          {
+            "variant": "strict_tolerance",
+            "max_voltage_difference_V": 2.339597105738278e-05,
+            "max_temperature_difference_C": 0.010192681928913316,
+            "end_time_difference_s": 0.0,
+            "common_coverage_fraction": 1.0,
+            "reference_coverage_fraction": 1.0,
+            "variant_coverage_fraction": 1.0,
+            "passed": true
+          },
+          {
+            "variant": "refined_mesh_and_strict_tolerance",
+            "max_voltage_difference_V": 0.006637576951240121,
+            "max_temperature_difference_C": 0.009707589090282909,
+            "end_time_difference_s": 0.18045588418499392,
+            "common_coverage_fraction": 0.999664654594232,
+            "reference_coverage_fraction": 1.0,
+            "variant_coverage_fraction": 0.999664654594232,
+            "passed": false
+          }
+        ],
+        "passed": false,
+        "interpretation": "Numerical convergence on the available discharge trajectory only; this does not establish physical accuracy or charging-domain validity."
+      },
+      "fit_metrics": {
+        "requested_samples": 2982,
+        "covered_samples": 2982,
+        "coverage_fraction": 1.0,
+        "full_coverage": true,
+        "model_end_s": 2981.0,
+        "solver_failure": null,
+        "voltage_V": {
+          "n": 2982,
+          "rmse": 0.02018309262880813,
+          "mae": 0.015427240467756818,
+          "bias": -0.003873945670699638,
+          "max_abs": 0.07718163354971175
+        },
+        "temperature_C": {
+          "n": 2982,
+          "rmse": 0.4093990146452344,
+          "mae": 0.3285754506095228,
+          "bias": -0.010238959582018552,
+          "max_abs": 1.692600699183366
+        },
+        "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+      }
+    },
+    {
+      "cell": 2,
+      "vector": [
+        6.0,
+        4.336837725028014,
+        3.98,
+        4.18,
+        5.840497269676596,
+        5.447862671882639,
+        8.425465929959808,
+        1.4576650467942196
+      ],
+      "seed": 27,
+      "precision": {
+        "thresholds_predeclared": {
+          "max_voltage_difference_V": 0.002,
+          "max_temperature_difference_C": 0.05,
+          "max_end_time_difference_s": 1.0,
+          "min_common_coverage_fraction": 0.95
+        },
+        "variants": [
+          {
+            "variant": "strict_tolerance",
+            "max_voltage_difference_V": 1.4503370681318017e-05,
+            "max_temperature_difference_C": 0.006356752738383875,
+            "end_time_difference_s": 0.0,
+            "common_coverage_fraction": 1.0,
+            "reference_coverage_fraction": 1.0,
+            "variant_coverage_fraction": 1.0,
+            "passed": true
+          },
+          {
+            "variant": "refined_mesh_and_strict_tolerance",
+            "max_voltage_difference_V": 0.006589288158772355,
+            "max_temperature_difference_C": 0.006185569848128125,
+            "end_time_difference_s": 0.0,
+            "common_coverage_fraction": 1.0,
+            "reference_coverage_fraction": 1.0,
+            "variant_coverage_fraction": 1.0,
+            "passed": false
+          }
+        ],
+        "passed": false,
+        "interpretation": "Numerical convergence on the available discharge trajectory only; this does not establish physical accuracy or charging-domain validity."
+      },
+      "fit_metrics": {
+        "requested_samples": 2808,
+        "covered_samples": 2808,
+        "coverage_fraction": 1.0,
+        "full_coverage": true,
+        "model_end_s": 2807.0,
+        "solver_failure": null,
+        "voltage_V": {
+          "n": 2808,
+          "rmse": 0.02305233534037132,
+          "mae": 0.017112669068963283,
+          "bias": -0.005918272390788209,
+          "max_abs": 0.08462125520612229
+        },
+        "temperature_C": {
+          "n": 2808,
+          "rmse": 0.34329468929463597,
+          "mae": 0.2802500998313495,
+          "bias": -0.015281832412468973,
+          "max_abs": 1.254184787731809
+        },
+        "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+      }
+    },
+    {
+      "cell": 3,
+      "vector": [
+        6.0,
+        4.291521548650796,
+        3.98,
+        4.18,
+        5.575522453100932,
+        5.279808559475787,
+        5.0,
+        1.7029273918024315
+      ],
+      "seed": 27,
+      "precision": {
+        "thresholds_predeclared": {
+          "max_voltage_difference_V": 0.002,
+          "max_temperature_difference_C": 0.05,
+          "max_end_time_difference_s": 1.0,
+          "min_common_coverage_fraction": 0.95
+        },
+        "variants": [
+          {
+            "variant": "strict_tolerance",
+            "max_voltage_difference_V": 1.7518970881980067e-05,
+            "max_temperature_difference_C": 0.007645358476167985,
+            "end_time_difference_s": 0.0,
+            "common_coverage_fraction": 1.0,
+            "reference_coverage_fraction": 1.0,
+            "variant_coverage_fraction": 1.0,
+            "passed": true
+          },
+          {
+            "variant": "refined_mesh_and_strict_tolerance",
+            "max_voltage_difference_V": 0.006759775760898812,
+            "max_temperature_difference_C": 0.007066237899778116,
+            "end_time_difference_s": 0.0,
+            "common_coverage_fraction": 1.0,
+            "reference_coverage_fraction": 1.0,
+            "variant_coverage_fraction": 1.0,
+            "passed": false
+          }
+        ],
+        "passed": false,
+        "interpretation": "Numerical convergence on the available discharge trajectory only; this does not establish physical accuracy or charging-domain validity."
+      },
+      "fit_metrics": {
+        "requested_samples": 2677,
+        "covered_samples": 2677,
+        "coverage_fraction": 1.0,
+        "full_coverage": true,
+        "model_end_s": 2676.0,
+        "solver_failure": null,
+        "voltage_V": {
+          "n": 2677,
+          "rmse": 0.022100718437433147,
+          "mae": 0.017273750253798,
+          "bias": -0.0048292799714398605,
+          "max_abs": 0.07893403967576607
+        },
+        "temperature_C": {
+          "n": 2677,
+          "rmse": 0.4145676869349574,
+          "mae": 0.33120229285720687,
+          "bias": -0.03424588551012918,
+          "max_abs": 1.716290015568518
+        },
+        "metric_scope": "covered samples only; uncovered samples are missing, never extrapolated"
+      }
+    }
+  ],
+  "number_of_optimizer_runs": 60,
+  "outputs": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\revision_results\\experiment_1\\20260920_092446_348273"
+}

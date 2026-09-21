@@ -1,0 +1,32 @@
+[
+  {
+    "path": "multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image\\data_1C_begin",
+    "sha256": "cac091feb1b9633e22eae68ccd1b9520627e0d486b118d11c2320deadf13518f",
+    "samples": 2982
+  },
+  {
+    "path": "multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image\\temp_data 1C begin",
+    "sha256": "2eadc2c686477e5dbeabc3d204dfb53110c373869285101d558aecd7bfadcda0",
+    "samples": 2982
+  },
+  {
+    "path": "multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image\\data_1C_middle",
+    "sha256": "8b2143dd6a4489060a28af144eae64ac23acbf163cf8505fdb757ea22a17847e",
+    "samples": 2808
+  },
+  {
+    "path": "multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image\\temp_data 1C middle",
+    "sha256": "2cf933e9cc70eaefb6c2d6dfec2ac25f956609167471c47258371ac22fc15454",
+    "samples": 2808
+  },
+  {
+    "path": "multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image\\data_1C_age",
+    "sha256": "ef7e87ce0eb11928fe9620aa9dd51f4fe0643a8453bbe4a78512de1fe519dbfd",
+    "samples": 2677
+  },
+  {
+    "path": "multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image\\temp_data 1C age",
+    "sha256": "568f05e481be046f3b8b9708cb8c6c6b0a14f775a1ceb32f8cd210fd540415dd",
+    "samples": 2677
+  }
+]

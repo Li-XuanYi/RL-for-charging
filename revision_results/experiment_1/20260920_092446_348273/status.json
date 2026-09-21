@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "error": "E1 completed fitting but numerical precision or model screening failed; results retained, no experiment-2 handoff created. Inspect precision.json and summary.json; do not relax thresholds after observing results merely to force a pass.",
+  "error_type": "RuntimeError",
+  "elapsed_s": 3775.7131198000006
+}

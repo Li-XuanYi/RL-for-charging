@@ -1,0 +1,11 @@
+OUTPUT: C:\Users\zhengzihao\Desktop\RL-for-charging-main\revision_results\experiment_2\20260920_102904_000335
+Traceback (most recent call last):
+  File "C:\Users\zhengzihao\Desktop\RL-for-charging-main\revision_experiments\run_experiment.py", line 79, in main
+    result = run(root, out, cfg)
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zhengzihao\Desktop\RL-for-charging-main\revision_experiments\experiment2.py", line 319, in run
+    vectors,handoff=_handoff(root,out,cfg)
+                    ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zhengzihao\Desktop\RL-for-charging-main\revision_experiments\experiment2.py", line 63, in _handoff
+    raise FileNotFoundError('Run run_experiment_1.cmd successfully first; no completed E1 result exists.')
+FileNotFoundError: Run run_experiment_1.cmd successfully first; no completed E1 result exists.

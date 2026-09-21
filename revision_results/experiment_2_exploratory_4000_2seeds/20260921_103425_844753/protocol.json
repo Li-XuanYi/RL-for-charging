@@ -1,0 +1,88 @@
+{
+  "methods": [
+    "qmix_raw",
+    "qmix_frozen_shield",
+    "qmix_trained_shield",
+    "rule_shield"
+  ],
+  "raw_vs_frozen_shield": "identical validation-selected raw-trained checkpoint; isolates deployment safety screen",
+  "trained_shield": "separately trained with screen in the environment; same training interaction budget and seeds",
+  "rule": "fixed current law, not trained and not repeated to fabricate independent seeds",
+  "control_authority": "three independently commanded nonnegative currents 0..7.5 A; 0.5 A grid; no shared supply-power limit in E2",
+  "information": {
+    "qmix_actor": "own SOC/V/T, own executed previous action, cell identity and recurrent history",
+    "qmix_training_mixer": "all three observed SOC/V/T states during centralized training",
+    "rule": "centralized access to the three SOC measurements; explicitly a stronger-information engineering comparator",
+    "safety": "each cell measured SOC/V/T and its own nominal model; no true perturbed parameters"
+  },
+  "safety_model": "nominal separate model plus measured SOC/V/T discrepancies, not true perturbed plant state",
+  "hard_interlock": "all shield groups share ideal simulated continuous-measurement 4.2V/309K/SOC-upper-bound event shutdown; any trip is failed episode, not successful charging or a hardware guarantee",
+  "plant_soc_measurement": "ideal model SOC is available; realistic SOC estimator errors are deferred to E5",
+  "sampled_safety": {
+    "voltage_V": 4.2,
+    "temperature_K": 309,
+    "soc_max": 0.95,
+    "sample_dt_s": 1.0
+  },
+  "reward": "original coefficients integrated over actual interval /90s; numerical/screen failure penalty explicitly added",
+  "selection": "validation safe success, then constraints, then capped completion time; ties keep earlier checkpoint",
+  "final_test": "frozen weights; no tuning or checkpoint selection using test outcomes",
+  "precision": "E1 discharge checks plus E2 high-precision integration; dense sampling is not a continuous-time proof",
+  "training_target_sync": "every 50 training episodes unless configured; no evaluation-based target updates",
+  "batch_size_change": "32 rather than original128 to bound recurrent-memory cost; all E2 training groups identical",
+  "config": {
+    "protocol_version": "E2-exploratory-4000-2seeds-v1",
+    "seeds": [
+      7,
+      17
+    ],
+    "decision_periods_s": [
+      90.0,
+      30.0,
+      10.0
+    ],
+    "horizon_s": 5400.0,
+    "hold_s": 270.0,
+    "training_steps": 4000,
+    "checkpoint_every_steps": 1000,
+    "target_sync_every_episodes": 50,
+    "replay_episodes": 800,
+    "batch_size": 32,
+    "learning_sequence_steps": 80,
+    "update_every_collected_steps": 50,
+    "learning_rate": 0.0002,
+    "gamma_per_90s": 0.99,
+    "epsilon_start": 0.5,
+    "epsilon_end": 0.05,
+    "epsilon_decay_fraction": 0.8,
+    "voltage_margin_V": 0.03,
+    "temperature_margin_K": 1.0,
+    "soc_max": 0.95,
+    "nominal_ambient_K": 298.15,
+    "plant_sample_dt_s": 1.0,
+    "numerical_failure_penalty": 2000.0,
+    "rule_gain_A_per_soc": 20.0,
+    "rule_base_A": 3.0,
+    "validation_random_cases": 6,
+    "test_random_cases": 12,
+    "test_parameter_shift_cases": 12,
+    "parameter_shift_fraction": 0.05,
+    "validation_seed": 190901,
+    "test_seed": 190902,
+    "bootstrap_seed": 190903,
+    "bootstrap_replicates": 2000,
+    "cpu_threads": 4,
+    "scope": "exploratory_pipeline_and_safety_diagnostics_only_not_formal_algorithm_comparison",
+    "result_tag": "exploratory_4000_2seeds",
+    "exploratory": true
+  },
+  "model_assumptions": [
+    "Control calibration current was specified before fitting; physical measurement current is unconfirmed unless metadata supplied.",
+    "SPMe/lumped-thermal model and modified Chen2020 source parameters are reconstruction assumptions.",
+    "Initial discharge concentrations follow original source defaults; control SOC uses consistent electrode stoichiometries.",
+    "No independent experimental cycles, charging measurements, sensor uncertainty or hardware validation are supplied.",
+    "Heat-capacity multiplier and heat-transfer coefficient may compensate for model mismatch; fitted parameters are not uniquely identified."
+  ],
+  "five_seed_protocol": false,
+  "authored_without_execution": true
+}

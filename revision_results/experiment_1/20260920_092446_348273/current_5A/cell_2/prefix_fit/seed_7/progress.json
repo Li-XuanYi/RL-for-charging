@@ -1,0 +1,15 @@
+{
+  "iteration": 50,
+  "iterations": 50,
+  "objective": 0.9439745695384126,
+  "failed_candidates": 0,
+  "evaluations": 1020,
+  "best_free_parameters": [
+    6.0,
+    4.0,
+    5.515007607367646,
+    5.587347756467798,
+    23.138815518454678,
+    1.121159917828213
+  ]
+}

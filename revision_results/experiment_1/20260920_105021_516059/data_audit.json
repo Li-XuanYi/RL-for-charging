@@ -1,0 +1,126 @@
+{
+  "source_directory": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image",
+  "metadata_file": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\revision_experiments\\data_metadata.json",
+  "metadata_file_sha256": null,
+  "records": [
+    {
+      "cell": 1,
+      "name": "begin",
+      "samples": 2982,
+      "duration_s": 2981.0,
+      "voltage_file": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image\\data_1C_begin",
+      "temperature_file": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image\\temp_data 1C begin",
+      "voltage_sha256": "cac091feb1b9633e22eae68ccd1b9520627e0d486b118d11c2320deadf13518f",
+      "temperature_sha256": "2eadc2c686477e5dbeabc3d204dfb53110c373869285101d558aecd7bfadcda0",
+      "sampling_interval_s": 1.0,
+      "voltage_input_unit": "V",
+      "temperature_input_unit": "degC",
+      "voltage_range_V": [
+        2.4947,
+        4.1189
+      ],
+      "temperature_range_C": [
+        24.9,
+        32.9
+      ],
+      "ambient_temperature_K": 298.15,
+      "metadata_missing_fields": [
+        "time_step_s",
+        "voltage_unit",
+        "temperature_unit",
+        "current_A",
+        "ambient_temperature_K",
+        "cell_identity",
+        "capacity_Ah",
+        "measurement_source",
+        "initialization_protocol"
+      ],
+      "metadata_status": "UNCONFIRMED",
+      "metadata_values": {},
+      "time_axis": "synthetic equally spaced indices; timestamps are not present in source arrays",
+      "independent_cycles_available": false
+    },
+    {
+      "cell": 2,
+      "name": "middle",
+      "samples": 2808,
+      "duration_s": 2807.0,
+      "voltage_file": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image\\data_1C_middle",
+      "temperature_file": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image\\temp_data 1C middle",
+      "voltage_sha256": "8b2143dd6a4489060a28af144eae64ac23acbf163cf8505fdb757ea22a17847e",
+      "temperature_sha256": "2cf933e9cc70eaefb6c2d6dfec2ac25f956609167471c47258371ac22fc15454",
+      "sampling_interval_s": 1.0,
+      "voltage_input_unit": "V",
+      "temperature_input_unit": "degC",
+      "voltage_range_V": [
+        2.4978,
+        4.1232
+      ],
+      "temperature_range_C": [
+        24.7,
+        31.4
+      ],
+      "ambient_temperature_K": 298.15,
+      "metadata_missing_fields": [
+        "time_step_s",
+        "voltage_unit",
+        "temperature_unit",
+        "current_A",
+        "ambient_temperature_K",
+        "cell_identity",
+        "capacity_Ah",
+        "measurement_source",
+        "initialization_protocol"
+      ],
+      "metadata_status": "UNCONFIRMED",
+      "metadata_values": {},
+      "time_axis": "synthetic equally spaced indices; timestamps are not present in source arrays",
+      "independent_cycles_available": false
+    },
+    {
+      "cell": 3,
+      "name": "age",
+      "samples": 2677,
+      "duration_s": 2676.0,
+      "voltage_file": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image\\data_1C_age",
+      "temperature_file": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\multi-balancing-agent RL for battery control\\multi-balancing-agent RL for battery control\\data_true\\data_image\\temp_data 1C age",
+      "voltage_sha256": "ef7e87ce0eb11928fe9620aa9dd51f4fe0643a8453bbe4a78512de1fe519dbfd",
+      "temperature_sha256": "568f05e481be046f3b8b9708cb8c6c6b0a14f775a1ceb32f8cd210fd540415dd",
+      "sampling_interval_s": 1.0,
+      "voltage_input_unit": "V",
+      "temperature_input_unit": "degC",
+      "voltage_range_V": [
+        2.4987,
+        4.1145
+      ],
+      "temperature_range_C": [
+        24.7,
+        31.5
+      ],
+      "ambient_temperature_K": 298.15,
+      "metadata_missing_fields": [
+        "time_step_s",
+        "voltage_unit",
+        "temperature_unit",
+        "current_A",
+        "ambient_temperature_K",
+        "cell_identity",
+        "capacity_Ah",
+        "measurement_source",
+        "initialization_protocol"
+      ],
+      "metadata_status": "UNCONFIRMED",
+      "metadata_values": {},
+      "time_axis": "synthetic equally spaced indices; timestamps are not present in source arrays",
+      "independent_cycles_available": false
+    }
+  ],
+  "conflicts": [],
+  "array_integrity_passed": true,
+  "metadata_fields_complete": false,
+  "metadata_independently_verified": false,
+  "current_note": "Source script uses 5 A; manuscript states 4 Ah at 1 C. A smaller fitted error cannot identify the true experimental current.",
+  "model_note": "Supplied simulator is SPMe with lumped thermal dynamics, using modified Chen2020. This is not a measured Samsung40T parameter validation.",
+  "soc_note": "Identification preserves source/Chen2020 initial electrode concentrations; subsequent control uses stoichiometric SOC initialization, not voltage-as-SOC.",
+  "temperature_note": "First measured temperature initializes the model. Ambient is metadata or explicit 298.15 K assumption; sensor location/uncertainty are unavailable."
+}

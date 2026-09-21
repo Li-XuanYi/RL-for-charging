@@ -1,0 +1,13 @@
+{
+  "steps": 2500,
+  "episodes": 54,
+  "best_validation_steps": 1016,
+  "best_validation_rank": [
+    0.0,
+    0.0,
+    -5670.0
+  ],
+  "gamma_per_step": 0.99,
+  "exact_resumption_supported": false,
+  "training_wall_s": 1028.666923
+}

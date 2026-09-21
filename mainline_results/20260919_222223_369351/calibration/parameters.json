@@ -1,0 +1,46 @@
+{
+  "vectors": [
+    [
+      5.817254301657722,
+      4.43245276187279,
+      3.98,
+      4.18,
+      6.186807520230697,
+      5.461739459172427,
+      6.349483655744327,
+      1.2896624071222709
+    ],
+    [
+      6.0,
+      4.460697499783815,
+      3.98,
+      4.18,
+      5.8382650965354275,
+      5.446973896704792,
+      9.175304273092843,
+      1.433028994124667
+    ],
+    [
+      6.0,
+      4.591106819494812,
+      3.98,
+      4.18,
+      5.571306974606788,
+      5.281089811420263,
+      5.0,
+      1.7083674710625785
+    ]
+  ],
+  "current_A_assumption": 5.0,
+  "source": "original_parameter_dictionary_plus_reidentified_coefficients",
+  "fixed_particle_radii_m": [
+    3.98e-06,
+    4.18e-06
+  ],
+  "assumptions": [
+    "default initial concentrations during discharge, following original fitting code",
+    "source uses 5 A but paper states 4 Ah at 1 C; actual experimental current is unverified",
+    "particle radii fixed to supplied parameter values; fit diffusion, active fractions, heat transfer and heat-capacity scale",
+    "search bounds include original hardcoded parameters which were outside original PSO bounds"
+  ]
+}

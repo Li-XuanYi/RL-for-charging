@@ -1,0 +1,114 @@
+{
+  "utc_started": "2026-09-21T02:41:59.419814+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "pybamm": "25.4.2",
+    "casadi": "3.6.7",
+    "torch": "2.7.1",
+    "matplotlib": "3.10.3"
+  },
+  "config_path": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\revision_experiments\\configs\\experiment_2_exploratory_2500_2seeds.json",
+  "config_sha256": "6e9e026759bbc5eeabc09225792c5558c8ec6102dcad767cd8b9f1a696213e92",
+  "source": [
+    {
+      "path": "bootstrap.py",
+      "sha256": "05b21c6c9e4fbc2f0469dde05bf164f8d12424ec90366d2fcdf95fd445a279a0"
+    },
+    {
+      "path": "common.py",
+      "sha256": "a583176d4014555978c6a1cc57420868284f6b13004f9c15b85547cf751b3921"
+    },
+    {
+      "path": "control.py",
+      "sha256": "b86797a2d73992a04b12a089d3ee970b036b675628753123102df63937d9e45c"
+    },
+    {
+      "path": "data_metadata.example.json",
+      "sha256": "4e6a08629e1b29ffc65e83589908dc0c0eff928bdcf89bf52b25eb5421b0f55d"
+    },
+    {
+      "path": "E1_E2_precision_repair.md",
+      "sha256": "9de292a82d961ac019c8efe00e996b6241ed39c90de110cf9a45f4891d3b873b"
+    },
+    {
+      "path": "E2_exploratory_2500_2seeds_README.md",
+      "sha256": "1d8acdbef65fd5290e90bad3a5ce2150e3ed8db1f77f503e2173d07d2e2feccd"
+    },
+    {
+      "path": "E2_exploratory_4000_2seeds_README.md",
+      "sha256": "ec8f130f08baa5107bb4b663c5575e86da1393a1f4606d93d76a2197cb740552"
+    },
+    {
+      "path": "evaluation.py",
+      "sha256": "58c45c0658ad69509dbb5e29e37cd01110a068599ed73f9b19a977644bb8afe1"
+    },
+    {
+      "path": "experiment1.py",
+      "sha256": "3b6d43ee29ed806edf8e13ab5513e3f27e78d59cc38f3d672ed6d3f03201d64e"
+    },
+    {
+      "path": "experiment2.py",
+      "sha256": "44fd46c1a9d11b5ea035cbd8d04c989f6a10e66bc1746326473fed340899a521"
+    },
+    {
+      "path": "fit_recovery.py",
+      "sha256": "cf9ba1b4d6abeb503b672c6a99054a105f89736a9210efd19e7495b27fb44cde"
+    },
+    {
+      "path": "learner.py",
+      "sha256": "70b57a5c64e1e89661c62c29385a83bc5080350fcdbaf000bf2393cde466334c"
+    },
+    {
+      "path": "model.py",
+      "sha256": "8d3e65edf2bbac2f79df5f906565ad5b14c472f46eb3a83f1a7da4ac7cb2ae05"
+    },
+    {
+      "path": "original_parameters.json",
+      "sha256": "80ba843f481036e12e1487b97765d1d892ceb72d41254d1dc4f1b2751772c1ca"
+    },
+    {
+      "path": "README.md",
+      "sha256": "22c5de70b87fcabd9cb78c10a03b42c23f5236fce49fce1fa09eee0546c286d0"
+    },
+    {
+      "path": "requirements-lock.txt",
+      "sha256": "7e86e588ff12c72a02041bf556cc0baf04e3d3c67566bbd13074191a40d66c34"
+    },
+    {
+      "path": "run_experiment.py",
+      "sha256": "842a5231e3a77acc50d34aee66fc9ea24200a1b27d6db59643299bef69dadbcf"
+    },
+    {
+      "path": "configs\\experiment_1.json",
+      "sha256": "59a8bc28f771d4ffa1d2b4fbcfee43397ee70f3734aea10c797d668ab056ab08"
+    },
+    {
+      "path": "configs\\experiment_1_recheck.json",
+      "sha256": "0e4da906de461fbb08206a9b6343c088285cb1aaa3f20b8d7ba379cb9051d000"
+    },
+    {
+      "path": "configs\\experiment_2.json",
+      "sha256": "1e3307b2ece6be7dbf724931a9bdefff0633036f8bf5d99c46fc291e4f422ff1"
+    },
+    {
+      "path": "configs\\experiment_2_exploratory_2500_2seeds.json",
+      "sha256": "6e9e026759bbc5eeabc09225792c5558c8ec6102dcad767cd8b9f1a696213e92"
+    },
+    {
+      "path": "configs\\experiment_2_exploratory_4000_2seeds.json",
+      "sha256": "a9d6a38c10fea3f1229842c9f7f851e6492b07bf70511427c3670adab365dcef"
+    },
+    {
+      "path": "vendor\\NN.py",
+      "sha256": "84959446e5ac068cc002ad0f1a18cb26e731d25827c0c6955aa2ee1ef2bfb441"
+    },
+    {
+      "path": "vendor\\__init__.py",
+      "sha256": "c266f6a586e5762c26736b05ad925e5d4723e84cb3847425e559cc71a2a1a293"
+    }
+  ],
+  "validation": "Authoring was static only; no experiment or Python program was run by the assistant."
+}

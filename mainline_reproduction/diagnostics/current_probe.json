@@ -1,0 +1,122 @@
+[
+  {
+    "age": "begin",
+    "current": 4.0,
+    "initial_soc": null,
+    "voltage_rmse": 0.16412059706361432,
+    "temperature_rmse": 1.8316132207256748,
+    "time_end": 2981.0,
+    "voltage_end": 3.255791544598256,
+    "seconds": 0.4564168453216553
+  },
+  {
+    "age": "middle",
+    "current": 4.0,
+    "initial_soc": null,
+    "voltage_rmse": 0.17397026170715288,
+    "temperature_rmse": 1.273047106508842,
+    "time_end": 2807.0,
+    "voltage_end": 3.353683068830609,
+    "seconds": 0.40453314781188965
+  },
+  {
+    "age": "age",
+    "current": 4.0,
+    "initial_soc": null,
+    "voltage_rmse": 0.18855225830697975,
+    "temperature_rmse": 1.045353606377418,
+    "time_end": 2676.0,
+    "voltage_end": 3.3876580128387697,
+    "seconds": 0.40500640869140625
+  },
+  {
+    "age": "begin",
+    "current": 5.0,
+    "initial_soc": null,
+    "voltage_rmse": 0.1769288982345377,
+    "temperature_rmse": 0.9319268956824928,
+    "time_end": 2693.9513959656633,
+    "voltage_end": 2.5000104332572315,
+    "seconds": 0.5102517604827881
+  },
+  {
+    "age": "middle",
+    "current": 5.0,
+    "initial_soc": null,
+    "voltage_rmse": 0.09771863898335928,
+    "temperature_rmse": 0.5107138270276483,
+    "time_end": 2693.9477927504995,
+    "voltage_end": 2.5000101399108963,
+    "seconds": 0.3831048011779785
+  },
+  {
+    "age": "age",
+    "current": 5.0,
+    "initial_soc": null,
+    "voltage_rmse": 0.023424578342216368,
+    "temperature_rmse": 0.5351334338764144,
+    "time_end": 2676.0,
+    "voltage_end": 2.6163440704561394,
+    "seconds": 0.3348875045776367
+  },
+  {
+    "age": "begin",
+    "current": 4.0,
+    "initial_soc": 1.0,
+    "voltage_rmse": 0.1727418922235159,
+    "temperature_rmse": 1.831315583238887,
+    "time_end": 2981.0,
+    "voltage_end": 3.2877572202040914,
+    "seconds": 0.5451273918151855
+  },
+  {
+    "age": "middle",
+    "current": 4.0,
+    "initial_soc": 1.0,
+    "voltage_rmse": 0.18077629340937706,
+    "temperature_rmse": 1.27059105090291,
+    "time_end": 2807.0,
+    "voltage_end": 3.364593233413489,
+    "seconds": 0.4091684818267822
+  },
+  {
+    "age": "age",
+    "current": 4.0,
+    "initial_soc": 1.0,
+    "voltage_rmse": 0.1957237923922542,
+    "temperature_rmse": 1.0425303942311046,
+    "time_end": 2676.0,
+    "voltage_end": 3.3971798939627225,
+    "seconds": 0.480694055557251
+  },
+  {
+    "age": "begin",
+    "current": 5.0,
+    "initial_soc": 1.0,
+    "voltage_rmse": 0.15930854244619758,
+    "temperature_rmse": 0.9297096494971664,
+    "time_end": 2724.5387357062564,
+    "voltage_end": 2.5000100965755196,
+    "seconds": 0.44472789764404297
+  },
+  {
+    "age": "middle",
+    "current": 5.0,
+    "initial_soc": 1.0,
+    "voltage_rmse": 0.0749962538164176,
+    "temperature_rmse": 0.5152356746593738,
+    "time_end": 2724.534551549946,
+    "voltage_end": 2.5000103658116757,
+    "seconds": 0.47298192977905273
+  },
+  {
+    "age": "age",
+    "current": 5.0,
+    "initial_soc": 1.0,
+    "voltage_rmse": 0.036400388526619615,
+    "temperature_rmse": 0.5443610358462513,
+    "time_end": 2676.0,
+    "voltage_end": 2.765432541647095,
+    "seconds": 0.5548090934753418
+  }
+]

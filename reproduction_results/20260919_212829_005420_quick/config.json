@@ -1,0 +1,59 @@
+{
+  "root": "C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main",
+  "mode": "quick",
+  "seed": 7,
+  "ident_current": 4.0,
+  "episodes": null,
+  "device": "cpu",
+  "fit_from": null,
+  "particles": 6,
+  "pso_iterations": 5,
+  "episodes_per_scenario": 30,
+  "train_step_limit": 50,
+  "evaluation_step_limit": 60,
+  "decision_seconds": 90.0,
+  "current_grid_A": [
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0,
+    3.5,
+    4.0,
+    4.5,
+    5.0,
+    5.5,
+    6.0,
+    6.5,
+    7.0,
+    7.5
+  ],
+  "target_network_update_episodes": 50,
+  "epsilon": "0.5*(1-(episode+1)/episodes), from supplied main.py",
+  "runtime_python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "dependencies": {
+    "pybamm": "25.4.2",
+    "torch": "2.7.1",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.3",
+    "casadi": "3.6.7"
+  },
+  "scope": "partial_numerical_reconstruction_not_exact_paper_reproduction",
+  "missing": [
+    "DQL implementation and checkpoints",
+    "complete original per-cell fitted parameters",
+    "hardware online-control interface",
+    "raw charging-control trajectories"
+  ],
+  "assumptions": [
+    "1 second sampling inferred from original scripts",
+    "SPMe+Chen2020 follows code; paper says SPM and Samsung 40T",
+    "eight-parameter joint in-sample refit is reconstructed",
+    "extra simulation safety filter changes the paper controller",
+    "CC baseline has no physical converter or true CV model",
+    "terminal energy is not topology efficiency or battery degradation"
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "cell": 1,
+    "voltage_RMSE_V": 0.020103993728792298,
+    "temperature_RMSE_C": 0.4035879840840858,
+    "model_end_s": 2976.7811670502742,
+    "measured_end_s": 2981.0,
+    "current_A_assumption": 5.0,
+    "solver_failed_candidates": 0,
+    "evaluation": "in_sample_fit_not_independent_validation"
+  },
+  {
+    "cell": 2,
+    "voltage_RMSE_V": 0.023063025404238845,
+    "temperature_RMSE_C": 0.34157501623960523,
+    "model_end_s": 2807.0,
+    "measured_end_s": 2807.0,
+    "current_A_assumption": 5.0,
+    "solver_failed_candidates": 0,
+    "evaluation": "in_sample_fit_not_independent_validation"
+  },
+  {
+    "cell": 3,
+    "voltage_RMSE_V": 0.022123332068125112,
+    "temperature_RMSE_C": 0.4127526042676942,
+    "model_end_s": 2676.0,
+    "measured_end_s": 2676.0,
+    "current_A_assumption": 5.0,
+    "solver_failed_candidates": 0,
+    "evaluation": "in_sample_fit_not_independent_validation"
+  }
+]
