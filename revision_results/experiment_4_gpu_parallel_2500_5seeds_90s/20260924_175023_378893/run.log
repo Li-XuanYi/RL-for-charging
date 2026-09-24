@@ -1,0 +1,20 @@
+OUTPUT: /home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175023_378893
+LEARNING DEVICE: cuda:0 NVIDIA RTX PRO 6000 Blackwell Server Edition
+START JOB 1/40 GPU=GPU-b8a9b253-8713-5d3b-1d65-e007fbdb7588 LOG=/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175023_378893/parallel_jobs/job_0000/worker.log
+START JOB 2/40 GPU=GPU-fafeb67a-12cd-a2e4-9aeb-997a485c815a LOG=/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175023_378893/parallel_jobs/job_0001/worker.log
+START JOB 3/40 GPU=GPU-852c53c7-8b53-1abc-0811-713083167dbe LOG=/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175023_378893/parallel_jobs/job_0002/worker.log
+START JOB 4/40 GPU=GPU-a7b4c3f8-80ac-0329-2b7e-4dedf9ec7b9a LOG=/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175023_378893/parallel_jobs/job_0003/worker.log
+PARALLEL PROGRESS: 0/40 complete; 4 active
+Traceback (most recent call last):
+  File "/home/yqt/XuanyiLi/RL-for-charging/revision_gpu/run_study.py", line 78, in main
+    result=module.run(paths.ROOT,out,cfg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yqt/XuanyiLi/RL-for-charging/revision_gpu/experiment4.py", line 55, in run
+    suite=run_suite(specs,ctx['vectors'],effective,out,validation,tests)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yqt/XuanyiLi/RL-for-charging/revision_gpu/study_core.py", line 449, in run_suite
+    for result in execute_jobs(jobs,out/'parallel_jobs',cfg):
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yqt/XuanyiLi/RL-for-charging/revision_gpu/parallel_jobs.py", line 78, in execute_jobs
+    raise RuntimeError(f'Worker {index} failed (exit {code}); inspect {folder/"worker.log"}')
+RuntimeError: Worker 0 failed (exit -9); inspect /home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175023_378893/parallel_jobs/job_0000/worker.log

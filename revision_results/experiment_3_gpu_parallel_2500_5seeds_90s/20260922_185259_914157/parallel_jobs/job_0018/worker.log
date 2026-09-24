@@ -1,0 +1,8 @@
+TRAIN iql_shared N=3 seed=37 steps=2500 device=cuda:0
+iql_shared N=3 seed=37 446/2500
+iql_shared N=3 seed=37 783/2500
+iql_shared N=3 seed=37 1122/2500
+iql_shared N=3 seed=37 1461/2500
+iql_shared N=3 seed=37 1737/2500
+iql_shared N=3 seed=37 2002/2500
+iql_shared N=3 seed=37 2317/2500

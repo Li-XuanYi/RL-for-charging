@@ -1,0 +1,36 @@
+{
+  "requested_device": "cuda:0",
+  "torch": "2.7.1+cu128",
+  "torch_cuda": "12.8",
+  "cpu_threads": 4,
+  "plant_and_safety_device": "cpu",
+  "mixed_precision": false,
+  "parallel_gpu_slots": [
+    "GPU-b8a9b253-8713-5d3b-1d65-e007fbdb7588",
+    "GPU-852c53c7-8b53-1abc-0811-713083167dbe",
+    "GPU-b8a9b253-8713-5d3b-1d65-e007fbdb7588",
+    "GPU-852c53c7-8b53-1abc-0811-713083167dbe",
+    "GPU-b8a9b253-8713-5d3b-1d65-e007fbdb7588",
+    "GPU-852c53c7-8b53-1abc-0811-713083167dbe"
+  ],
+  "gpu_selection": [
+    {
+      "index": "2",
+      "uuid": "GPU-b8a9b253-8713-5d3b-1d65-e007fbdb7588",
+      "free_MiB": 97231,
+      "utilization_pct": 0
+    },
+    {
+      "index": "3",
+      "uuid": "GPU-852c53c7-8b53-1abc-0811-713083167dbe",
+      "free_MiB": 27226,
+      "utilization_pct": 0
+    }
+  ],
+  "gpu_name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "total_memory_bytes": 101973950464,
+  "compute_capability": [
+    12,
+    0
+  ]
+}

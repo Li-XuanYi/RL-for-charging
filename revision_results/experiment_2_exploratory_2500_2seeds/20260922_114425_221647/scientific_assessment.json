@@ -1,0 +1,19 @@
+{
+  "computed": true,
+  "test_cases_fixed_before_training": true,
+  "all_safety_groups_sampled_constraints_satisfied": true,
+  "all_safety_groups_tasks_succeeded": false,
+  "any_safe_task_observed": true,
+  "continuous_time_or_hardware_guarantee": false,
+  "efficiency_or_lifetime_improvement_proven": false,
+  "safe_controller_is_finite_horizon_screening_not_a_certified_invariant_filter": true,
+  "interpretation": "Reduced-budget exploratory run; not a substitute for formal convergence or robustness evidence.",
+  "exploratory": true,
+  "formal_evidence": false,
+  "training_steps_per_run": 2500,
+  "training_seeds": [
+    7,
+    17
+  ],
+  "result_tag": "exploratory_2500_2seeds"
+}

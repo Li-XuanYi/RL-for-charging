@@ -1,0 +1,7 @@
+TRAIN dqn N=3 seed=17 steps=2500 device=cuda:0
+dqn N=3 seed=17 408/2500
+dqn N=3 seed=17 825/2500
+dqn N=3 seed=17 1229/2500
+dqn N=3 seed=17 1614/2500
+dqn N=3 seed=17 1962/2500
+dqn N=3 seed=17 2410/2500

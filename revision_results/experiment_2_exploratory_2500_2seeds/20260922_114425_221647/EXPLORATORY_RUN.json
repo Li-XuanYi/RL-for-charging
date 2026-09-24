@@ -1,0 +1,11 @@
+{
+  "exploratory": true,
+  "formal_evidence": false,
+  "training_steps_per_run": 2500,
+  "training_seeds": [
+    7,
+    17
+  ],
+  "result_tag": "exploratory_2500_2seeds",
+  "interpretation": "Reduced-budget exploratory run; not a substitute for formal convergence or robustness evidence."
+}

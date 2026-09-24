@@ -1,0 +1,13 @@
+﻿decision_s,method,test_family,independent_training_seeds,evaluated_episodes,success_rate,success_rate_seed_bootstrap_ci_low,success_rate_seed_bootstrap_ci_high,empirical_constraint_satisfaction_rate,successful_only_mean_charging_s,failed_or_censored_count,caveat
+90.0,qmix_frozen_shield,nominal_unseen,2,24,0.75,0.5,1.0,1.0,4165.0,6,Success time is conditional on success; not a speed ranking if success rates differ. CI covers training seeds on fixed test cases.
+90.0,qmix_frozen_shield,reference_seen,2,4,0.5,0.0,1.0,1.0,4455.0,2,Success time is conditional on success; not a speed ranking if success rates differ. CI covers training seeds on fixed test cases.
+90.0,qmix_frozen_shield,unseen_parameter_shift,2,24,0.625,0.25,1.0,1.0,4056.0,9,Success time is conditional on success; not a speed ranking if success rates differ. CI covers training seeds on fixed test cases.
+90.0,qmix_raw,nominal_unseen,2,24,0.041666666666666664,0.0,0.08333333333333333,0.041666666666666664,4860.0,23,Success time is conditional on success; not a speed ranking if success rates differ. CI covers training seeds on fixed test cases.
+90.0,qmix_raw,reference_seen,2,4,0.0,0.0,0.0,0.25,,4,Success time is conditional on success; not a speed ranking if success rates differ. CI covers training seeds on fixed test cases.
+90.0,qmix_raw,unseen_parameter_shift,2,24,0.0,0.0,0.0,0.041666666666666664,,24,Success time is conditional on success; not a speed ranking if success rates differ. CI covers training seeds on fixed test cases.
+90.0,qmix_trained_shield,nominal_unseen,2,24,1.0,1.0,1.0,1.0,2505.0,0,Success time is conditional on success; not a speed ranking if success rates differ. CI covers training seeds on fixed test cases.
+90.0,qmix_trained_shield,reference_seen,2,4,1.0,1.0,1.0,1.0,2722.5,0,Success time is conditional on success; not a speed ranking if success rates differ. CI covers training seeds on fixed test cases.
+90.0,qmix_trained_shield,unseen_parameter_shift,2,24,1.0,1.0,1.0,1.0,2591.25,0,Success time is conditional on success; not a speed ranking if success rates differ. CI covers training seeds on fixed test cases.
+90.0,rule_shield,nominal_unseen,0,12,1.0,,,1.0,2220.0,0,Success time is conditional on success; not a speed ranking if success rates differ. CI covers training seeds on fixed test cases.
+90.0,rule_shield,reference_seen,0,2,1.0,,,1.0,2520.0,0,Success time is conditional on success; not a speed ranking if success rates differ. CI covers training seeds on fixed test cases.
+90.0,rule_shield,unseen_parameter_shift,0,12,1.0,,,1.0,2167.5,0,Success time is conditional on success; not a speed ranking if success rates differ. CI covers training seeds on fixed test cases.

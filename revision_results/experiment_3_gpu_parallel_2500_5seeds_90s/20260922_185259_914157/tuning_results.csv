@@ -1,0 +1,7 @@
+﻿method_id,candidate,cc_current_A,seed,validation_rank
+cccv,0,2.0,-1,"[0.5, 1.0, -5287.5]"
+cccv,1,4.0,-1,"[1.0, 1.0, -3015.0]"
+cccv,2,7.5,-1,"[1.0, 1.0, -2092.5]"
+cccv_continuous,0,2.0,-1,"[0.5, 1.0, -5287.5]"
+cccv_continuous,1,4.0,-1,"[1.0, 1.0, -3015.0]"
+cccv_continuous,2,7.5,-1,"[1.0, 1.0, -2137.5]"

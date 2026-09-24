@@ -1,0 +1,15 @@
+OUTPUT: /home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_021051_192404
+Traceback (most recent call last):
+  File "/home/yqt/XuanyiLi/RL-for-charging/revision_gpu/run_study.py", line 78, in main
+    result=module.run(paths.ROOT,out,cfg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yqt/XuanyiLi/RL-for-charging/revision_gpu/experiment3.py", line 14, in run
+    ctx=load_chain(root,out,cfg,required=[1,2]);effective=resolved_cfg(ctx['base_cfg'])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yqt/XuanyiLi/RL-for-charging/revision_gpu/study_core.py", line 111, in load_chain
+    upstreams[2],subset_assessment=audit(root,out,cfg)
+                                   ^^^^^^^^^^^^^^^^^^^
+  File "/home/yqt/XuanyiLi/RL-for-charging/revision_gpu/e2_slice.py", line 16, in audit
+    if sha256(inside(source/name,source))!=digest:raise ValueError('E2 evidence changed: '+name)
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: E2 evidence changed: decision_90s/seed_7/test/qmix_raw/model_shift_009/metrics.json

@@ -1,0 +1,61 @@
+{
+  "experiment": 3,
+  "discrete_track": [
+    "qmix",
+    "mappo",
+    "dqn",
+    "iql_shared",
+    "cccv",
+    "soc_rule"
+  ],
+  "continuous_track": [
+    "mappo_continuous",
+    "sac",
+    "cccv_continuous"
+  ],
+  "action_authority": {
+    "discrete": "0..7.5 A in 0.5 A steps per cell",
+    "continuous": "0..7.5 A continuous per cell, no rounding"
+  },
+  "all_policies_train_with_same_track_safety": true,
+  "formal_seeds": [
+    7,
+    17,
+    27,
+    37,
+    47
+  ],
+  "same_pack_decision_budget": 2500,
+  "optimizer_allocation": {
+    "value_based": "one sequence-batch update per 50 collected steps",
+    "SAC": "50 updates per 50 collected steps, minibatch 256",
+    "MAPPO": "10 epochs per >= 256 on-policy steps"
+  },
+  "heldout_design": "Validation and main test use separate random initial states. Familiar training A/B states are extra diagnostics with separate summaries.",
+  "tuning": {
+    "enabled": false,
+    "learning_rate": 0.0002,
+    "scope": "One predeclared learning rate for all learned methods; zero search trials. Short-budget exploration, not individually tuned optimal baselines."
+  },
+  "checkpoint_selection": "validation only; every predeclared step threshold",
+  "fairness_scope": "Equal environment interactions and learning-rate search count. Update rules, architectures, optimizer steps and information scope remain method-specific and are disclosed.",
+  "information": {
+    "qmix": "shared recurrent local Q, executed-action history, agent identity; centralized mixer in training",
+    "mappo": "shared local feedforward actor and centralized critic",
+    "iql_shared": "shared recurrent local Q without mixer",
+    "dqn": "centralized joint observation and 4096 discrete joint actions",
+    "sac": "centralized joint continuous actor and twin critics",
+    "soc_rule": "global SOC spread available to deterministic rule"
+  },
+  "cccv": "Sampled CC-CV feedback under same predictive screen with observed-SOC taper toward 0.93 (75 A/SOC slope, minimum positive request 0.5 A). Select CC current from predeclared candidates using validation; not an ideal analog charger. Task still ends at all SOC>=0.90 and std<=0.02.",
+  "comparisons": "Primary QMIX comparisons stay in discrete track. SAC comparisons use continuous MAPPO and continuous CC-CV. Cross-track differences are not attributed solely to algorithm.",
+  "safety_scope": "Numerical sampled predictive screening plus simulated plant interlock; E2 retains raw-policy safety evidence.",
+  "reviewer_links": [
+    "R1 MAPPO",
+    "R2 modern baselines/PPO/SAC",
+    "R3 DQN/IQL/discrete-action rationale"
+  ],
+  "test_selection_forbidden": true,
+  "authored_without_execution": true,
+  "learning_rate_search_enabled": false
+}

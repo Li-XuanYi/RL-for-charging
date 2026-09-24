@@ -1,0 +1,10 @@
+{
+  "cpu_rss_start_bytes": 901468160,
+  "cpu_rss_end_bytes": 909688832,
+  "cpu_rss_sampled_peak_bytes": 909692928,
+  "rss_sample_interval_s": 0.25,
+  "device": "cpu",
+  "wall_s": 152.3466213060019,
+  "rss_error": null,
+  "scope": "Current process including solver and caches; sampled RSS peak is a lower bound, not isolated deployed network memory."
+}

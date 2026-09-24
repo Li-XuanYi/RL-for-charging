@@ -1,0 +1,9 @@
+TRAIN sac N=3 seed=17 steps=2500 device=cuda:0
+sac N=3 seed=17 363/2500
+sac N=3 seed=17 706/2500
+sac N=3 seed=17 1034/2500
+sac N=3 seed=17 1403/2500
+sac N=3 seed=17 1729/2500
+sac N=3 seed=17 2013/2500
+sac N=3 seed=17 2265/2500
+sac N=3 seed=17 2500/2500

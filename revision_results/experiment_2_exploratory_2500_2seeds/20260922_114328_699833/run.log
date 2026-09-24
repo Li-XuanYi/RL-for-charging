@@ -1,0 +1,15 @@
+OUTPUT: /home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_2_exploratory_2500_2seeds/20260922_114328_699833
+NOTICE: fewer than five seeds; output will be labelled exploratory.
+Traceback (most recent call last):
+  File "/home/yqt/XuanyiLi/RL-for-charging/revision_experiments/run_experiment.py", line 85, in main
+    result = run(root, out, cfg)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/yqt/XuanyiLi/RL-for-charging/revision_experiments/experiment2.py", line 329, in run
+    vectors,handoff=_handoff(root,out,cfg)
+                    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yqt/XuanyiLi/RL-for-charging/revision_experiments/experiment2.py", line 77, in _handoff
+    folder = inside(Path(pointer.read_text(encoding='utf-8-sig').strip()), base)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yqt/XuanyiLi/RL-for-charging/revision_experiments/common.py", line 60, in inside
+    raise ValueError(f'Path must stay within {parent}: {path}')
+ValueError: Path must stay within /home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_1: /home/yqt/XuanyiLi/RL-for-charging/C:\Users\zhengzihao\Desktop\RL-for-charging-main\revision_results\experiment_1\20260920_105021_516059

@@ -1,0 +1,9 @@
+TRAIN mappo_continuous N=3 seed=17 steps=2500 device=cuda:0
+/home/yqt/XuanyiLi/RL-for-charging/.venv-revision-gpu/lib/python3.11/site-packages/torch/distributions/dirichlet.py:86: UserWarning: Specified kernel cache directory could not be created! This disables kernel caching. Specified directory is /home/yqt/XuanyiLi/RL-for-charging/revision_cache/xdg/torch/kernels. This warning will appear only once per process. (Triggered internally at /pytorch/aten/src/ATen/native/cuda/jit_utils.cpp:1491.)
+  + torch.lgamma(self.concentration.sum(-1))
+mappo_continuous N=3 seed=17 366/2500
+mappo_continuous N=3 seed=17 727/2500
+mappo_continuous N=3 seed=17 1081/2500
+mappo_continuous N=3 seed=17 1447/2500
+mappo_continuous N=3 seed=17 1806/2500
+mappo_continuous N=3 seed=17 2180/2500

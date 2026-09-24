@@ -1,0 +1,81 @@
+{
+  "qmix": {
+    "spec": {
+      "id": "qmix",
+      "method": "qmix",
+      "learning_rate": 0.0002
+    },
+    "selection": "predeclared fixed learning rate; no search"
+  },
+  "mappo": {
+    "spec": {
+      "id": "mappo",
+      "method": "mappo",
+      "learning_rate": 0.0002
+    },
+    "selection": "predeclared fixed learning rate; no search"
+  },
+  "dqn": {
+    "spec": {
+      "id": "dqn",
+      "method": "dqn",
+      "learning_rate": 0.0002
+    },
+    "selection": "predeclared fixed learning rate; no search"
+  },
+  "iql_shared": {
+    "spec": {
+      "id": "iql_shared",
+      "method": "iql_shared",
+      "learning_rate": 0.0002
+    },
+    "selection": "predeclared fixed learning rate; no search"
+  },
+  "mappo_continuous": {
+    "spec": {
+      "id": "mappo_continuous",
+      "method": "mappo_continuous",
+      "learning_rate": 0.0002
+    },
+    "selection": "predeclared fixed learning rate; no search"
+  },
+  "sac": {
+    "spec": {
+      "id": "sac",
+      "method": "sac",
+      "learning_rate": 0.0002
+    },
+    "selection": "predeclared fixed learning rate; no search"
+  },
+  "cccv": {
+    "spec": {
+      "id": "cccv",
+      "method": "cccv",
+      "cc_current_A": 7.5
+    },
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2092.5
+    ]
+  },
+  "cccv_continuous": {
+    "spec": {
+      "id": "cccv_continuous",
+      "method": "cccv_continuous",
+      "cc_current_A": 7.5
+    },
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2137.5
+    ]
+  },
+  "soc_rule": {
+    "spec": {
+      "id": "soc_rule",
+      "method": "soc_rule"
+    },
+    "selection": "fixed predeclared gains, no learned weights"
+  }
+}

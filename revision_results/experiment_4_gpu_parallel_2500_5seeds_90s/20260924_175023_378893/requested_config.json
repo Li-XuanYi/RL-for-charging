@@ -1,0 +1,34 @@
+{
+  "protocol_version": "E4-GPU-PARALLEL-1.0",
+  "seeds": [
+    7,
+    17,
+    27,
+    37,
+    47
+  ],
+  "decision_s": 90.0,
+  "training_steps": 2500,
+  "checkpoint_every_steps": 1000,
+  "bootstrap_seed": 490903,
+  "bootstrap_replicates": 2000,
+  "cpu_threads": 4,
+  "scope": "retrained_component_ablations_with_E3_cases_protocol_and_selected_learning_rate",
+  "device": "cuda:0",
+  "exploratory": true,
+  "result_tag": "gpu_parallel_2500_5seeds_90s",
+  "upstream_result_tags": {
+    "3": "gpu_parallel_2500_5seeds_90s",
+    "4": "gpu_parallel_2500_5seeds_90s",
+    "5": "gpu_parallel_2500_5seeds_90s",
+    "6": "gpu_parallel_2500_5seeds_90s"
+  },
+  "upstream_results": {
+    "1": "revision_results/experiment_1/20260920_105021_516059"
+  },
+  "upstream_e2_slice_manifest": "revision_gpu/configs/e2_completed_90s_manifest.json",
+  "validation_count": 4,
+  "test_count": 12,
+  "rollout_batch_steps": 256,
+  "learning_rate": 0.0002
+}

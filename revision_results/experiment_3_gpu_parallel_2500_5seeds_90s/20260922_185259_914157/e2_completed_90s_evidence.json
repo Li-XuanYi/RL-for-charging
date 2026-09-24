@@ -1,0 +1,38 @@
+{
+  "any_safe_task_observed": true,
+  "parent_experiment_completed": false,
+  "uses_completed_subset_only": true,
+  "decision_s": 90,
+  "upstream_training_seeds": [
+    7,
+    17
+  ],
+  "downstream_training_seeds": [
+    7,
+    17,
+    27,
+    37,
+    47
+  ],
+  "scope": "E2 90s diagnostic evidence only; does not certify other decision periods or training convergence",
+  "summary": {
+    "qmix_frozen_shield": {
+      "cases": 52,
+      "successes": 35
+    },
+    "qmix_raw": {
+      "cases": 52,
+      "successes": 1
+    },
+    "qmix_trained_shield": {
+      "cases": 52,
+      "successes": 52
+    },
+    "rule_shield": {
+      "cases": 26,
+      "successes": 26
+    }
+  },
+  "manifest_sha256": "b97fa992d649b941999e31ba1e631a731e0fce7ee12fe4a56aa15791780d81aa",
+  "source": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_2_exploratory_2500_2seeds/20260922_114425_221647"
+}

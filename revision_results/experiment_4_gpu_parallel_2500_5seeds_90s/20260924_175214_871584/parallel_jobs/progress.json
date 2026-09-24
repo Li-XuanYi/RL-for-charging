@@ -1,0 +1,36 @@
+{
+  "completed": 7,
+  "total": 40,
+  "active": [
+    {
+      "index": 6,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/parallel_jobs/job_0006/worker.log",
+      "pid": 1836492
+    },
+    {
+      "index": 8,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/parallel_jobs/job_0008/worker.log",
+      "pid": 2168299
+    },
+    {
+      "index": 9,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/parallel_jobs/job_0009/worker.log",
+      "pid": 2439022
+    },
+    {
+      "index": 10,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/parallel_jobs/job_0010/worker.log",
+      "pid": 2764025
+    },
+    {
+      "index": 11,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/parallel_jobs/job_0011/worker.log",
+      "pid": 2844703
+    },
+    {
+      "index": 12,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/parallel_jobs/job_0012/worker.log",
+      "pid": 2501035
+    }
+  ]
+}

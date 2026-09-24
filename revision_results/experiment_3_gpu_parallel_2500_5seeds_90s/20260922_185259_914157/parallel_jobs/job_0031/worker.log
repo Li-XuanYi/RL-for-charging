@@ -1,0 +1,1 @@
+TRAIN cccv_continuous N=3 seed=-1 steps=2500 device=rule/CPU

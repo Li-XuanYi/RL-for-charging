@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "error": "Path must stay within /home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_1: /home/yqt/XuanyiLi/RL-for-charging/C:\\Users\\zhengzihao\\Desktop\\RL-for-charging-main\\revision_results\\experiment_1\\20260920_105021_516059",
+  "error_type": "ValueError",
+  "elapsed_s": 8.0063871499151
+}

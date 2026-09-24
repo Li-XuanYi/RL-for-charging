@@ -1,0 +1,8 @@
+TRAIN qmix_no_gru N=3 seed=7 steps=2500 device=cuda:0
+qmix_no_gru N=3 seed=7 323/2500
+qmix_no_gru N=3 seed=7 601/2500
+qmix_no_gru N=3 seed=7 885/2500
+qmix_no_gru N=3 seed=7 1169/2500
+qmix_no_gru N=3 seed=7 1464/2500
+qmix_no_gru N=3 seed=7 1769/2500
+qmix_no_gru N=3 seed=7 2270/2500

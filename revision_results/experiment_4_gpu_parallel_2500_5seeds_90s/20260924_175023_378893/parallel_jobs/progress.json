@@ -1,0 +1,26 @@
+{
+  "completed": 0,
+  "total": 40,
+  "active": [
+    {
+      "index": 0,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175023_378893/parallel_jobs/job_0000/worker.log",
+      "pid": 1136251
+    },
+    {
+      "index": 1,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175023_378893/parallel_jobs/job_0001/worker.log",
+      "pid": 1136253
+    },
+    {
+      "index": 2,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175023_378893/parallel_jobs/job_0002/worker.log",
+      "pid": 1136256
+    },
+    {
+      "index": 3,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175023_378893/parallel_jobs/job_0003/worker.log",
+      "pid": 1136258
+    }
+  ]
+}

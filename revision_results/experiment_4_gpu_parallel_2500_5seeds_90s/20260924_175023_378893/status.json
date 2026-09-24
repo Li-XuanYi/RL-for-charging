@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "error": "Worker 0 failed (exit -9); inspect /home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175023_378893/parallel_jobs/job_0000/worker.log",
+  "type": "RuntimeError",
+  "elapsed_s": 5.901056710019475
+}

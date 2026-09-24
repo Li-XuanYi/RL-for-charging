@@ -1,0 +1,8 @@
+TRAIN mappo N=3 seed=27 steps=2500 device=cuda:0
+mappo N=3 seed=27 374/2500
+mappo N=3 seed=27 719/2500
+mappo N=3 seed=27 1068/2500
+mappo N=3 seed=27 1425/2500
+mappo N=3 seed=27 1776/2500
+mappo N=3 seed=27 2148/2500
+mappo N=3 seed=27 2499/2500

@@ -1,0 +1,7 @@
+{
+  "gpu_uuid": "GPU-a01ef2f2-32c0-4682-fb60-49448ba4ea61",
+  "gpu_name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "torch": "2.7.1+cu128",
+  "cuda_runtime": "12.8",
+  "cpu_threads": 4
+}

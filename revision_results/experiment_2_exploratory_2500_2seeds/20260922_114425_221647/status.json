@@ -1,0 +1,23 @@
+{
+  "status": "completed",
+  "experiment": "2",
+  "exploratory": true,
+  "result_tag": "exploratory_2500_2seeds",
+  "elapsed_s": 25228.59776294604,
+  "result": {
+    "evaluated_episodes": 182,
+    "assessment": {
+      "computed": true,
+      "test_cases_fixed_before_training": true,
+      "all_safety_groups_sampled_constraints_satisfied": true,
+      "all_safety_groups_tasks_succeeded": false,
+      "any_safe_task_observed": true,
+      "continuous_time_or_hardware_guarantee": false,
+      "efficiency_or_lifetime_improvement_proven": false,
+      "safe_controller_is_finite_horizon_screening_not_a_certified_invariant_filter": true,
+      "interpretation": "Read raw failures, safety interventions, success rates and terminal SOC; computational completion does not prove paper claims."
+    },
+    "results_file": "group_summary.csv"
+  },
+  "meaning": "Computations completed; inspect scientific assessment, not this status alone."
+}

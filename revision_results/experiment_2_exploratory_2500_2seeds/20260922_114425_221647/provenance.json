@@ -1,0 +1,118 @@
+{
+  "utc_started": "2026-09-22T01:44:25.224717+00:00",
+  "python": "3.11.15 (main, Mar 24 2026, 22:50:29) [Clang 22.1.1 ]",
+  "platform": "Linux-6.17.0-23-generic-x86_64-with-glibc2.39",
+  "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "pybamm": "25.4.2",
+    "casadi": "3.6.7",
+    "torch": "2.7.1+cu128",
+    "matplotlib": "3.10.3"
+  },
+  "config_path": "/home/yqt/XuanyiLi/RL-for-charging/revision_experiments/configs/experiment_2_exploratory_2500_2seeds_90s.json",
+  "config_sha256": "2e212ba5141a50f4e602c1b78c8894c1e77bc296386b2e956a6addc209806a0c",
+  "source": [
+    {
+      "path": "requirements-lock.txt",
+      "sha256": "68b7f38a5a78d16dc9f1a98f5912d41bf1ab5bcd2eb0ac990a01471950664435"
+    },
+    {
+      "path": "experiment2.py",
+      "sha256": "44fd46c1a9d11b5ea035cbd8d04c989f6a10e66bc1746326473fed340899a521"
+    },
+    {
+      "path": "E2_exploratory_4000_2seeds_README.md",
+      "sha256": "ec8f130f08baa5107bb4b663c5575e86da1393a1f4606d93d76a2197cb740552"
+    },
+    {
+      "path": "E1_E2_precision_repair.md",
+      "sha256": "9de292a82d961ac019c8efe00e996b6241ed39c90de110cf9a45f4891d3b873b"
+    },
+    {
+      "path": "fit_recovery.py",
+      "sha256": "cf9ba1b4d6abeb503b672c6a99054a105f89736a9210efd19e7495b27fb44cde"
+    },
+    {
+      "path": "common.py",
+      "sha256": "a583176d4014555978c6a1cc57420868284f6b13004f9c15b85547cf751b3921"
+    },
+    {
+      "path": "bootstrap.py",
+      "sha256": "05b21c6c9e4fbc2f0469dde05bf164f8d12424ec90366d2fcdf95fd445a279a0"
+    },
+    {
+      "path": "control.py",
+      "sha256": "b86797a2d73992a04b12a089d3ee970b036b675628753123102df63937d9e45c"
+    },
+    {
+      "path": "original_parameters.json",
+      "sha256": "80ba843f481036e12e1487b97765d1d892ceb72d41254d1dc4f1b2751772c1ca"
+    },
+    {
+      "path": "learner.py",
+      "sha256": "70b57a5c64e1e89661c62c29385a83bc5080350fcdbaf000bf2393cde466334c"
+    },
+    {
+      "path": "experiment1.py",
+      "sha256": "3b6d43ee29ed806edf8e13ab5513e3f27e78d59cc38f3d672ed6d3f03201d64e"
+    },
+    {
+      "path": "evaluation.py",
+      "sha256": "58c45c0658ad69509dbb5e29e37cd01110a068599ed73f9b19a977644bb8afe1"
+    },
+    {
+      "path": "run_experiment.py",
+      "sha256": "842a5231e3a77acc50d34aee66fc9ea24200a1b27d6db59643299bef69dadbcf"
+    },
+    {
+      "path": "data_metadata.example.json",
+      "sha256": "4e6a08629e1b29ffc65e83589908dc0c0eff928bdcf89bf52b25eb5421b0f55d"
+    },
+    {
+      "path": "model.py",
+      "sha256": "8d3e65edf2bbac2f79df5f906565ad5b14c472f46eb3a83f1a7da4ac7cb2ae05"
+    },
+    {
+      "path": "E2_exploratory_2500_2seeds_README.md",
+      "sha256": "1d8acdbef65fd5290e90bad3a5ce2150e3ed8db1f77f503e2173d07d2e2feccd"
+    },
+    {
+      "path": "README.md",
+      "sha256": "22c5de70b87fcabd9cb78c10a03b42c23f5236fce49fce1fa09eee0546c286d0"
+    },
+    {
+      "path": "vendor/NN.py",
+      "sha256": "84959446e5ac068cc002ad0f1a18cb26e731d25827c0c6955aa2ee1ef2bfb441"
+    },
+    {
+      "path": "vendor/__init__.py",
+      "sha256": "c266f6a586e5762c26736b05ad925e5d4723e84cb3847425e559cc71a2a1a293"
+    },
+    {
+      "path": "configs/experiment_2_exploratory_2500_2seeds_90s.json",
+      "sha256": "2e212ba5141a50f4e602c1b78c8894c1e77bc296386b2e956a6addc209806a0c"
+    },
+    {
+      "path": "configs/experiment_2_exploratory_2500_2seeds.json",
+      "sha256": "69cbeeb531d78b4d5a308b302c90e55e6b233f455719c31269f6ae6679e9ce93"
+    },
+    {
+      "path": "configs/experiment_2_exploratory_4000_2seeds.json",
+      "sha256": "8647aa16b45898773e1434c0c0ea0b25f44e0dd0675d51f076aa86dfd8dbc0a2"
+    },
+    {
+      "path": "configs/experiment_1_recheck.json",
+      "sha256": "4144eff870a20373f1a52c64294ec16b203fb27b65401dabb8c5a75c675dc414"
+    },
+    {
+      "path": "configs/experiment_2.json",
+      "sha256": "1e3307b2ece6be7dbf724931a9bdefff0633036f8bf5d99c46fc291e4f422ff1"
+    },
+    {
+      "path": "configs/experiment_1.json",
+      "sha256": "59a8bc28f771d4ffa1d2b4fbcfee43397ee70f3734aea10c797d668ab056ab08"
+    }
+  ],
+  "validation": "Authoring was static only; no experiment or Python program was run by the assistant."
+}

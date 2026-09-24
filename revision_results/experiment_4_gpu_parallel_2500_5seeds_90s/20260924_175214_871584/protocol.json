@@ -1,0 +1,75 @@
+{
+  "experiment": 4,
+  "specs": [
+    {
+      "id": "qmix_reference",
+      "method": "qmix"
+    },
+    {
+      "id": "qmix_no_gru",
+      "method": "qmix_mlp"
+    },
+    {
+      "id": "qmix_vdn",
+      "method": "vdn"
+    },
+    {
+      "id": "qmix_static_mixer",
+      "method": "static_mixer"
+    },
+    {
+      "id": "qmix_no_mixer_shared",
+      "method": "iql_shared"
+    },
+    {
+      "id": "qmix_unshared",
+      "method": "qmix",
+      "shared": false
+    },
+    {
+      "id": "iql_independent",
+      "method": "iql_independent"
+    },
+    {
+      "id": "qmix_no_balance_reward",
+      "method": "qmix",
+      "reward_weights": {
+        "time": 0.75,
+        "balance": 0.0,
+        "voltage": 20.0,
+        "temperature": 2.0
+      }
+    }
+  ],
+  "reference": "qmix_reference",
+  "retrain_every_variant": true,
+  "same_initialization_seed_list": [
+    7,
+    17,
+    27,
+    37,
+    47
+  ],
+  "same_training_budget": 2500,
+  "validation_and_test_sets_reused_from": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_185259_914157",
+  "learning_rate_inherited_from_E3": 0.0002,
+  "interpretation": {
+    "qmix_no_gru": "Remove recurrent memory, preserve hidden width; parameter count differs and is reported.",
+    "qmix_vdn": "Replace nonlinear state-conditioned mixer with additive VDN.",
+    "qmix_static_mixer": "Retain monotone nonlinear mixer; remove state-conditioned hypernetworks.",
+    "qmix_no_mixer_shared": "Remove joint mixer; independent TD losses with shared local network.",
+    "qmix_unshared": "Keep QMIX mixer, remove local-network parameter sharing.",
+    "iql_independent": "Remove mixer and sharing together; multi-factor reference, not isolated one-component attribution.",
+    "qmix_no_balance_reward": "Set only balance gain to zero; keep the same terminal balanced target and physical metrics."
+  },
+  "held_fixed": "Predictive screen, plant interlock, data model, training steps, initial-state distribution, hold requirement and test scenarios.",
+  "no_shield_ablation": "Handled in E2 raw/same-weights-filtered/retrained comparisons; not duplicated here.",
+  "capacity_caveat": "This is a functional ablation suite, not parameter-count-matched expressivity proof.",
+  "test_protocol": "The same predeclared E3 tests are reused for paired comparison; do not adapt variants after viewing outcomes.",
+  "reviewer_links": [
+    "R2 GRU/hypernetwork/mixer roles",
+    "R3 QMIX rationale/IQL",
+    "balance mechanism"
+  ],
+  "authored_without_execution": true
+}
