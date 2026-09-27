@@ -1,0 +1,7 @@
+TRAIN qmix_static_mixer N=3 seed=17 steps=2500 device=cuda:0
+qmix_static_mixer N=3 seed=17 418/2500
+qmix_static_mixer N=3 seed=17 923/2500
+qmix_static_mixer N=3 seed=17 1343/2500
+qmix_static_mixer N=3 seed=17 1797/2500
+qmix_static_mixer N=3 seed=17 2137/2500
+qmix_static_mixer N=3 seed=17 2443/2500

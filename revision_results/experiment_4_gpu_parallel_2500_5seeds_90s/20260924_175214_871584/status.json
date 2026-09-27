@@ -1,4 +1,31 @@
 {
-  "status": "running",
-  "experiment": "4"
+  "status": "completed",
+  "experiment": "4",
+  "elapsed_s": 50277.22790646998,
+  "exploratory": true,
+  "result_tag": "gpu_parallel_2500_5seeds_90s",
+  "result": {
+    "experiment": 4,
+    "models": 40,
+    "episodes": 560,
+    "assessment": {
+      "computation_finished": true,
+      "episodes": 560,
+      "all_tasks_succeeded": false,
+      "exploratory": true,
+      "training_steps_per_run": 2500,
+      "formal_evidence": false,
+      "all_sampled_constraints_satisfied": true,
+      "hardware_validated": false,
+      "lifetime_improvement_proven": false,
+      "general_convergence_proven": false,
+      "interpretation": "Failing or unfavorable outcomes are retained. Completed calculations do not imply scientific superiority.",
+      "experiment": 4,
+      "formal_seed_count_met": true,
+      "all_variants_retrained": true,
+      "no_test_driven_component_selection": true,
+      "primary_comparison_file": "paired_comparison_summary.csv"
+    }
+  },
+  "meaning": "Computations finished; inspect scientific_assessment.json for evidence and limitations."
 }

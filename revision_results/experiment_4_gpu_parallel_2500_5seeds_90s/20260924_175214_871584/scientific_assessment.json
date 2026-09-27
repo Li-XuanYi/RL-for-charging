@@ -1,0 +1,18 @@
+{
+  "computation_finished": true,
+  "episodes": 560,
+  "all_tasks_succeeded": false,
+  "exploratory": true,
+  "training_steps_per_run": 2500,
+  "formal_evidence": false,
+  "all_sampled_constraints_satisfied": true,
+  "hardware_validated": false,
+  "lifetime_improvement_proven": false,
+  "general_convergence_proven": false,
+  "interpretation": "Failing or unfavorable outcomes are retained. Completed calculations do not imply scientific superiority.",
+  "experiment": 4,
+  "formal_seed_count_met": true,
+  "all_variants_retrained": true,
+  "no_test_driven_component_selection": true,
+  "primary_comparison_file": "paired_comparison_summary.csv"
+}

@@ -1,0 +1,442 @@
+[
+  {
+    "method_id": "qmix_reference",
+    "seed": 7,
+    "parameter_count": 177297,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_reference/seed_7/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2947.5
+    ]
+  },
+  {
+    "method_id": "qmix_reference",
+    "seed": 17,
+    "parameter_count": 177297,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_reference/seed_17/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -4702.5
+    ]
+  },
+  {
+    "method_id": "qmix_reference",
+    "seed": 27,
+    "parameter_count": 177297,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_reference/seed_27/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2700.0
+    ]
+  },
+  {
+    "method_id": "qmix_reference",
+    "seed": 37,
+    "parameter_count": 177297,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_reference/seed_37/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2677.5
+    ]
+  },
+  {
+    "method_id": "qmix_reference",
+    "seed": 47,
+    "parameter_count": 177297,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_reference/seed_47/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2452.5
+    ]
+  },
+  {
+    "method_id": "qmix_no_gru",
+    "seed": 7,
+    "parameter_count": 94737,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_gru/seed_7/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2520.0
+    ]
+  },
+  {
+    "method_id": "qmix_no_gru",
+    "seed": 17,
+    "parameter_count": 94737,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_gru/seed_17/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2745.0
+    ]
+  },
+  {
+    "method_id": "qmix_no_gru",
+    "seed": 27,
+    "parameter_count": 94737,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_gru/seed_27/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2565.0
+    ]
+  },
+  {
+    "method_id": "qmix_no_gru",
+    "seed": 37,
+    "parameter_count": 94737,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_gru/seed_37/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2767.5
+    ]
+  },
+  {
+    "method_id": "qmix_no_gru",
+    "seed": 47,
+    "parameter_count": 94737,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_gru/seed_47/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -3442.5
+    ]
+  },
+  {
+    "method_id": "qmix_vdn",
+    "seed": 7,
+    "parameter_count": 104080,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_vdn/seed_7/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2925.0
+    ]
+  },
+  {
+    "method_id": "qmix_vdn",
+    "seed": 17,
+    "parameter_count": 104080,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_vdn/seed_17/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -3375.0
+    ]
+  },
+  {
+    "method_id": "qmix_vdn",
+    "seed": 27,
+    "parameter_count": 104080,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_vdn/seed_27/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2452.5
+    ]
+  },
+  {
+    "method_id": "qmix_vdn",
+    "seed": 37,
+    "parameter_count": 104080,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_vdn/seed_37/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2317.5
+    ]
+  },
+  {
+    "method_id": "qmix_vdn",
+    "seed": 47,
+    "parameter_count": 104080,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_vdn/seed_47/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2250.0
+    ]
+  },
+  {
+    "method_id": "qmix_static_mixer",
+    "seed": 7,
+    "parameter_count": 105361,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_static_mixer/seed_7/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2587.5
+    ]
+  },
+  {
+    "method_id": "qmix_static_mixer",
+    "seed": 17,
+    "parameter_count": 105361,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_static_mixer/seed_17/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -3217.5
+    ]
+  },
+  {
+    "method_id": "qmix_static_mixer",
+    "seed": 27,
+    "parameter_count": 105361,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_static_mixer/seed_27/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2295.0
+    ]
+  },
+  {
+    "method_id": "qmix_static_mixer",
+    "seed": 37,
+    "parameter_count": 105361,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_static_mixer/seed_37/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2385.0
+    ]
+  },
+  {
+    "method_id": "qmix_static_mixer",
+    "seed": 47,
+    "parameter_count": 105361,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_static_mixer/seed_47/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2587.5
+    ]
+  },
+  {
+    "method_id": "qmix_no_mixer_shared",
+    "seed": 7,
+    "parameter_count": 104080,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_mixer_shared/seed_7/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -3870.0
+    ]
+  },
+  {
+    "method_id": "qmix_no_mixer_shared",
+    "seed": 17,
+    "parameter_count": 104080,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_mixer_shared/seed_17/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2565.0
+    ]
+  },
+  {
+    "method_id": "qmix_no_mixer_shared",
+    "seed": 27,
+    "parameter_count": 104080,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_mixer_shared/seed_27/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2542.5
+    ]
+  },
+  {
+    "method_id": "qmix_no_mixer_shared",
+    "seed": 37,
+    "parameter_count": 104080,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_mixer_shared/seed_37/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2520.0
+    ]
+  },
+  {
+    "method_id": "qmix_no_mixer_shared",
+    "seed": 47,
+    "parameter_count": 104080,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_mixer_shared/seed_47/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -3397.5
+    ]
+  },
+  {
+    "method_id": "qmix_unshared",
+    "seed": 7,
+    "parameter_count": 385457,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_unshared/seed_7/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2722.5
+    ]
+  },
+  {
+    "method_id": "qmix_unshared",
+    "seed": 17,
+    "parameter_count": 385457,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_unshared/seed_17/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2407.5
+    ]
+  },
+  {
+    "method_id": "qmix_unshared",
+    "seed": 27,
+    "parameter_count": 385457,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_unshared/seed_27/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -3307.5
+    ]
+  },
+  {
+    "method_id": "qmix_unshared",
+    "seed": 37,
+    "parameter_count": 385457,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_unshared/seed_37/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -3892.5
+    ]
+  },
+  {
+    "method_id": "qmix_unshared",
+    "seed": 47,
+    "parameter_count": 385457,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_unshared/seed_47/training/selected.pt",
+    "validation_rank": [
+      0.0,
+      1.0,
+      -5670.0
+    ]
+  },
+  {
+    "method_id": "iql_independent",
+    "seed": 7,
+    "parameter_count": 312240,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/iql_independent/seed_7/training/selected.pt",
+    "validation_rank": [
+      0.0,
+      1.0,
+      -5670.0
+    ]
+  },
+  {
+    "method_id": "iql_independent",
+    "seed": 17,
+    "parameter_count": 312240,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/iql_independent/seed_17/training/selected.pt",
+    "validation_rank": [
+      0.75,
+      1.0,
+      -3780.0
+    ]
+  },
+  {
+    "method_id": "iql_independent",
+    "seed": 27,
+    "parameter_count": 312240,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/iql_independent/seed_27/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2542.5
+    ]
+  },
+  {
+    "method_id": "iql_independent",
+    "seed": 37,
+    "parameter_count": 312240,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/iql_independent/seed_37/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2407.5
+    ]
+  },
+  {
+    "method_id": "iql_independent",
+    "seed": 47,
+    "parameter_count": 312240,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/iql_independent/seed_47/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2925.0
+    ]
+  },
+  {
+    "method_id": "qmix_no_balance_reward",
+    "seed": 7,
+    "parameter_count": 177297,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_balance_reward/seed_7/training/selected.pt",
+    "validation_rank": [
+      0.0,
+      1.0,
+      -5670.0
+    ]
+  },
+  {
+    "method_id": "qmix_no_balance_reward",
+    "seed": 17,
+    "parameter_count": 177297,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_balance_reward/seed_17/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2385.0
+    ]
+  },
+  {
+    "method_id": "qmix_no_balance_reward",
+    "seed": 27,
+    "parameter_count": 177297,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_balance_reward/seed_27/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2655.0
+    ]
+  },
+  {
+    "method_id": "qmix_no_balance_reward",
+    "seed": 37,
+    "parameter_count": 177297,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_balance_reward/seed_37/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -3082.5
+    ]
+  },
+  {
+    "method_id": "qmix_no_balance_reward",
+    "seed": 47,
+    "parameter_count": 177297,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584/qmix_no_balance_reward/seed_47/training/selected.pt",
+    "validation_rank": [
+      1.0,
+      1.0,
+      -2700.0
+    ]
+  }
+]

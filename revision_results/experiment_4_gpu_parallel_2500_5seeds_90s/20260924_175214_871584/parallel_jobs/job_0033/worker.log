@@ -1,0 +1,6 @@
+TRAIN iql_independent N=3 seed=37 steps=2500 device=cuda:0
+iql_independent N=3 seed=37 442/2500
+iql_independent N=3 seed=37 847/2500
+iql_independent N=3 seed=37 1277/2500
+iql_independent N=3 seed=37 1714/2500
+iql_independent N=3 seed=37 2223/2500

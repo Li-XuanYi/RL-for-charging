@@ -1,0 +1,7 @@
+TRAIN qmix_no_balance_reward N=3 seed=47 steps=2500 device=cuda:0
+qmix_no_balance_reward N=3 seed=47 322/2500
+qmix_no_balance_reward N=3 seed=47 648/2500
+qmix_no_balance_reward N=3 seed=47 986/2500
+qmix_no_balance_reward N=3 seed=47 1301/2500
+qmix_no_balance_reward N=3 seed=47 1848/2500
+qmix_no_balance_reward N=3 seed=47 2448/2500

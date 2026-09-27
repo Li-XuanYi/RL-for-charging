@@ -1,0 +1,8 @@
+TRAIN qmix_vdn N=3 seed=27 steps=2500 device=cuda:0
+qmix_vdn N=3 seed=27 372/2500
+qmix_vdn N=3 seed=27 692/2500
+qmix_vdn N=3 seed=27 967/2500
+qmix_vdn N=3 seed=27 1251/2500
+qmix_vdn N=3 seed=27 1534/2500
+qmix_vdn N=3 seed=27 1959/2500
+qmix_vdn N=3 seed=27 2297/2500

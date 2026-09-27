@@ -1,0 +1,7 @@
+TRAIN qmix_no_mixer_shared N=3 seed=7 steps=2500 device=cuda:0
+qmix_no_mixer_shared N=3 seed=7 375/2500
+qmix_no_mixer_shared N=3 seed=7 773/2500
+qmix_no_mixer_shared N=3 seed=7 1131/2500
+qmix_no_mixer_shared N=3 seed=7 1423/2500
+qmix_no_mixer_shared N=3 seed=7 1713/2500
+qmix_no_mixer_shared N=3 seed=7 2187/2500

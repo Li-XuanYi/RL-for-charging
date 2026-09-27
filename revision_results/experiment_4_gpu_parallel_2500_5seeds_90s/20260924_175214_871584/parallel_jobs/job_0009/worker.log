@@ -5,3 +5,4 @@ qmix_no_gru N=3 seed=47 880/2500
 qmix_no_gru N=3 seed=47 1230/2500
 qmix_no_gru N=3 seed=47 1574/2500
 qmix_no_gru N=3 seed=47 1871/2500
+qmix_no_gru N=3 seed=47 2226/2500

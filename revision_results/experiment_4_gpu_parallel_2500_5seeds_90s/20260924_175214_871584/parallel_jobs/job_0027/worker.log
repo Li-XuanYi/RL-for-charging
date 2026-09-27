@@ -1,0 +1,8 @@
+TRAIN qmix_unshared N=3 seed=27 steps=2500 device=cuda:0
+qmix_unshared N=3 seed=27 362/2500
+qmix_unshared N=3 seed=27 737/2500
+qmix_unshared N=3 seed=27 1077/2500
+qmix_unshared N=3 seed=27 1417/2500
+qmix_unshared N=3 seed=27 1752/2500
+qmix_unshared N=3 seed=27 2088/2500
+qmix_unshared N=3 seed=27 2435/2500

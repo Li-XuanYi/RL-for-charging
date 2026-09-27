@@ -1,0 +1,4 @@
+﻿steps,success_rate,constraint_rate,negative_capped_time
+1023,1.0,1.0,-3600.0
+2008,1.0,1.0,-3217.5
+2500,1.0,1.0,-3330.0

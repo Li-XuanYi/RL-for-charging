@@ -1,0 +1,13 @@
+{
+  "cpu_rss_start_bytes": 638779392,
+  "cpu_rss_end_bytes": 2177576960,
+  "cpu_rss_sampled_peak_bytes": 2190344192,
+  "rss_sample_interval_s": 0.25,
+  "device": "cuda:0",
+  "wall_s": 6361.5112526869925,
+  "rss_error": null,
+  "scope": "Current process including solver and caches; sampled RSS peak is a lower bound, not isolated deployed network memory.",
+  "cuda_peak_allocated_bytes": 153481728,
+  "cuda_peak_reserved_bytes": 163577856,
+  "cuda_memory_scope": "PyTorch allocator for this process; excludes driver/context and other jobs"
+}
