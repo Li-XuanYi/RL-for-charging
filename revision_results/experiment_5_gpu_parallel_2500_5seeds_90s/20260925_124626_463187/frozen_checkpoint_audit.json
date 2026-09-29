@@ -1,0 +1,162 @@
+[
+  {
+    "method_id": "qmix",
+    "seed": 7,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_185259_914157/qmix/seed_7/training/selected.pt",
+    "sha256_before": "31dfe0c9100be8adde73635d521466f16bdbf8f8c52c2ea65208bb10be6d116d",
+    "sha256_after": "31dfe0c9100be8adde73635d521466f16bdbf8f8c52c2ea65208bb10be6d116d",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix",
+    "seed": 17,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_185259_914157/qmix/seed_17/training/selected.pt",
+    "sha256_before": "6f4a782cfd98653186120ff7327ab61939b73e5df357e90f03cd052b6191ef04",
+    "sha256_after": "6f4a782cfd98653186120ff7327ab61939b73e5df357e90f03cd052b6191ef04",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix",
+    "seed": 27,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_185259_914157/qmix/seed_27/training/selected.pt",
+    "sha256_before": "48e39ef5489988a2f03223778274ad40f7c2dd11aaddd5ecbcbd5445d85660c4",
+    "sha256_after": "48e39ef5489988a2f03223778274ad40f7c2dd11aaddd5ecbcbd5445d85660c4",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix",
+    "seed": 37,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_185259_914157/qmix/seed_37/training/selected.pt",
+    "sha256_before": "3cd4d15142d8d4a5e0c6b8f256fda16b333f570499f4dd4f2300c53ed7f134cd",
+    "sha256_after": "3cd4d15142d8d4a5e0c6b8f256fda16b333f570499f4dd4f2300c53ed7f134cd",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix",
+    "seed": 47,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_185259_914157/qmix/seed_47/training/selected.pt",
+    "sha256_before": "7d005ec95cb214a400d1359bcf9fa4b26b95f447167b6abe38c8d1df6acb9f06",
+    "sha256_after": "7d005ec95cb214a400d1359bcf9fa4b26b95f447167b6abe38c8d1df6acb9f06",
+    "unchanged": true
+  },
+  {
+    "method_id": "mappo",
+    "seed": 7,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_185259_914157/mappo/seed_7/training/selected.pt",
+    "sha256_before": "aa2b5844798df3fbdde5341f521552c05cc9fa973af527cc7c732c58223b3ac1",
+    "sha256_after": "aa2b5844798df3fbdde5341f521552c05cc9fa973af527cc7c732c58223b3ac1",
+    "unchanged": true
+  },
+  {
+    "method_id": "mappo",
+    "seed": 17,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_185259_914157/mappo/seed_17/training/selected.pt",
+    "sha256_before": "2baf60ef1c399c938132abb44cde863b5b6ea3b99475d4103eeebabab64144c2",
+    "sha256_after": "2baf60ef1c399c938132abb44cde863b5b6ea3b99475d4103eeebabab64144c2",
+    "unchanged": true
+  },
+  {
+    "method_id": "mappo",
+    "seed": 27,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_185259_914157/mappo/seed_27/training/selected.pt",
+    "sha256_before": "f62962588e2589991a0394c05662efc9c962e8dc0858c875f193718cb209d7f2",
+    "sha256_after": "f62962588e2589991a0394c05662efc9c962e8dc0858c875f193718cb209d7f2",
+    "unchanged": true
+  },
+  {
+    "method_id": "mappo",
+    "seed": 37,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_185259_914157/mappo/seed_37/training/selected.pt",
+    "sha256_before": "983dfc391c28a60bad1b75d35ae1c031b9a462897373ee96d2394689fdc31c57",
+    "sha256_after": "983dfc391c28a60bad1b75d35ae1c031b9a462897373ee96d2394689fdc31c57",
+    "unchanged": true
+  },
+  {
+    "method_id": "mappo",
+    "seed": 47,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_185259_914157/mappo/seed_47/training/selected.pt",
+    "sha256_before": "baa13b5c7bdd130349029972a92dfce6b104b93f2c04b7e4db6644a9f2f81468",
+    "sha256_after": "baa13b5c7bdd130349029972a92dfce6b104b93f2c04b7e4db6644a9f2f81468",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix_reward_reference",
+    "seed": 7,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_5_gpu_parallel_2500_5seeds_90s/20260925_124626_463187/training/qmix_reward_reference/seed_7/selected.pt",
+    "sha256_before": "2c97c9331b0a8ba5136f1f5213785618d86a5016849f054bd19eb3070570a1a9",
+    "sha256_after": "2c97c9331b0a8ba5136f1f5213785618d86a5016849f054bd19eb3070570a1a9",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix_reward_reference",
+    "seed": 17,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_5_gpu_parallel_2500_5seeds_90s/20260925_124626_463187/training/qmix_reward_reference/seed_17/selected.pt",
+    "sha256_before": "8dbe7f4e2d5ae3c11590b7f5c8d1c5b9821e33798e2bec5424fa1c03b33f8f20",
+    "sha256_after": "8dbe7f4e2d5ae3c11590b7f5c8d1c5b9821e33798e2bec5424fa1c03b33f8f20",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix_reward_reference",
+    "seed": 27,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_5_gpu_parallel_2500_5seeds_90s/20260925_124626_463187/training/qmix_reward_reference/seed_27/selected.pt",
+    "sha256_before": "c990c702beb610e72e3288a4f502a57b206ef94583fa9d26cdf6c3059bceb068",
+    "sha256_after": "c990c702beb610e72e3288a4f502a57b206ef94583fa9d26cdf6c3059bceb068",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix_reward_reference",
+    "seed": 37,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_5_gpu_parallel_2500_5seeds_90s/20260925_124626_463187/training/qmix_reward_reference/seed_37/selected.pt",
+    "sha256_before": "a2e0c479308fd8b79943384dbae228027fa3f89887ce76292f6fc40de7dab76d",
+    "sha256_after": "a2e0c479308fd8b79943384dbae228027fa3f89887ce76292f6fc40de7dab76d",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix_reward_reference",
+    "seed": 47,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_5_gpu_parallel_2500_5seeds_90s/20260925_124626_463187/training/qmix_reward_reference/seed_47/selected.pt",
+    "sha256_before": "5e72d121d8e80c7d57e3ff2283936e4414269103c5e7bd94e42169cb6f3c6ebd",
+    "sha256_after": "5e72d121d8e80c7d57e3ff2283936e4414269103c5e7bd94e42169cb6f3c6ebd",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix_domain_random",
+    "seed": 7,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_5_gpu_parallel_2500_5seeds_90s/20260925_124626_463187/training/qmix_domain_random/seed_7/selected.pt",
+    "sha256_before": "ad18655c055adf0cc59734fd8114fdd116aa8e43335c2df15e1b5aa0eebe9ce7",
+    "sha256_after": "ad18655c055adf0cc59734fd8114fdd116aa8e43335c2df15e1b5aa0eebe9ce7",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix_domain_random",
+    "seed": 17,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_5_gpu_parallel_2500_5seeds_90s/20260925_124626_463187/training/qmix_domain_random/seed_17/selected.pt",
+    "sha256_before": "cb1793d7b6676033f250076d44e51bd4c1f5f0abc0feeb8f5a0442c7f6f97371",
+    "sha256_after": "cb1793d7b6676033f250076d44e51bd4c1f5f0abc0feeb8f5a0442c7f6f97371",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix_domain_random",
+    "seed": 27,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_5_gpu_parallel_2500_5seeds_90s/20260925_124626_463187/training/qmix_domain_random/seed_27/selected.pt",
+    "sha256_before": "4d6c897a5f117b1ff72b76055e732177e138bdc185bf0293b37a1796c82140df",
+    "sha256_after": "4d6c897a5f117b1ff72b76055e732177e138bdc185bf0293b37a1796c82140df",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix_domain_random",
+    "seed": 37,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_5_gpu_parallel_2500_5seeds_90s/20260925_124626_463187/training/qmix_domain_random/seed_37/selected.pt",
+    "sha256_before": "7c38272ce649c918cdee1b51ffd0d9a095dccb7bf38df9c8ef67d127e06e328f",
+    "sha256_after": "7c38272ce649c918cdee1b51ffd0d9a095dccb7bf38df9c8ef67d127e06e328f",
+    "unchanged": true
+  },
+  {
+    "method_id": "qmix_domain_random",
+    "seed": 47,
+    "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_5_gpu_parallel_2500_5seeds_90s/20260925_124626_463187/training/qmix_domain_random/seed_47/selected.pt",
+    "sha256_before": "b91d8822fa92a680072571876b1ce03eb198312797e729f1e26d34572fb92be3",
+    "sha256_after": "b91d8822fa92a680072571876b1ce03eb198312797e729f1e26d34572fb92be3",
+    "unchanged": true
+  }
+]

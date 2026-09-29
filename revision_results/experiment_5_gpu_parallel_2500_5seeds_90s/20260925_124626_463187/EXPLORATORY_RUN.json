@@ -1,0 +1,13 @@
+{
+  "training_steps": 2500,
+  "seeds": [
+    7,
+    17,
+    27,
+    37,
+    47
+  ],
+  "decision_s": 90.0,
+  "formal_evidence": false,
+  "device": "cuda:0"
+}

@@ -1,0 +1,266 @@
+{
+  "experiment": 5,
+  "specs": [
+    {
+      "method": "qmix",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 0.75,
+        "balance": 50.0,
+        "voltage": 20.0,
+        "temperature": 2.0
+      },
+      "epsilon_start": 0.5,
+      "learning_rate": 0.0002,
+      "id": "qmix_reward_reference"
+    },
+    {
+      "method": "qmix",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 1.0,
+        "balance": 1.0,
+        "voltage": 1.0,
+        "temperature": 1.0
+      },
+      "epsilon_start": 0.5,
+      "learning_rate": 0.0002,
+      "id": "qmix_reward_all_unit_raw"
+    },
+    {
+      "method": "qmix",
+      "shield": true,
+      "reward_mode": "normalized_unit",
+      "reward_weights": {
+        "time": 1.0,
+        "balance": 1.0,
+        "voltage": 1.0,
+        "temperature": 1.0
+      },
+      "epsilon_start": 0.5,
+      "learning_rate": 0.0002,
+      "id": "qmix_reward_all_unit_normalized",
+      "reward_normalizers": {
+        "time": 1.0,
+        "balance": 0.1,
+        "voltage": 0.1,
+        "temperature": 10.0
+      }
+    },
+    {
+      "method": "qmix",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 0.375,
+        "balance": 50.0,
+        "voltage": 20.0,
+        "temperature": 2.0
+      },
+      "epsilon_start": 0.5,
+      "learning_rate": 0.0002,
+      "id": "qmix_reward_time_half"
+    },
+    {
+      "method": "qmix",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 1.5,
+        "balance": 50.0,
+        "voltage": 20.0,
+        "temperature": 2.0
+      },
+      "epsilon_start": 0.5,
+      "learning_rate": 0.0002,
+      "id": "qmix_reward_time_double"
+    },
+    {
+      "method": "qmix",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 0.75,
+        "balance": 25.0,
+        "voltage": 20.0,
+        "temperature": 2.0
+      },
+      "epsilon_start": 0.5,
+      "learning_rate": 0.0002,
+      "id": "qmix_reward_balance_half"
+    },
+    {
+      "method": "qmix",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 0.75,
+        "balance": 100.0,
+        "voltage": 20.0,
+        "temperature": 2.0
+      },
+      "epsilon_start": 0.5,
+      "learning_rate": 0.0002,
+      "id": "qmix_reward_balance_double"
+    },
+    {
+      "method": "qmix",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 0.75,
+        "balance": 50.0,
+        "voltage": 10.0,
+        "temperature": 2.0
+      },
+      "epsilon_start": 0.5,
+      "learning_rate": 0.0002,
+      "id": "qmix_reward_voltage_half"
+    },
+    {
+      "method": "qmix",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 0.75,
+        "balance": 50.0,
+        "voltage": 40.0,
+        "temperature": 2.0
+      },
+      "epsilon_start": 0.5,
+      "learning_rate": 0.0002,
+      "id": "qmix_reward_voltage_double"
+    },
+    {
+      "method": "qmix",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 0.75,
+        "balance": 50.0,
+        "voltage": 20.0,
+        "temperature": 1.0
+      },
+      "epsilon_start": 0.5,
+      "learning_rate": 0.0002,
+      "id": "qmix_reward_temperature_half"
+    },
+    {
+      "method": "qmix",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 0.75,
+        "balance": 50.0,
+        "voltage": 20.0,
+        "temperature": 4.0
+      },
+      "epsilon_start": 0.5,
+      "learning_rate": 0.0002,
+      "id": "qmix_reward_temperature_double"
+    },
+    {
+      "method": "qmix",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 0.75,
+        "balance": 50.0,
+        "voltage": 20.0,
+        "temperature": 2.0
+      },
+      "epsilon_start": 1.0,
+      "learning_rate": 0.0002,
+      "id": "qmix_epsilon_one"
+    },
+    {
+      "method": "dqn",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 0.75,
+        "balance": 50.0,
+        "voltage": 20.0,
+        "temperature": 2.0
+      },
+      "epsilon_start": 0.5,
+      "learning_rate": 0.0002,
+      "id": "dqn_epsilon_reference"
+    },
+    {
+      "method": "dqn",
+      "shield": true,
+      "reward_mode": "raw",
+      "reward_weights": {
+        "time": 0.75,
+        "balance": 50.0,
+        "voltage": 20.0,
+        "temperature": 2.0
+      },
+      "epsilon_start": 1.0,
+      "learning_rate": 0.0002,
+      "id": "dqn_epsilon_one"
+    }
+  ],
+  "domain_random_spec": {
+    "method": "qmix",
+    "shield": true,
+    "reward_mode": "raw",
+    "reward_weights": {
+      "time": 0.75,
+      "balance": 50.0,
+      "voltage": 20.0,
+      "temperature": 2.0
+    },
+    "epsilon_start": 0.5,
+    "learning_rate": 0.0002,
+    "id": "qmix_domain_random",
+    "domain_randomization": true
+  },
+  "validation_only_selection": true,
+  "training_seeds": [
+    7,
+    17,
+    27,
+    37,
+    47
+  ],
+  "nominal_control_retrained_for_sensitivity": true,
+  "learning_rate": 0.0002,
+  "learning_rate_source": "Each method retains its E3 declared setting: QMIX for reward/domain groups, DQN for DQN exploration controls.",
+  "one_factor_at_a_time": "Raw unit reward and normalized unit reward are explicit additional multi-coefficient controls.",
+  "unit_reward": "All four physical penalty gains equal one; numerical failure penalty is unchanged and reported separately.",
+  "normalization": "Predeclared scales: time 1, SOC spread excess 0.1, voltage excess 0.1 V, temperature excess 10 K. No scales estimated from final test outcomes.",
+  "frozen_transfer": "All E3 qmix/mappo seeds plus E5 nominal and domain randomized QMIX; no test-time learning or best-seed selection.",
+  "domain_randomization_training": {
+    "ambient_K": [
+      288.15,
+      303.15
+    ],
+    "parameter_indices": [
+      0,
+      1,
+      6,
+      7
+    ],
+    "relative_shift": [
+      -0.05,
+      0.05
+    ],
+    "observation_noise_std": [
+      0.01,
+      0.005,
+      0.5
+    ]
+  },
+  "paired_cases": "Each perturbation has the same initial SOC and sensor random stream as its nominal reference for every method.",
+  "temperature_scope": "Stationary ambient and initial temperatures; not a dynamic ambient-step experiment.",
+  "temperature_feasibility_control": "At default 1 K screening margin, 35 C starts above the 308 K screen threshold even at zero current. This is an explicit negative control of screen feasibility, not evidence of learned-policy weakness or physical task infeasibility. 34 C provides the additional warm condition inside the initial margin.",
+  "dynamic_test": "At 900 s every cell current cap becomes 70% of 7.5 A; the 5.25 A ceiling is floored to 5.0 A on the shared 0.5 A discrete action grid. this is a current-authority disturbance, not an electrical constant-power or shared-supply model.",
+  "parameter_scope": "Synthetic perturbations of diffusivities, convection, and heat capacities; not independent measured-cell validation.",
+  "hold_and_failures": "Retain all timeouts, protective stops, and numerical failures; success requires terminal hold and constraints.",
+  "shield_reward_interaction": "The common safety screen may prevent voltage and temperature penalties from activating. Insensitivity in this protected system does not establish robustness of the original unprotected reward design.",
+  "authored_without_execution": true
+}
