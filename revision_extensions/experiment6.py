@@ -141,9 +141,10 @@ def _scaled_cases(vectors, n_agents, cfg, seed, count, prefix):
         plant = original.get('plant_vectors', vectors)
         case['plant_vectors'] = _tile_vectors(plant, n_agents).tolist()
         case['test_family'] = 'replicated_triplet_scaling'
-        case['scaling_construction'] = 'Replicate original calibrated triplet and '
-                                       'its initial SOC; preserves per-cell SOC '
-                                       'distribution while increasing agent count.'
+        case['scaling_construction'] = (
+            'Replicate original calibrated triplet and '
+            'its initial SOC; preserves per-cell SOC '
+            'distribution while increasing agent count.')
         result.append(case)
     return result
 

@@ -1,0 +1,67 @@
+{
+  "protocol_version": "E6-GPU-PARALLEL-1.0",
+  "seeds": [
+    7,
+    17,
+    27,
+    37,
+    47
+  ],
+  "decision_s": 90.0,
+  "training_steps": 2500,
+  "checkpoint_every_steps": 1000,
+  "update_every_collected_steps": 50,
+  "batch_size": 32,
+  "max_sequence_length": 80,
+  "learning_rate": 0.0002,
+  "gamma_per_90s": 0.99,
+  "replay_episodes": 800,
+  "target_sync_every_episodes": 50,
+  "epsilon_start": 0.5,
+  "epsilon_end": 0.05,
+  "epsilon_decay_fraction": 0.8,
+  "rollout_batch_steps": 256,
+  "ppo_epochs": 10,
+  "minibatch_size": 256,
+  "gae_lambda": 0.95,
+  "clip_ratio": 0.2,
+  "entropy_coef": 0.01,
+  "closed_loop_pack_sizes": [
+    3,
+    6,
+    12
+  ],
+  "inference_only_pack_sizes": [
+    24,
+    48,
+    96
+  ],
+  "inference_warmup": 50,
+  "inference_repetitions": 500,
+  "inference_seed": 690999,
+  "validation_count": 4,
+  "test_count": 12,
+  "validation_seed": 690901,
+  "test_seed": 690902,
+  "bootstrap_seed": 690903,
+  "bootstrap_replicates": 2000,
+  "cpu_threads": 4,
+  "scope": "synthetic_replicated_triplet_parallel_training_separate_CPU_CUDA_inference_profiling",
+  "device": "cuda:0",
+  "exploratory": true,
+  "result_tag": "gpu_parallel_2500_5seeds_90s",
+  "upstream_result_tags": {
+    "3": "gpu_parallel_2500_5seeds_90s",
+    "4": "gpu_parallel_2500_5seeds_90s",
+    "5": "gpu_parallel_2500_5seeds_90s",
+    "6": "gpu_parallel_2500_5seeds_90s"
+  },
+  "upstream_results": {
+    "1": "revision_results/experiment_1/20260920_105021_516059"
+  },
+  "upstream_e2_slice_manifest": "revision_gpu/configs/e2_completed_90s_manifest.json",
+  "benchmark_devices": [
+    "cpu",
+    "cuda:0"
+  ]
+}

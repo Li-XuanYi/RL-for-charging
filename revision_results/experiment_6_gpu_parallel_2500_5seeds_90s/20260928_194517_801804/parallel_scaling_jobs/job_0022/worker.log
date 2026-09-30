@@ -1,0 +1,7 @@
+TRAIN qmix N=12 seed=27 steps=2500 device=cuda:0
+TRAIN qmix N=12 seed=27 steps=2500 device=cuda:0
+qmix N=12 seed=27 468/2500
+qmix N=12 seed=27 969/2500
+qmix N=12 seed=27 1465/2500
+qmix N=12 seed=27 1923/2500
+qmix N=12 seed=27 2376/2500

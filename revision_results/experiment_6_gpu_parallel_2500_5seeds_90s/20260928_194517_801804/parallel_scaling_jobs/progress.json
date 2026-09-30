@@ -1,0 +1,36 @@
+{
+  "completed": 23,
+  "total": 30,
+  "active": [
+    {
+      "index": 20,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_6_gpu_parallel_2500_5seeds_90s/20260928_194517_801804/parallel_scaling_jobs/job_0020/worker.log",
+      "pid": 295469
+    },
+    {
+      "index": 22,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_6_gpu_parallel_2500_5seeds_90s/20260928_194517_801804/parallel_scaling_jobs/job_0022/worker.log",
+      "pid": 295470
+    },
+    {
+      "index": 24,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_6_gpu_parallel_2500_5seeds_90s/20260928_194517_801804/parallel_scaling_jobs/job_0024/worker.log",
+      "pid": 295473
+    },
+    {
+      "index": 26,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_6_gpu_parallel_2500_5seeds_90s/20260928_194517_801804/parallel_scaling_jobs/job_0026/worker.log",
+      "pid": 295475
+    },
+    {
+      "index": 27,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_6_gpu_parallel_2500_5seeds_90s/20260928_194517_801804/parallel_scaling_jobs/job_0027/worker.log",
+      "pid": 295476
+    },
+    {
+      "index": 28,
+      "log": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_6_gpu_parallel_2500_5seeds_90s/20260928_194517_801804/parallel_scaling_jobs/job_0028/worker.log",
+      "pid": 295478
+    }
+  ]
+}

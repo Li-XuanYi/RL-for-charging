@@ -1,0 +1,14 @@
+{
+  "gpu_slots": [
+    "GPU-b8a9b253-8713-5d3b-1d65-e007fbdb7588",
+    "GPU-b8a9b253-8713-5d3b-1d65-e007fbdb7588",
+    "GPU-b8a9b253-8713-5d3b-1d65-e007fbdb7588",
+    "GPU-b8a9b253-8713-5d3b-1d65-e007fbdb7588",
+    "GPU-b8a9b253-8713-5d3b-1d65-e007fbdb7588",
+    "GPU-b8a9b253-8713-5d3b-1d65-e007fbdb7588"
+  ],
+  "job_count": 30,
+  "parallel_unit": "independent algorithm/seed/pack-size job; no distributed-gradient training",
+  "per_worker_cpu_threads": 4,
+  "order": "results merged in declared order"
+}

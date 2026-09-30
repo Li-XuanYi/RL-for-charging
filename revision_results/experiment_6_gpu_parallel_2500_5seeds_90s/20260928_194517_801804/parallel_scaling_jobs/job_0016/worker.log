@@ -1,0 +1,7 @@
+TRAIN mappo N=6 seed=17 steps=2500 device=cuda:0
+mappo N=6 seed=17 387/2500
+mappo N=6 seed=17 784/2500
+mappo N=6 seed=17 1177/2500
+mappo N=6 seed=17 1574/2500
+mappo N=6 seed=17 1985/2500
+mappo N=6 seed=17 2409/2500

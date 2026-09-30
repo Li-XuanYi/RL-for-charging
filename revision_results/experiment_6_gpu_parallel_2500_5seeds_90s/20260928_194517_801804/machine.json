@@ -1,0 +1,16 @@
+{
+  "platform": "Linux-6.17.0-23-generic-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "logical_cpu_count": 192,
+  "python": "3.11.15",
+  "torch": "2.7.1+cu128",
+  "numpy": "1.26.4",
+  "cpu_threads": 4,
+  "training_device": "cuda:0",
+  "benchmark_devices": [
+    "cpu",
+    "cuda:0"
+  ],
+  "timing_clock": "time.perf_counter_ns monotonic wall time",
+  "host_load_caveat": "No control over OS scheduling or other foreground processes."
+}

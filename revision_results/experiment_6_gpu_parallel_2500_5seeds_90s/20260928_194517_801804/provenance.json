@@ -1,0 +1,228 @@
+{
+  "python": "3.11.15 (main, Mar 24 2026, 22:50:29) [Clang 22.1.1 ]",
+  "platform": "Linux-6.17.0-23-generic-x86_64-with-glibc2.39",
+  "packages": {
+    "numpy": "1.26.4",
+    "torch": "2.7.1+cu128",
+    "pybamm": "25.4.2",
+    "casadi": "3.6.7",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.3"
+  },
+  "source_files": [
+    {
+      "path": "revision_gpu/requirements-lock.txt",
+      "sha256": "68b7f38a5a78d16dc9f1a98f5912d41bf1ab5bcd2eb0ac990a01471950664435"
+    },
+    {
+      "path": "revision_gpu/resources.py",
+      "sha256": "8e68cf0dd90a8adc4e0c1e44013f2b86b9770f7c4d257b8b6f13793977d2402b"
+    },
+    {
+      "path": "revision_gpu/paths.py",
+      "sha256": "9f1a52030127d0bef2cb0705a2d9e7678d4d2557417411978e35e986322c29dc"
+    },
+    {
+      "path": "revision_gpu/portable.py",
+      "sha256": "8ee89a10943c6ed5230121f764543130f0e9ace7a392364e7bea0f3d17e0142a"
+    },
+    {
+      "path": "revision_gpu/study_metrics.py",
+      "sha256": "04a81dbaaada38564ef6274ccdd761f7213daedc3d56295b2622ddd26a136574"
+    },
+    {
+      "path": "revision_gpu/bootstrap_gpu.py",
+      "sha256": "1378fe0fdb59e0e494ac8267c3ccf2a9c42f7489d78de77fcfebf1575267274c"
+    },
+    {
+      "path": "revision_gpu/STATIC_REVIEW.md",
+      "sha256": "aad24df699600048f1be76669f7f35d95c279d46fec620eb2b6acdd92e55eb12"
+    },
+    {
+      "path": "revision_gpu/bootstrap.py",
+      "sha256": "b0480a0016205510b5e9ff6e8bc3d9d88c7ba6c24576afbb49a7b86db550ec28"
+    },
+    {
+      "path": "revision_gpu/study_core.py",
+      "sha256": "34f6ab562b135fe17a76a0910dd6ab6a8cca82d6051df82a231dd9ebe8ca96a7"
+    },
+    {
+      "path": "revision_gpu/run_study.py",
+      "sha256": "51b39b01ede2bd10ef7bdd5238260124270fe8e7805b8c31672e8ba79c6e1642"
+    },
+    {
+      "path": "revision_gpu/parallel_jobs.py",
+      "sha256": "0f5da4e5e20ee6a9d12bb799784278ab7b7001ddfdef23ee665052cdcdcddeb0"
+    },
+    {
+      "path": "revision_gpu/study_statistics.py",
+      "sha256": "066a9341279bd427fec2293066dfc366846f259cbfa8093d2d635d287c9dce9b"
+    },
+    {
+      "path": "revision_gpu/experiment5.py",
+      "sha256": "3c4fde7ed3aab7ed982ea6032af7e5bab242bc2b6f783fd39acdcf1c4877a420"
+    },
+    {
+      "path": "revision_gpu/experiment3.py",
+      "sha256": "27b497987ab09e63ece434b27c2f718690140851614cb2411e0f82554e6eaa97"
+    },
+    {
+      "path": "revision_gpu/actor_agents.py",
+      "sha256": "038c8efb13937b4f08fc5da4ff861a64f1ad9acc8198244d5cf64f0750202865"
+    },
+    {
+      "path": "revision_gpu/value_agents.py",
+      "sha256": "54dfca684bb94347a02388b6c4aadbf7adafaa06699e690983a7aec4b00fb901"
+    },
+    {
+      "path": "revision_gpu/experiment4.py",
+      "sha256": "0225a11bf91ba811426983c2b167394295fd4bdf926f9515045b4be2c05c94fd"
+    },
+    {
+      "path": "revision_gpu/study_control.py",
+      "sha256": "0c8738385453996a92d02ded52798fa9a35120fb6932c9cbc41c0d20bdbaf50f"
+    },
+    {
+      "path": "revision_gpu/experiment6.py",
+      "sha256": "abadd3ea6c97b602e4c77fcfb770d2d3b2252e65131184ec154e6f2b2e5e2640"
+    },
+    {
+      "path": "revision_gpu/README.md",
+      "sha256": "91cc76f97ec007b01477addadefde8fc21da5fc3b30da8d6b3a26623019fdfd6"
+    },
+    {
+      "path": "revision_gpu/e2_slice.py",
+      "sha256": "84f36a80fc1990d21ffe5707e9a511cb2ed444d235acdf9c040be0909a496c62"
+    },
+    {
+      "path": "revision_gpu/configs/experiment_3.json",
+      "sha256": "39be66cba60e24a3412c7160bc2d4730237ed829af93a4f2bf9a16cf307d6d60"
+    },
+    {
+      "path": "revision_gpu/configs/experiment_4.json",
+      "sha256": "f8498506890969981480cb8409e09d16f710b1263a1834d8e82d59b7afd35a00"
+    },
+    {
+      "path": "revision_gpu/configs/experiment_5.json",
+      "sha256": "826800a77eb986488014628e8ce41c621adc554259e5913fa9d3baaff3bb5959"
+    },
+    {
+      "path": "revision_gpu/configs/e6_syntax_repair_bridge.json",
+      "sha256": "7b72b8e44c079f73e6758d1cbac50f75a4d3b29e990bcda9dbaf0c3802ad3e72"
+    },
+    {
+      "path": "revision_gpu/configs/e2_completed_90s_manifest.windows_backup.json",
+      "sha256": "455886bae855e12e4d6c46e0f1b369ff0dd5670220aac887a92e533cd4ba56fd"
+    },
+    {
+      "path": "revision_gpu/configs/experiment_6.json",
+      "sha256": "35948780117dacf764d823df878c1ad769f749becc8c23e2f65442c5d321e5b6"
+    },
+    {
+      "path": "revision_gpu/configs/e2_completed_90s_manifest.json",
+      "sha256": "b97fa992d649b941999e31ba1e631a731e0fce7ee12fe4a56aa15791780d81aa"
+    },
+    {
+      "path": "revision_experiments/requirements-lock.txt",
+      "sha256": "68b7f38a5a78d16dc9f1a98f5912d41bf1ab5bcd2eb0ac990a01471950664435"
+    },
+    {
+      "path": "revision_experiments/experiment2.py",
+      "sha256": "44fd46c1a9d11b5ea035cbd8d04c989f6a10e66bc1746326473fed340899a521"
+    },
+    {
+      "path": "revision_experiments/E2_exploratory_4000_2seeds_README.md",
+      "sha256": "ec8f130f08baa5107bb4b663c5575e86da1393a1f4606d93d76a2197cb740552"
+    },
+    {
+      "path": "revision_experiments/E1_E2_precision_repair.md",
+      "sha256": "9de292a82d961ac019c8efe00e996b6241ed39c90de110cf9a45f4891d3b873b"
+    },
+    {
+      "path": "revision_experiments/fit_recovery.py",
+      "sha256": "cf9ba1b4d6abeb503b672c6a99054a105f89736a9210efd19e7495b27fb44cde"
+    },
+    {
+      "path": "revision_experiments/common.py",
+      "sha256": "a583176d4014555978c6a1cc57420868284f6b13004f9c15b85547cf751b3921"
+    },
+    {
+      "path": "revision_experiments/bootstrap.py",
+      "sha256": "05b21c6c9e4fbc2f0469dde05bf164f8d12424ec90366d2fcdf95fd445a279a0"
+    },
+    {
+      "path": "revision_experiments/control.py",
+      "sha256": "b86797a2d73992a04b12a089d3ee970b036b675628753123102df63937d9e45c"
+    },
+    {
+      "path": "revision_experiments/original_parameters.json",
+      "sha256": "80ba843f481036e12e1487b97765d1d892ceb72d41254d1dc4f1b2751772c1ca"
+    },
+    {
+      "path": "revision_experiments/learner.py",
+      "sha256": "70b57a5c64e1e89661c62c29385a83bc5080350fcdbaf000bf2393cde466334c"
+    },
+    {
+      "path": "revision_experiments/experiment1.py",
+      "sha256": "3b6d43ee29ed806edf8e13ab5513e3f27e78d59cc38f3d672ed6d3f03201d64e"
+    },
+    {
+      "path": "revision_experiments/evaluation.py",
+      "sha256": "58c45c0658ad69509dbb5e29e37cd01110a068599ed73f9b19a977644bb8afe1"
+    },
+    {
+      "path": "revision_experiments/run_experiment.py",
+      "sha256": "842a5231e3a77acc50d34aee66fc9ea24200a1b27d6db59643299bef69dadbcf"
+    },
+    {
+      "path": "revision_experiments/data_metadata.example.json",
+      "sha256": "4e6a08629e1b29ffc65e83589908dc0c0eff928bdcf89bf52b25eb5421b0f55d"
+    },
+    {
+      "path": "revision_experiments/model.py",
+      "sha256": "8d3e65edf2bbac2f79df5f906565ad5b14c472f46eb3a83f1a7da4ac7cb2ae05"
+    },
+    {
+      "path": "revision_experiments/E2_exploratory_2500_2seeds_README.md",
+      "sha256": "1d8acdbef65fd5290e90bad3a5ce2150e3ed8db1f77f503e2173d07d2e2feccd"
+    },
+    {
+      "path": "revision_experiments/README.md",
+      "sha256": "22c5de70b87fcabd9cb78c10a03b42c23f5236fce49fce1fa09eee0546c286d0"
+    },
+    {
+      "path": "revision_experiments/vendor/NN.py",
+      "sha256": "84959446e5ac068cc002ad0f1a18cb26e731d25827c0c6955aa2ee1ef2bfb441"
+    },
+    {
+      "path": "revision_experiments/vendor/__init__.py",
+      "sha256": "c266f6a586e5762c26736b05ad925e5d4723e84cb3847425e559cc71a2a1a293"
+    },
+    {
+      "path": "revision_experiments/configs/experiment_2_exploratory_2500_2seeds_90s.json",
+      "sha256": "2e212ba5141a50f4e602c1b78c8894c1e77bc296386b2e956a6addc209806a0c"
+    },
+    {
+      "path": "revision_experiments/configs/experiment_2_exploratory_2500_2seeds.json",
+      "sha256": "69cbeeb531d78b4d5a308b302c90e55e6b233f455719c31269f6ae6679e9ce93"
+    },
+    {
+      "path": "revision_experiments/configs/experiment_2_exploratory_4000_2seeds.json",
+      "sha256": "8647aa16b45898773e1434c0c0ea0b25f44e0dd0675d51f076aa86dfd8dbc0a2"
+    },
+    {
+      "path": "revision_experiments/configs/experiment_1_recheck.json",
+      "sha256": "4144eff870a20373f1a52c64294ec16b203fb27b65401dabb8c5a75c675dc414"
+    },
+    {
+      "path": "revision_experiments/configs/experiment_2.json",
+      "sha256": "1e3307b2ece6be7dbf724931a9bdefff0633036f8bf5d99c46fc291e4f422ff1"
+    },
+    {
+      "path": "revision_experiments/configs/experiment_1.json",
+      "sha256": "59a8bc28f771d4ffa1d2b4fbcfee43397ee70f3734aea10c797d668ab056ab08"
+    }
+  ],
+  "config_sha256": "35948780117dacf764d823df878c1ad769f749becc8c23e2f65442c5d321e5b6",
+  "delivery_validation": "Static review only. Assistant did not execute any Python/CMD/test or experiment."
+}

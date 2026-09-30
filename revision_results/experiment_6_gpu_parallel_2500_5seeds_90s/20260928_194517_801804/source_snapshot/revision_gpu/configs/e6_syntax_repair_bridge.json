@@ -1,0 +1,11 @@
+{
+  "purpose": "Permit E6 to consume completed E3-E5 runs after the audited, semantics-preserving E6 string-literal repair. All other code fingerprints must match exactly.",
+  "upstream_fingerprint": {
+    "revision_gpu/experiment6.py": "062869e82c7e5e06f2f8ec3a5134171a616fc358712666656964e419385bf3bf",
+    "revision_gpu/study_core.py": "7c6ce847e7381b2eabd930fa2cb1dff18e83735bad61e2edf777048d6b838f32"
+  },
+  "repaired_fingerprint": {
+    "revision_gpu/experiment6.py": "abadd3ea6c97b602e4c77fcfb770d2d3b2252e65131184ec154e6f2b2e5e2640",
+    "revision_gpu/study_core.py": "34f6ab562b135fe17a76a0910dd6ab6a8cca82d6051df82a231dd9ebe8ca96a7"
+  }
+}

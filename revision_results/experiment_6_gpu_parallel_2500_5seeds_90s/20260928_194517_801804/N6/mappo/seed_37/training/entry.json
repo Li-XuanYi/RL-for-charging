@@ -1,0 +1,153 @@
+{
+  "spec": {
+    "id": "mappo",
+    "method": "mappo",
+    "shield": true,
+    "learning_rate": 0.0002
+  },
+  "seed": 37,
+  "n_agents": 6,
+  "method_id": "mappo",
+  "method": "mappo",
+  "action_kind": "discrete",
+  "learning_kind": "on_policy",
+  "config": {
+    "seeds": [
+      7,
+      17,
+      27,
+      37,
+      47
+    ],
+    "decision_s": 90.0,
+    "horizon_s": 5400.0,
+    "hold_s": 270.0,
+    "training_steps": 2500,
+    "checkpoint_every_steps": 1000,
+    "update_every_collected_steps": 50,
+    "batch_size": 32,
+    "max_sequence_length": 80,
+    "learning_rate": 0.0002,
+    "gamma_per_90s": 0.99,
+    "replay_episodes": 800,
+    "target_sync_every_episodes": 50,
+    "epsilon_start": 0.5,
+    "epsilon_end": 0.05,
+    "epsilon_decay_fraction": 0.8,
+    "cpu_threads": 4,
+    "rollout_batch_steps": 256,
+    "ppo_epochs": 10,
+    "minibatch_size": 256,
+    "gae_lambda": 0.95,
+    "clip_ratio": 0.2,
+    "entropy_coef": 0.01,
+    "tau": 0.005,
+    "alpha": 0.2,
+    "gradient_steps": 1,
+    "sac_batch_size": 256,
+    "sac_gradient_steps": 50,
+    "validation_count": 4,
+    "test_count": 12,
+    "validation_seed": 690901,
+    "test_seed": 690902,
+    "bootstrap_seed": 690903,
+    "bootstrap_replicates": 2000,
+    "voltage_margin_V": 0.03,
+    "temperature_margin_K": 1.0,
+    "soc_max": 0.95,
+    "nominal_ambient_K": 298.15,
+    "plant_sample_dt_s": 1.0,
+    "numerical_failure_penalty": 2000.0,
+    "rule_gain_A_per_soc": 20.0,
+    "rule_base_A": 3.0,
+    "cc_current_A": 7.5,
+    "cv_gain_A_per_V": 20.0,
+    "rule_terminal_soc_target": 0.93,
+    "rule_terminal_taper_A_per_soc": 75.0,
+    "rule_terminal_min_request_A": 0.5,
+    "compress_trajectories": true,
+    "replicate_training_triplet": true,
+    "device": "cuda:0",
+    "reward_mode": "raw",
+    "reward_weights": {
+      "time": 0.75,
+      "balance": 50.0,
+      "voltage": 20.0,
+      "temperature": 2.0
+    },
+    "reward_normalizers": {
+      "time": 1.0,
+      "balance": 0.1,
+      "voltage": 0.1,
+      "temperature": 10.0
+    },
+    "protocol_version": "E6-GPU-PARALLEL-1.0",
+    "decision_periods_s": [
+      90.0
+    ],
+    "learning_sequence_steps": 80,
+    "validation_random_cases": 6,
+    "test_random_cases": 12,
+    "test_parameter_shift_cases": 12,
+    "parameter_shift_fraction": 0.05,
+    "scope": "synthetic_replicated_triplet_parallel_training_separate_CPU_CUDA_inference_profiling",
+    "result_tag": "gpu_parallel_2500_5seeds_90s",
+    "exploratory": true,
+    "experiment1_result": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_1/20260920_105021_516059",
+    "closed_loop_pack_sizes": [
+      3,
+      6,
+      12
+    ],
+    "inference_only_pack_sizes": [
+      24,
+      48,
+      96
+    ],
+    "inference_warmup": 50,
+    "inference_repetitions": 500,
+    "inference_seed": 690999,
+    "upstream_result_tags": {
+      "3": "gpu_parallel_2500_5seeds_90s",
+      "4": "gpu_parallel_2500_5seeds_90s",
+      "5": "gpu_parallel_2500_5seeds_90s",
+      "6": "gpu_parallel_2500_5seeds_90s"
+    },
+    "upstream_results": {
+      "1": "revision_results/experiment_1/20260920_105021_516059"
+    },
+    "upstream_e2_slice_manifest": "revision_gpu/configs/e2_completed_90s_manifest.json",
+    "benchmark_devices": [
+      "cpu",
+      "cuda:0"
+    ],
+    "gamma": 0.99,
+    "shield": true
+  },
+  "checkpoint": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_6_gpu_parallel_2500_5seeds_90s/20260928_194517_801804/N6/mappo/seed_37/training/selected.pt",
+  "checkpoint_sha256": "513a730cf0619fb30229703ddf2e8d8de964130e22d0d945b65a000964a961ca",
+  "parameter_count": 38929,
+  "learning_device": "cuda:0",
+  "validation_rank": [
+    1.0,
+    1.0,
+    -2340.0
+  ],
+  "training_wall_s": 13053.549189851969,
+  "environment_steps": 2500,
+  "episodes": 66,
+  "exact_resumption_supported": false,
+  "resource_usage": {
+    "cpu_rss_start_bytes": 629129216,
+    "cpu_rss_end_bytes": 2512502784,
+    "cpu_rss_sampled_peak_bytes": 2615066624,
+    "rss_sample_interval_s": 0.25,
+    "device": "cuda:0",
+    "wall_s": 13056.093032872071,
+    "rss_error": null,
+    "scope": "Current process including solver and caches; sampled RSS peak is a lower bound, not isolated deployed network memory.",
+    "cuda_peak_allocated_bytes": 72400384,
+    "cuda_peak_reserved_bytes": 94371840,
+    "cuda_memory_scope": "PyTorch allocator for this process; excludes driver/context and other jobs"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "experiment": 6,
+  "closed_loop_pack_sizes": [
+    3,
+    6,
+    12
+  ],
+  "inference_only_pack_sizes": [
+    24,
+    48,
+    96
+  ],
+  "training_seeds": [
+    7,
+    17,
+    27,
+    37,
+    47
+  ],
+  "specs": [
+    {
+      "id": "qmix",
+      "method": "qmix",
+      "shield": true,
+      "learning_rate": 0.0002
+    },
+    {
+      "id": "mappo",
+      "method": "mappo",
+      "shield": true,
+      "learning_rate": 0.0002
+    }
+  ],
+  "same_training_steps_every_size": 2500,
+  "new_training_per_size": true,
+  "zero_shot_transfer_across_sizes": false,
+  "training_cost_scope": "Per-process memory and wall time under the recorded parallel workload, not isolated algorithmic scaling; use MAX_WORKERS=1 for isolated training-cost runs.",
+  "inference_timing_isolation": "All project training workers exit before serial CPU/CUDA benchmarks; other server jobs remain uncontrolled.",
+  "hyperparameter_source": "Each method retains its E3 declared learning rate at every N; no tuning on E6 tests.",
+  "topology": "Synthetic independently actuated replicas of three calibrated cells; no series-circuit coupling or shared power limit.",
+  "thermal_coupling": false,
+  "new_measured_cell_data": false,
+  "matched_difficulty": "Both training and held-out tests draw a 3-cell SOC scenario and repeat it to N. The same scenario RNG seed is used at every N, keeping the per-cell SOC distribution fixed; random training initializations do not independently draw N SOCs.",
+  "reward_scaling": "Original per-cell voltage/temperature penalties remain summed, time and pack spread remain global; this fact is explicit in cross-size interpretation.",
+  "safety_timing": "Record numerical plant, shield, and policy costs separately where core timers are available.",
+  "inference_scope": "Separately synchronized CPU/CUDA act() on fixed synthetic observations; no claim about closed-loop safety of untrained large-N networks.",
+  "authored_without_execution": true
+}

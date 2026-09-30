@@ -1,0 +1,81 @@
+{
+  "upstreams": {
+    "1": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_1/20260920_105021_516059",
+    "3": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_3_gpu_parallel_2500_5seeds_90s/20260922_185259_914157",
+    "4": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_4_gpu_parallel_2500_5seeds_90s/20260924_175214_871584",
+    "5": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_5_gpu_parallel_2500_5seeds_90s/20260925_124626_463187",
+    "2": "/home/yqt/XuanyiLi/RL-for-charging/revision_results/experiment_2_exploratory_2500_2seeds/20260922_114425_221647"
+  },
+  "e1_handoff_sha256": "f1a07c158a64cd7259bf531231fd38af92dc65148e86e823dfcfbdf0d5a302ce",
+  "code_fingerprint": {
+    "revision_gpu/actor_agents.py": "038c8efb13937b4f08fc5da4ff861a64f1ad9acc8198244d5cf64f0750202865",
+    "revision_gpu/bootstrap.py": "b0480a0016205510b5e9ff6e8bc3d9d88c7ba6c24576afbb49a7b86db550ec28",
+    "revision_gpu/bootstrap_gpu.py": "1378fe0fdb59e0e494ac8267c3ccf2a9c42f7489d78de77fcfebf1575267274c",
+    "revision_gpu/e2_slice.py": "84f36a80fc1990d21ffe5707e9a511cb2ed444d235acdf9c040be0909a496c62",
+    "revision_gpu/experiment3.py": "27b497987ab09e63ece434b27c2f718690140851614cb2411e0f82554e6eaa97",
+    "revision_gpu/experiment4.py": "0225a11bf91ba811426983c2b167394295fd4bdf926f9515045b4be2c05c94fd",
+    "revision_gpu/experiment5.py": "3c4fde7ed3aab7ed982ea6032af7e5bab242bc2b6f783fd39acdcf1c4877a420",
+    "revision_gpu/experiment6.py": "abadd3ea6c97b602e4c77fcfb770d2d3b2252e65131184ec154e6f2b2e5e2640",
+    "revision_gpu/parallel_jobs.py": "0f5da4e5e20ee6a9d12bb799784278ab7b7001ddfdef23ee665052cdcdcddeb0",
+    "revision_gpu/paths.py": "9f1a52030127d0bef2cb0705a2d9e7678d4d2557417411978e35e986322c29dc",
+    "revision_gpu/portable.py": "8ee89a10943c6ed5230121f764543130f0e9ace7a392364e7bea0f3d17e0142a",
+    "revision_gpu/resources.py": "8e68cf0dd90a8adc4e0c1e44013f2b86b9770f7c4d257b8b6f13793977d2402b",
+    "revision_gpu/run_study.py": "51b39b01ede2bd10ef7bdd5238260124270fe8e7805b8c31672e8ba79c6e1642",
+    "revision_gpu/study_control.py": "0c8738385453996a92d02ded52798fa9a35120fb6932c9cbc41c0d20bdbaf50f",
+    "revision_gpu/study_core.py": "34f6ab562b135fe17a76a0910dd6ab6a8cca82d6051df82a231dd9ebe8ca96a7",
+    "revision_gpu/study_metrics.py": "04a81dbaaada38564ef6274ccdd761f7213daedc3d56295b2622ddd26a136574",
+    "revision_gpu/study_statistics.py": "066a9341279bd427fec2293066dfc366846f259cbfa8093d2d635d287c9dce9b",
+    "revision_gpu/value_agents.py": "54dfca684bb94347a02388b6c4aadbf7adafaa06699e690983a7aec4b00fb901",
+    "revision_experiments/control.py": "b86797a2d73992a04b12a089d3ee970b036b675628753123102df63937d9e45c",
+    "revision_experiments/model.py": "8d3e65edf2bbac2f79df5f906565ad5b14c472f46eb3a83f1a7da4ac7cb2ae05",
+    "revision_experiments/original_parameters.json": "80ba843f481036e12e1487b97765d1d892ceb72d41254d1dc4f1b2751772c1ca"
+  },
+  "e2_readiness": "at least one safe task observed; this is a computation gate, not proof of convergence or universal safety",
+  "scope": "numerical-only, with inherited E1 model and metadata limitations",
+  "e2_evidence_kind": "completed_90s_subset",
+  "exploratory": true,
+  "fingerprint_bridges": [
+    {
+      "upstream_experiment": 3,
+      "reason": "E6-only parenthesized string syntax repair; no E3-E5 source/model mutation",
+      "manifest": "revision_gpu/configs/e6_syntax_repair_bridge.json",
+      "manifest_sha256": "7b72b8e44c079f73e6758d1cbac50f75a4d3b29e990bcda9dbaf0c3802ad3e72",
+      "upstream_fingerprint": {
+        "revision_gpu/experiment6.py": "062869e82c7e5e06f2f8ec3a5134171a616fc358712666656964e419385bf3bf",
+        "revision_gpu/study_core.py": "7c6ce847e7381b2eabd930fa2cb1dff18e83735bad61e2edf777048d6b838f32"
+      },
+      "repaired_fingerprint": {
+        "revision_gpu/experiment6.py": "abadd3ea6c97b602e4c77fcfb770d2d3b2252e65131184ec154e6f2b2e5e2640",
+        "revision_gpu/study_core.py": "34f6ab562b135fe17a76a0910dd6ab6a8cca82d6051df82a231dd9ebe8ca96a7"
+      }
+    },
+    {
+      "upstream_experiment": 4,
+      "reason": "E6-only parenthesized string syntax repair; no E3-E5 source/model mutation",
+      "manifest": "revision_gpu/configs/e6_syntax_repair_bridge.json",
+      "manifest_sha256": "7b72b8e44c079f73e6758d1cbac50f75a4d3b29e990bcda9dbaf0c3802ad3e72",
+      "upstream_fingerprint": {
+        "revision_gpu/experiment6.py": "062869e82c7e5e06f2f8ec3a5134171a616fc358712666656964e419385bf3bf",
+        "revision_gpu/study_core.py": "7c6ce847e7381b2eabd930fa2cb1dff18e83735bad61e2edf777048d6b838f32"
+      },
+      "repaired_fingerprint": {
+        "revision_gpu/experiment6.py": "abadd3ea6c97b602e4c77fcfb770d2d3b2252e65131184ec154e6f2b2e5e2640",
+        "revision_gpu/study_core.py": "34f6ab562b135fe17a76a0910dd6ab6a8cca82d6051df82a231dd9ebe8ca96a7"
+      }
+    },
+    {
+      "upstream_experiment": 5,
+      "reason": "E6-only parenthesized string syntax repair; no E3-E5 source/model mutation",
+      "manifest": "revision_gpu/configs/e6_syntax_repair_bridge.json",
+      "manifest_sha256": "7b72b8e44c079f73e6758d1cbac50f75a4d3b29e990bcda9dbaf0c3802ad3e72",
+      "upstream_fingerprint": {
+        "revision_gpu/experiment6.py": "062869e82c7e5e06f2f8ec3a5134171a616fc358712666656964e419385bf3bf",
+        "revision_gpu/study_core.py": "7c6ce847e7381b2eabd930fa2cb1dff18e83735bad61e2edf777048d6b838f32"
+      },
+      "repaired_fingerprint": {
+        "revision_gpu/experiment6.py": "abadd3ea6c97b602e4c77fcfb770d2d3b2252e65131184ec154e6f2b2e5e2640",
+        "revision_gpu/study_core.py": "34f6ab562b135fe17a76a0910dd6ab6a8cca82d6051df82a231dd9ebe8ca96a7"
+      }
+    }
+  ]
+}

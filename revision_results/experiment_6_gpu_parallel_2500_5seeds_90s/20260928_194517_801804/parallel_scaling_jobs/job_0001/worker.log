@@ -1,0 +1,7 @@
+TRAIN qmix N=3 seed=17 steps=2500 device=cuda:0
+qmix N=3 seed=17 377/2500
+qmix N=3 seed=17 742/2500
+qmix N=3 seed=17 1144/2500
+qmix N=3 seed=17 1518/2500
+qmix N=3 seed=17 1853/2500
+qmix N=3 seed=17 2249/2500

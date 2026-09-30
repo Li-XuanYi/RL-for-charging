@@ -1,0 +1,27 @@
+﻿episode,environment_steps,agent_decisions,reward,epsilon_for_value_agents,loss,reward_penalty_activation_steps,target_reached,constraints_satisfied,failure_reason,wall_s
+1,44,528,-158.1449002195697,0.5,{},"{""time"": 44, ""balance"": 43, ""voltage"": 0, ""temperature"": 0}",True,True,,330.4771783039905
+2,82,984,-170.16270960729727,0.4901,{},"{""time"": 38, ""balance"": 35, ""voltage"": 0, ""temperature"": 0}",True,True,,684.5181385310134
+3,129,1548,-186.82667526241062,0.48155,{},"{""time"": 47, ""balance"": 43, ""voltage"": 0, ""temperature"": 0}",True,True,,1075.181528849993
+4,161,1932,-115.68097685622192,0.470975,{},"{""time"": 32, ""balance"": 30, ""voltage"": 0, ""temperature"": 0}",True,True,,1369.9091806159122
+5,207,2484,-185.59266930534724,0.463775,{},"{""time"": 46, ""balance"": 45, ""voltage"": 0, ""temperature"": 0}",True,True,,1734.6619777509477
+6,244,2928,-170.26274659319716,0.453425,{},"{""time"": 37, ""balance"": 35, ""voltage"": 0, ""temperature"": 0}",True,True,,2065.813769784989
+7,283,3396,-85.71197357055719,0.4451,"{""updates"": 20, ""transitions"": 283, ""actor_loss"": -0.028185685584321617, ""critic_loss"": 952.6680877685546, ""entropy"": 2.7640828251838685, ""approximate_kl"": 0.0005100846738059772, ""clip_fraction"": 0.0, ""loss"": 476.305858198693}","{""time"": 39, ""balance"": 38, ""voltage"": 0, ""temperature"": 0}",True,True,,2348.349290415994
+8,311,3732,-61.00232821079265,0.436325,{},"{""time"": 28, ""balance"": 26, ""voltage"": 0, ""temperature"": 0}",True,True,,2585.2979956959607
+9,355,4260,-138.37081303707072,0.430025,{},"{""time"": 44, ""balance"": 42, ""voltage"": 0, ""temperature"": 0}",True,True,,2917.016738315928
+10,394,4728,-181.2902023404166,0.42012499999999997,{},"{""time"": 39, ""balance"": 36, ""voltage"": 0, ""temperature"": 0}",True,True,,3260.05642494699
+11,416,4992,-16.88464926079258,0.41135,{},"{""time"": 22, ""balance"": 7, ""voltage"": 0, ""temperature"": 0}",True,True,,3457.509325888939
+12,453,5436,-85.36653954905907,0.4064,{},"{""time"": 37, ""balance"": 35, ""voltage"": 0, ""temperature"": 0}",True,True,,3750.0644257999957
+13,501,6012,-180.06854318722196,0.398075,{},"{""time"": 48, ""balance"": 47, ""voltage"": 0, ""temperature"": 0}",True,True,,4130.337408865918
+14,537,6444,-158.65622152903097,0.387275,{},"{""time"": 36, ""balance"": 34, ""voltage"": 0, ""temperature"": 0}",True,True,,4454.571923609008
+15,568,6816,-89.67753914130097,0.379175,"{""updates"": 20, ""transitions"": 285, ""actor_loss"": -0.05529361800290644, ""critic_loss"": 659.1963165283203, ""entropy"": 2.7604745507240294, ""approximate_kl"": 0.0006422211625704222, ""clip_fraction"": 0.0, ""loss"": 329.5428646461572}","{""time"": 31, ""balance"": 30, ""voltage"": 0, ""temperature"": 0}",True,True,,4716.664387141005
+16,614,7368,-150.37330604367227,0.3722,{},"{""time"": 46, ""balance"": 45, ""voltage"": 0, ""temperature"": 0}",True,True,,5072.508142884006
+17,659,7908,-164.24267872099955,0.36185,{},"{""time"": 45, ""balance"": 44, ""voltage"": 0, ""temperature"": 0}",True,True,,5428.7785611000145
+18,698,8376,-174.75201072784293,0.35172499999999995,{},"{""time"": 39, ""balance"": 37, ""voltage"": 0, ""temperature"": 0}",True,True,,5780.965023695957
+19,741,8892,-202.72604338332053,0.34295,{},"{""time"": 43, ""balance"": 41, ""voltage"": 0, ""temperature"": 0}",True,True,,6134.62230550102
+20,778,9336,-154.2783589052307,0.333275,{},"{""time"": 37, ""balance"": 36, ""voltage"": 0, ""temperature"": 0}",True,True,,6452.375097048003
+21,822,9864,-121.91160407422777,0.32494999999999996,{},"{""time"": 44, ""balance"": 43, ""voltage"": 0, ""temperature"": 0}",True,True,,6777.063132585958
+22,862,10344,-174.57724287488767,0.31505,"{""updates"": 20, ""transitions"": 294, ""actor_loss"": -0.04660610323771834, ""critic_loss"": 926.0353149414062, ""entropy"": 2.7553091168403627, ""approximate_kl"": 0.0006183990165709475, ""clip_fraction"": 0.0, ""loss"": 462.9710513674654}","{""time"": 40, ""balance"": 37, ""voltage"": 0, ""temperature"": 0}",True,True,,7121.576349709998
+23,896,10752,-122.52087144646215,0.30605,{},"{""time"": 34, ""balance"": 33, ""voltage"": 0, ""temperature"": 0}",True,True,,7400.54086384899
+24,938,11256,-148.36103134024657,0.2984,{},"{""time"": 42, ""balance"": 40, ""voltage"": 0, ""temperature"": 0}",True,True,,7761.492184803006
+25,985,11820,-168.98299378296502,0.28895000000000004,{},"{""time"": 47, ""balance"": 45, ""voltage"": 0, ""temperature"": 0}",True,True,,8127.727808016934
+26,1022,12264,-165.18503407344255,0.27837500000000004,{},"{""time"": 37, ""balance"": 36, ""voltage"": 0, ""temperature"": 0}",True,True,,8468.028480469948
