@@ -1,0 +1,12 @@
+{
+  "inputs": {
+    "D:\\A\u79d1\u7814\u76f8\u5173\\\u5f3a\u5316\u5b66\u4e60\\RL-for-charging-text-revision-20260930\\revision_results\\experiment_3_gpu_parallel_2500_5seeds_90s\\20260922_185259_914157\\qmix\\seed_7\\test\\E3_test_000\\trajectory.csv.gz": "cfb42daedf0a7e9f8ecffa1535169544263495c5c8927770bb572bcd7fe3cbc8",
+    "D:\\A\u79d1\u7814\u76f8\u5173\\\u5f3a\u5316\u5b66\u4e60\\RL-for-charging-text-revision-20260930\\revision_results\\experiment_3_gpu_parallel_2500_5seeds_90s\\20260922_185259_914157\\qmix\\seed_7\\test\\E3_test_000\\metrics.json": "130b5a2547b3f9748958ecd5dcae90d8ca3c45925087aa2f49265f77a257d45b",
+    "D:\\A\u79d1\u7814\u76f8\u5173\\\u5f3a\u5316\u5b66\u4e60\\RL-for-charging-text-revision-20260930\\revision_results\\experiment_3_gpu_parallel_2500_5seeds_90s\\20260922_185259_914157\\iql_shared\\seed_7\\test\\E3_test_000\\trajectory.csv.gz": "1f9ed191043684628fbf601889c3c7438a39586b5971f277be397bbc649eb3a6",
+    "D:\\A\u79d1\u7814\u76f8\u5173\\\u5f3a\u5316\u5b66\u4e60\\RL-for-charging-text-revision-20260930\\revision_results\\experiment_3_gpu_parallel_2500_5seeds_90s\\20260922_185259_914157\\iql_shared\\seed_7\\test\\E3_test_000\\metrics.json": "824faeeeea0645e51d31aac612e60a4344ce777c20e9a9c513a1f40b9806fc94",
+    "D:\\A\u79d1\u7814\u76f8\u5173\\\u5f3a\u5316\u5b66\u4e60\\RL-for-charging-text-revision-20260930\\revision_results\\experiment_3_gpu_parallel_2500_5seeds_90s\\20260922_185259_914157\\dqn\\seed_7\\test\\E3_test_000\\trajectory.csv.gz": "f802182678a6abbac6e40fee5334683fcb21a537bd0a780b53edd13105cd748d",
+    "D:\\A\u79d1\u7814\u76f8\u5173\\\u5f3a\u5316\u5b66\u4e60\\RL-for-charging-text-revision-20260930\\revision_results\\experiment_3_gpu_parallel_2500_5seeds_90s\\20260922_185259_914157\\dqn\\seed_7\\test\\E3_test_000\\metrics.json": "7e705f78a1c8db278397970a2176470967700500dbbe65b38c9461f19fbc6dcf",
+    "D:\\A\u79d1\u7814\u76f8\u5173\\\u5f3a\u5316\u5b66\u4e60\\RL-for-charging-selected\\revision_results\\experiment_4_gpu_parallel_2500_5seeds_90s\\20260924_175214_871584\\episode_metrics.csv": "cee12d6f042e61779b572a09301e334cb1fcf30265ce872cb1f3558788e50e2c"
+  },
+  "scope": "Compact manuscript figures"
+}
