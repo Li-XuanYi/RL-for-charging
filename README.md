@@ -9,6 +9,7 @@ LaTeX source for *Multi-Balancing-Agent Reinforcement Learning for Charging Cont
 |-- figures/          # Figures referenced by the manuscript
 |-- sections/         # Section-level LaTeX sources
 |-- IEEEtran.cls      # IEEE journal document class
+|-- IEEEtran.bst      # IEEE BibTeX bibliography style
 |-- main.tex          # Manuscript entry point
 |-- references.bib    # Bibliography database
 `-- README.md
