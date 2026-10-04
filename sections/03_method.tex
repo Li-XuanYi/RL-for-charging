@@ -215,6 +215,26 @@ The shared reward couples the local charging decisions through $Q_{\mathrm{tot}}
 
 At each decision step, MBA-RL first generates a requested current for each cell. Starting from this value, the safety mechanism evaluates the requested current and successively lower candidates using the nominal SPMe over the next decision interval, followed by an interval with zero current.
 
+\begin{table}[!t]
+\centering
+\caption{Control and evaluation settings}
+\label{tab:experimental_settings}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{0.31\columnwidth}p{0.63\columnwidth}@{}}
+\toprule
+Setting & Value \\
+\midrule
+Battery model & SPMe with lumped thermal model \\
+Current command & $0$--$7.5$ A, 0.5 A step, 90 s interval \\
+Task criterion & $SOC_i\geq0.90$, $\sigma\leq0.02$, 5400 s horizon, 270 s hold \\
+Operating limits & $V\leq4.2$ V, $T\leq309$ K, $SOC\leq0.95$ \\
+Safety margins & 0.03 V and 1 K \\
+Ambient temperature & 298.15 K \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 A correction based on the mismatch between the model prediction and the observed cell response is applied to the predicted peaks of SOC, voltage, and temperature. The largest candidate that satisfies the safety margins in Table~\ref{tab:experimental_settings} is selected as the executed current.
 
 If no feasible current is found for any cell, the episode terminates without advancing the battery model. The same safety mechanism is used during training and testing. In this way, requested currents are checked over the prediction interval before they are executed.
@@ -225,9 +245,31 @@ Complete episodes are stored in the replay buffer $\mathcal{D}$. Each transition
 
 The Q-function is evaluated using the requested action selected by the policy, while the executed action is included in the subsequent action-observation history. This allows the agent network to account for modifications made by the safety mechanism.
 
-The overall training procedure is summarized in Algorithm~\ref{alg:QMIX}.
+The training hyperparameters are summarized in Table~\ref{tab:training_settings}, and the overall procedure is given in Algorithm~\ref{alg:QMIX}.
 
-\begin{algorithm}[t]
+\begin{table}[!t]
+\centering
+\caption{Training implementation settings}
+\label{tab:training_settings}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.03}
+\begin{tabular}{@{}p{0.38\columnwidth}p{0.56\columnwidth}@{}}
+\toprule
+\textbf{Setting} & \textbf{Value} \\
+\midrule
+Training horizon & 2500 steps \\
+Replay buffer / batch size & 800 episodes / 32 episodes \\
+Learning rate & $2\times10^{-4}$ \\
+Target-network update & Every 50 episodes \\
+Exploration schedule & $0.5\rightarrow0.05$ over the first 80\% of training \\
+Reward weights & $\lambda_{\mathrm{time}}=0.75$, $\lambda_{\mathrm{bal}}=50$, $\lambda_v=20$, $\lambda_T=2$ \\
+Network widths & Agent/mixer/hypernetwork: 128/256/64 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{algorithm}[!t]
 \caption{MBA-RL training procedure}
 \label{alg:QMIX}
 

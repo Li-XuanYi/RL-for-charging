@@ -1,139 +1,183 @@
-\section{Results and Discussions}
-\newrev{The performance of MBA-RL was evaluated using cell-specific models identified from three Samsung 40T 21700 cells, denoted as Cell 1, Cell 2, and Cell 3. The cells have a nominal capacity of 4000 mAh and a maximum discharge rate of 35 A. Voltage and temperature data were collected with the NEWARE CT-4008-5V20A-A platform shown in Fig.~\ref{fig:experiment_Schematic}. The identified SPMe models were used for policy training and evaluation under independently regulated charging channels.}
+\section{Results and Discussion}
 
-\begin{figure*}[htbp]
-    \centering
-        \begin{subfigure}[t]{0.32\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{mba_rl_set_a.png}
-        \caption{}
-    \end{subfigure}
-    \hfill
-        \begin{subfigure}[t]{0.32\textwidth} 
-        \centering
-        \includegraphics[width=\textwidth]{dql_set_a.png}
-        \caption{}
-    \end{subfigure}
-    \hfill
-        \begin{subfigure}[t]{0.32\textwidth} 
-        \centering
-        \includegraphics[width=\textwidth]{cc_cv_set_a.png}
-        \caption{}
-    \end{subfigure}
+The performance of MBA-RL was evaluated using cell-specific models identified from three Samsung 40T 21700 cells, denoted as Cell 1, Cell 2, and Cell 3. Each cell has a nominal capacity of 4000 mAh and a maximum discharge current of 35 A. Voltage and temperature measurements were collected using the NEWARE CT-4008-5V20A-A platform shown in Fig.~\ref{fig:experiment_Schematic}. The identified SPMe models were then used for policy training and evaluation with independently controlled charging currents.
 
-    \vspace{0.1cm}
-
-    \begin{subfigure}[t]{0.32\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{mba_rl_set_b.png}
-        \caption{}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.32\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{dql_set_b.png}
-        \caption{}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.32\textwidth} 
-        \centering
-        \includegraphics[width=\textwidth]{cc_cv_set_b.png}
-        \caption{}
-    \end{subfigure}
-
-    \caption{Charging trajectories for MBA-RL, DQL, and CC-CV. The green dashed line indicates the first time at which $\sigma\leq\beta$, while the yellow dashed line marks the end of the CC phase. (a) MBA-RL in $Set\;A$. (b) DQL in $Set\;A$. (c) CC-CV in $Set\;A$. (d) MBA-RL in $Set\;B$. (e) DQL in $Set\;B$. (f) CC-CV in $Set\;B$.}
-    \label{fig:overall_figure}
-\end{figure*}
-
-\subsection{\newrev{Parameter Identification for Cells at Different Aging Levels}}
-\newrev{To obtain cells at different aging levels, Cells 2 and 3 were cycled for 140 and 260 charge-discharge cycles, respectively. The voltage and temperature measurements in Fig.~\ref{fig:three_aging} were then used to identify cell-specific SPMe parameters with PSO \cite{28}. Figs.~\ref{battery1}-\ref{battery3} compare the identified models with the measurements. The RMSEs in Table I show that the models reproduce the measured voltage and temperature profiles under the considered identification conditions.}
-
-
-\begin{table}[t]
+\begin{figure}[!t]
 \centering
-\caption{RMSEs for the three identified cells}
-\begin{tabular}{c c c c}
-\noalign{\hrule height 0.3mm}
-\textbf{} & Cell 1 & Cell 2 & Cell 3 \\
-\noalign{\hrule height 0.3mm}
-$V_{RMSE}$ & 0.026 & 0.035 & 0.029 \\
-\hline
-$T_{RMSE}$ & 0.068 & 0.091 & 0.093 \\
-\hline
-\noalign{\hrule height 0.3mm}
-\end{tabular}
-\end{table}
+\includegraphics[width=0.95\columnwidth]{experimental_platform.png}
+\caption{Experimental platform}
+\label{fig:experiment_Schematic}
+\end{figure}
+
+\subsection{Parameter Identification for Cells with Different Cycling Histories}
+
+To introduce differences in cycling history, Cells 2 and 3 were subjected to 140 and 260 charge-discharge cycles, respectively. The voltage and temperature measurements in Fig.~\ref{fig:three_aging} were used to identify the SPMe parameters of each cell using PSO \cite{28}.
+
+\begin{figure}[!t]
+\centering
+\begin{minipage}[t]{0.48\columnwidth}
+\centering
+\includegraphics[width=\linewidth]{aging_voltage.png}
+\end{minipage}
+\begin{minipage}[t]{0.48\columnwidth}
+\centering
+\includegraphics[width=\linewidth]{aging_temperature.png}
+\end{minipage}
+\caption{Voltage and temperature measurements under different cycling histories}
+\label{fig:three_aging}
+\end{figure}
+
+Figs.~\ref{battery1}-\ref{battery3} compare the model outputs with the corresponding measurements. The RMSE values in Table~\ref{tab:cell_rmse} show that the identified models reproduce the measured voltage and temperature profiles under the identification conditions.
+
+\begin{figure}[!t]
+\centering
+\begin{minipage}[t]{0.48\columnwidth}
+\centering
+\includegraphics[width=\linewidth]{cell1_voltage_fit.png}
+\subcaption{Cell 1 voltage}
+\end{minipage}
+\begin{minipage}[t]{0.48\columnwidth}
+\centering
+\includegraphics[width=\linewidth]{cell1_temperature_fit.png}
+\subcaption{Cell 1 temperature}
+\end{minipage}
+\caption{Cell 1 model validation}
+\label{battery1}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\begin{minipage}[t]{0.48\columnwidth}
+\centering
+\includegraphics[width=\linewidth]{cell2_voltage_fit.png}
+\subcaption{Cell 2 voltage}
+\end{minipage}
+\begin{minipage}[t]{0.48\columnwidth}
+\includegraphics[width=\linewidth]{cell2_temperature_fit.png}
+\subcaption{Cell 2 temperature}
+\end{minipage}
+\caption{Cell 2 model validation}
+\label{battery2}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\begin{minipage}[t]{0.48\columnwidth}
+\includegraphics[width=\linewidth]{cell3_voltage_fit.png}
+\subcaption{Cell 3 voltage}
+\end{minipage}
+\begin{minipage}[t]{0.48\columnwidth}
+\includegraphics[width=\linewidth]{cell3_temperature_fit.png}
+\subcaption{Cell 3 temperature}
+\end{minipage}
+\caption{Cell 3 model validation}
+\label{battery3}
+\end{figure}
 
 \begin{table}[!t]
 \centering
-\color{red}
-\caption{\newrev{Control and evaluation settings}}
-\label{tab:experimental_settings}
-\scriptsize
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.03}
-\begin{tabular}{@{}p{0.31\columnwidth}p{0.63\columnwidth}@{}}
+\caption{RMSE values for the three identified cells}
+\label{tab:cell_rmse}
+\begin{tabular}{@{}lcc@{}}
 \toprule
-\textbf{Setting} & \textbf{Value} \\
+Cell & Voltage RMSE & Temperature RMSE \\
 \midrule
-Battery model & SPMe with lumped thermal model \\
-Current command & $0$--$7.5$ A, 0.5 A step, 90 s interval \\
-Task criterion & $SOC_i\geq0.90$, $\sigma\leq0.02$, 5400 s horizon, 270 s hold \\
-Operating limits & $V\leq4.2$ V, $T\leq309$ K, $SOC\leq0.95$ \\
-Safety margins & 0.03 V and 1 K \\
-Ambient temperature & 298.15 K \\
+Cell 1 & 0.026 & 0.068 \\
+Cell 2 & 0.035 & 0.091 \\
+Cell 3 & 0.029 & 0.093 \\
 \bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}[t]
-\centering
-\caption{\newrev{Battery pack SOC vectors at the first balance-attainment point}}
-\label{tab:soc_vectors}
-\begin{tabular}{c|c|c}
-\hline
-\noalign{\hrule height 0.2mm}
-\textbf{Method} & \textbf{Initial SOC (\%)} & \textbf{\newrev{SOC at first balance (\%)}} \\
-\hline
-\noalign{\hrule height 0.2mm}
-\multirow{2}{*}{MBA-RL} & $[10, 20, 30]^\text{T}$ & $[91.66, 94.18, 92.15]^\text{T}$ \\
-                        & $[30, 50, 70]^\text{T}$ & $[91.23, 93.62, 91.41]^\text{T}$ \\ \hline
-\multirow{2}{*}{DQL} & $[10, 20, 30]^\text{T}$ & $[24.72, 26.81, 28.05]^\text{T}$ \\
-                        & $[30, 50, 70]^\text{T}$ & $[66.50, 69.18, 70.00]^\text{T}$ \\ \hline
-\multirow{2}{*}{CC-CV}  & $[10, 20, 30]^\text{T}$ & $[52.41, 55.42, 56.97]^\text{T}$ \\
-                        & $[30, 50, 70]^\text{T}$ & $[76.74, 79.21, 81.38]^\text{T}$ \\ \hline
-                        \noalign{\hrule height 0.2mm}
 \end{tabular}
 \end{table}
 
 
 
 \subsection{Performance Evaluation of MBA-RL}
-\newrev{The battery models were implemented in PyBaMM \cite{29} and updated with the identified parameters. The policies were trained through interaction with these models, and the selected weights were frozen during testing. A task was completed when every cell reached the reference SOC and the SOC standard deviation remained below the balancing threshold for 270 s without violating the safety limits. The two initial SOC vectors $Set\; A=[10,20,30]^\mathrm{T}$ and $Set\; B=[30,50,70]^\mathrm{T}$ in Fig.~\ref{fig:overall_figure} and Table~\ref{tab:soc_vectors} are retained as illustrative cases.}
 
-\newrev{MBA-RL regulates the charging current of each cell at every decision step according to its local state and the pack state. In the implemented comparisons, DQL additionally controls a cell-to-cell energy-transfer topology, while the CC-CV baseline activates the topology during the CV phase.}
+The identified parameters were incorporated into the PyBaMM models \cite{29}, which were used for policy training and evaluation. The policy weights were fixed during testing. A task was considered complete when every cell reached the reference SOC and the SOC standard deviation remained below the balancing threshold for 270 s without violating the operating limits. The two initial SOC vectors, $Set\;A=[10,20,30]^{\mathrm{T}}$ and $Set\;B=[30,50,70]^{\mathrm{T}}$, are used as representative examples in Fig.~\ref{fig:overall_figure} and Table~\ref{tab:soc_vectors}.
 
-\newrev{Fig.~\ref{fig:overall_figure} is used to explain the charging trajectories rather than to rank the methods by the first balance-attainment time alone. MBA-RL and DQL first satisfy $\sigma\leq\beta$ earlier than CC-CV in the two illustrative cases, but DQL and CC-CV do so before every cell reaches the terminal SOC target. In the implemented comparison, CC-CV follows its two-stage profile and does not adapt the current with the temperature-aware predictive screen used by MBA-RL. MBA-RL instead applies the same voltage, temperature, and SOC limits throughout charging.}
+During execution, each MBA-RL agent selects the charging current of its cell from its local observation and action-observation history. In the comparison, DQL additionally controls a cell-to-cell energy-transfer topology, while the CC-CV baseline activates the equalization topology during the CV phase.
 
-\newrev{Table~\ref{tab:soc_vectors} shows that MBA-RL first reaches $\sigma\leq\beta$ after all cells have passed the reference SOC, whereas the comparison methods first reach this condition at lower SOC values. The main performance assessment therefore uses task completion, time score, accumulated SOC imbalance $\int\sigma(t)\,\mathrm{d}t$, and constraint satisfaction rather than the first balance-attainment time.}
-
-\subsubsection{\newrev{Safety-Constrained Execution}}
-
-\newrev{To distinguish execution screening from safety-aware training, the screen was first applied only to a frozen policy. It increased constraint satisfaction from 3/52 to 52/52 and task completion from 1/52 to 35/52. Using the same mechanism during training completed all 52 tests and reduced accumulated SOC imbalance, $\int\sigma(t)\,\mathrm{d}t$, from 469.97 to 197.34 SOC fraction s. The screen therefore rejects inadmissible actions, while its inclusion during training improves charging progress under the same constraints.}
-
-\subsubsection{\newrev{Comparative Charging Performance}}
+\begin{figure}[!t]
+\centering
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=\linewidth]{mba_rl_set_a.png}
+\caption{MBA-RL, Set A}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=\linewidth]{mba_rl_set_b.png}
+\caption{MBA-RL, Set B}
+\end{subfigure}\par\smallskip
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=\linewidth]{dql_set_a.png}
+\caption{DQL, Set A}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=\linewidth]{dql_set_b.png}
+\caption{DQL, Set B}
+\end{subfigure}\par\smallskip
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=\linewidth]{cc_cv_set_a.png}
+\caption{CC-CV, Set A}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\includegraphics[width=\linewidth]{cc_cv_set_b.png}
+\caption{CC-CV, Set B}
+\end{subfigure}
+\caption{Charging trajectories for MBA-RL, DQL, and CC-CV. The green dashed line indicates the first time at which $\sigma\leq\beta$; the yellow dashed line marks the end of the CC phase.}
+\label{fig:overall_figure}
+\end{figure}
 
 \begin{table}[!t]
 \centering
-\color{red}
+\caption{Battery pack SOC vectors at the first balance-attainment point}
+\label{tab:soc_vectors}
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Method & Initial SOC (\%) & SOC at first balance (\%) \\
+\midrule
+MBA-RL & $[10,20,30]^{\mathrm T}$ & $[91.66,94.18,92.15]^{\mathrm T}$ \\
+ & $[30,50,70]^{\mathrm T}$ & $[91.23,93.62,91.41]^{\mathrm T}$ \\
+DQL & $[10,20,30]^{\mathrm T}$ & $[24.72,26.81,28.05]^{\mathrm T}$ \\
+ & $[30,50,70]^{\mathrm T}$ & $[66.50,69.18,70.00]^{\mathrm T}$ \\
+CC-CV & $[10,20,30]^{\mathrm T}$ & $[52.41,55.42,56.97]^{\mathrm T}$ \\
+ & $[30,50,70]^{\mathrm T}$ & $[76.74,79.21,81.38]^{\mathrm T}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Fig.~\ref{fig:overall_figure} compares the charging trajectories of the three methods. In both representative cases, MBA-RL and DQL first satisfy $\sigma\leq\beta$ earlier than CC-CV. However, DQL and CC-CV reach this condition before all cells satisfy the terminal SOC requirement. In contrast, MBA-RL first reaches the balancing condition after all cells have exceeded the reference SOC, as shown in Table~\ref{tab:soc_vectors}. Therefore, the first time at which $\sigma\leq\beta$ alone does not represent completion of the charging task. The following comparisons consider task completion, time score, accumulated SOC imbalance $\int\sigma(t)\,\mathrm{d}t$, and constraint satisfaction.
+
+\subsubsection{Effect of the Safety Mechanism}
+
+We first isolate the effect of the safety mechanism during execution by applying it to a fixed policy. The number of tests satisfying the operating constraints increases from 3/52 to 52/52, while task completion increases from 1/52 to 35/52. When the same mechanism is also used during training, all 52 tests reach the charging objective, and the accumulated SOC imbalance $\int\sigma(t)\,\mathrm{d}t$ decreases from 469.97 to 197.34 SOC fraction s. These results show that the safety mechanism prevents unsafe actions during execution, while its inclusion during training also improves task completion and SOC balancing.
+
+\subsubsection{Comparative Charging Performance}
+
+The learned methods were evaluated over 60 cases, consisting of 12 unseen initial SOC conditions for each of five independent training runs. A failed task is assigned a time score of 5670 s, and $\pm$ denotes the standard deviation across the five training-run means. All methods complete 60/60 evaluations except continuous MAPPO, which completes 59/60.
+
+Among the value-based methods using the same discrete current set, MBA-RL reduces accumulated SOC imbalance by 12.65\% relative to shared IQL and by 10.82\% relative to centralized DQN. Discrete MAPPO and SAC obtain lower numerical scores in Table~\ref{tab:modern_baselines}. Overall, MBA-RL achieves competitive charging performance while combining independently controlled cell currents, SOC balancing without a dedicated equalization topology, and the model-based safety mechanism in a single framework.
+
+Fig.~\ref{fig:discrete_trajectories} further compares MBA-RL with shared IQL and centralized DQN under the same discrete current set. In this representative case, MBA-RL reaches the target region earlier than shared IQL and ends with a lower SOC standard deviation than centralized DQN. The results over all unseen initial SOC conditions are summarized in Table~\ref{tab:modern_baselines}.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.95\columnwidth]{comparative_charging_discrete.pdf}
+\caption{Discrete charging trajectories comparison}
+\label{fig:discrete_trajectories}
+\end{figure}
+
+\begin{table}[!t]
+\centering
 \caption{Learned-method performance over unseen initial-SOC conditions}
 \label{tab:modern_baselines}
 \footnotesize
-\renewcommand{\arraystretch}{1.12}
-\begin{tabular*}{0.98\columnwidth}{@{\extracolsep{\fill}}l c c@{}}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular*}{0.98\columnwidth}{@{\extracolsep{\fill}}lcc@{}}
 \toprule
-\textbf{Method} & \textbf{Time score (s)} & $\boldsymbol{\int\sigma\,\mathrm{d}t}$ \\
- & & \textbf{(SOC fraction s)} \\
+Method & Time score (s) & $\int\sigma\,\mathrm{d}t$ \\
+ & & (SOC fraction s) \\
 \midrule
 \multicolumn{3}{@{}l}{\textit{Discrete-action methods}} \\
 MBA-RL & $2701.50\pm919.80$ & $205.42\pm57.03$ \\
@@ -148,30 +192,21 @@ SAC & $2173.50\pm157.09$ & $156.04\pm30.74$ \\
 \end{tabular*}
 \end{table}
 
-\newrev{The learned methods were evaluated in 60 runs covering 12 fixed unseen initial-SOC conditions and five independent training runs. Failed tasks receive a time score of 5670 s, and $\pm$ denotes the standard deviation across the five training-run means. All methods completed 60/60 evaluations except continuous MAPPO, which completed 59/60. Compared with shared IQL and centralized DQN, two value-based baselines using the same discrete current set, MBA-RL reduces accumulated SOC imbalance by 12.65\% and 10.82\%, respectively. Discrete MAPPO and SAC achieve lower numerical scores in Table~\ref{tab:modern_baselines}. MBA-RL jointly realizes independently regulated cell charging, topology-free pack balancing, and model-based safety screening within a unified framework.}
+\subsubsection{Ablation and Sensitivity Analysis}
+
+We evaluate the network components and reward design through the ablations in Fig.~\ref{fig:component_ablation}, followed by tests of operating variations and battery-pack size.
 
 \begin{figure}[!t]
-    \centering
-    \includegraphics[width=\columnwidth]{comparative_charging_discrete.pdf}
-    \caption{\newrev{Discrete-action charging trajectories for one unseen initial-SOC condition. (a) Pack mean SOC. (b) SOC standard deviation. MBA-RL, shared IQL, and centralized DQN use the same candidate-current set, initial SOC vector $[0.4203,0.3962,0.5280]^\mathrm{T}$, and ambient temperature of 25~$^\circ$C. Only the charge phase is displayed; the required 270 s terminal hold is evaluated but omitted. The dashed line denotes $\beta=0.02$.}}
-    \label{fig:discrete_trajectories}
+\centering
+\includegraphics[width=0.95\columnwidth]{component_ablation.pdf}
+\caption{Key component ablations over 12 unseen conditions and five independent training runs. Open circles show each run's accumulated SOC imbalance; diamonds show the five-run means. The dashed line marks the MBA-RL mean, and the right-hand labels give completed evaluations.}
+\label{fig:component_ablation}
 \end{figure}
 
-\newrev{Fig.~\ref{fig:discrete_trajectories} compares MBA-RL with shared IQL and centralized DQN under the same discrete action authority. MBA-RL enters the target region earlier than shared IQL and reaches a smaller final SOC dispersion than centralized DQN in this representative case. Aggregate results over all unseen cases are reported in Table~\ref{tab:modern_baselines}.}
+Removing either parameter sharing or the balancing reward causes one of the five training runs to fail across all 12 test conditions, reducing task completion from 60/60 to 48/60. The mean accumulated SOC imbalance increases by 80.47\% without parameter sharing and by 59.07\% without the balancing reward. Removing the mixing network retains 60/60 completion but increases the accumulated imbalance by 14.48\%. These results show that parameter sharing and the balancing reward are important for consistent performance, while the mixing network further improves SOC balancing.
 
-\subsubsection{\newrev{Ablation and Sensitivity Analysis}}
+The frozen policy completes all 100 tests covering the specified $\pm10\%$ parameter variations, fixed sensor bias, a 15~$^\circ$C ambient condition, and a 30\% reduction in available current. Task completion decreases in the presence of observation noise, a one-decision delay, and ambient temperatures of 34--35~$^\circ$C. The policy is therefore more sensitive to observation errors, delay, and high ambient temperature than to the tested model and actuation variations.
 
-\newrev{We next ablate the main architectural and reward-design components and evaluate representative operating variations and pack sizes.}
+The same MBA-RL architecture was trained separately for battery packs with 3, 6, and 12 independently controlled cells. The median training time increases from 1.715 to 6.450 h as the pack size increases, while task completion decreases from 59/60 for the three-cell setting to 29/36 for the 12-cell setting. The 12-cell evaluation contains 12 conditions over three independent training runs, whereas the three-cell evaluation uses five runs because of the higher simulation and training cost at the larger scale.
 
-\begin{figure}[!b]
-    \centering
-    \includegraphics[width=\columnwidth]{component_ablation.pdf}
-    \caption{\newrev{Key component ablations over 12 unseen conditions and five independent training runs. Open circles show the accumulated SOC imbalance for each training run, and diamonds show the five-run means; lower values indicate better balance. The dashed line marks the MBA-RL mean, and the right-hand labels give completed evaluations.}}
-    \label{fig:component_ablation}
-\end{figure}
-
-\newrev{Removing parameter sharing or the balancing reward causes one complete training run to fail, reducing task completion from 60/60 to 48/60 and increasing the mean accumulated SOC imbalance by 80.47\% and 59.07\%, respectively. Removing the mixing network retains 60/60 completion but increases the imbalance by 14.48\%. These results identify parameter sharing and the balancing objective as the main contributors to training consistency in the tested three-cell task.}
-
-\newrev{The frozen policy completes all 100 tests under the specified $\pm10\%$ parameter variations, fixed sensor bias, a 15~$^\circ$C ambient condition, and a 30\% reduction in available current. Completion decreases under observation noise, a one-decision delay, and ambient temperatures of 34--35~$^\circ$C. Thus, the observed robustness is limited mainly to the examined model and actuation variations.}
-
-\newrev{The same MBA-RL architecture was trained separately for packs of 3, 6, and 12 independently controlled cells. Median training time increases from 1.715 to 6.450 h, while task completion decreases from 59/60 to 29/36. The 12-cell aggregate contains 12 conditions evaluated over three independent training runs, whereas the 3-cell aggregate uses five runs; the reduced number reflects the higher training and simulation cost at the largest scale. Policy calls remain approximately 2--3 ms, and safety processing increases from 1.706 to 7.549 s but remains below the 90 s decision interval. The computational cost is therefore compatible with the reported interval, whereas charging performance requires further improvement as the number of cells increases. These simulated packs repeat the three identified cell models without series-circuit, shared-power, or thermal coupling.}
+Policy inference remains approximately 2--3 ms, while the safety processing time increases from 1.706 to 7.549 s. Both remain below the 90 s decision interval. The computational cost is therefore acceptable at the tested scales, although task completion decreases as the number of cells increases. The larger simulated packs are constructed by repeating the three identified cell models and do not include series-circuit, shared-power, or thermal coupling.
