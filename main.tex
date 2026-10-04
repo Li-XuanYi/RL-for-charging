@@ -27,13 +27,14 @@
 
 
 \author{%
-        Xuanyi~Li\textsuperscript{a}\,\orcidlink{0009-0009-9775-1612},
-        Tao Kuang\textsuperscript{a}\,\orcidlink{0009-0000-5283-032X},
-        Zihao~Zheng\textsuperscript{a},
-        Bing-Chuan~Wang\textsuperscript{a}\,\orcidlink{0000-0002-0234-2843},~\IEEEmembership{Senior Member,~IEEE,}
+        Xuanyi~Li\,\orcidlink{0009-0009-9775-1612},
+        Tao Kuang\,\orcidlink{0009-0000-5283-032X},
+        Zihao~Zheng,
+        Bing-Chuan~Wang\,\orcidlink{0000-0002-0234-2843},~\IEEEmembership{Senior Member,~IEEE,}
         Biao Luo,~\IEEEmembership{Senior Member,~IEEE}
         and Zhongmei Li,~\IEEEmembership{Member,~IEEE}%
-\thanks{Hejiakang Cao, Bing-Chuan Wang, and Biao Luo are with the School of Automation, Central South University, Changsha 410083, China (e-mail: 8207220713@csu.edu.cn; bingcwang@csu.edu.cn; biao.luo@csu.edu.cn).
+\thanks{{\emph{(Xuanyi Li and Tao Kuang are co-first authors.)}}
+        Xuanyi Li, Tao Kuang, Zihao Zheng, Bing-Chuan Wang, and Biao Luo are with the School of Automation, Central South University, Changsha 410083, China (e-mail: 8207240609@csu.edu.cn; bingcwang@csu.edu.cn; biao.luo@csu.edu.cn).
 
 Zhongmei Li is with the Key Laboratory of Smart Manufacturing in Energy Chemical Process, Ministry of Education, East China University of Science and Technology, Shanghai 200237, China (e-mail: zhongmeili@ecust.edu.cn).
 }
@@ -41,7 +42,11 @@ Zhongmei Li is with the Key Laboratory of Smart Manufacturing in Energy Chemical
 
 \maketitle
 \begin{abstract}
-Efficient and fast charging balancing control of lithium-ion batteries has garnered significant attention in recent years. Traditional charging balancing control methods typically rely on balancing algorithms that operate on equalization topologies, causing varying currents to flow through individual cells to achieve state of charge (SOC) balancing across all cells. However, these methods face several challenges: 1) equalization topologies could reduce charging precision and efficiency; 2) discharging high-SOC cells leads to energy loss; 3) the potential for re-emerging imbalance after initial balancing is frequently overlooked. To address these challenges, this paper introduces a new multi-balancing-agent reinforcement learning (MBA-RL) framework for charging control. In this framework, each agent independently defines a dedicated charging protocol for its respective cell, while coordinating with other agents to achieve SOC balancing across all cells. MBA-RL eliminates the need for equalization topologies and avoids discharging operations on high-SOC cells. It not only facilitates rapid SOC balancing but also supports fast charging under balanced conditions. \newrev{Experimental results demonstrate that MBA-RL completes all 60 unseen initial-SOC cases and reduces accumulated SOC imbalance by 12.65\% and 10.82\% compared with shared independent Q-learning and centralized deep Q-learning, respectively. The proposed safety-constrained execution mechanism satisfies the sampled limits in all 52 tests and, when incorporated into training, enables all tests to reach the charging objective. These results show that MBA-RL can achieve fast charging and pack-level balancing under the tested conditions.}
+Abstract—Lithium-ion batteries have been widely used in electric vehicles and energy-storage systems because of their high energy density, long cycle life, and low self-discharge rate. However, cell-to-cell inconsistencies within battery packs can degrade charging efficiency, usable capacity, and safety, making fast charging and state-of-charge (SOC) balancing important for battery-pack operation. Conventional charging balancing methods typically rely on balancing algorithms combined with dedicated equalization topologies to redistribute charge or energy among cells. However, these approaches introduce additional energy-transfer or dissipation paths, resulting in energy losses or increased system complexity, while the possibility of SOC imbalance re-emerging during subsequent charging is often overlooked.
+
+To address these limitations, this paper proposes a multi-balancing-agent reinforcement learning (MBA-RL) framework for charging control without a dedicated equalization topology. In MBA-RL, each agent regulates the charging current of one cell, while cooperating with the other agents to coordinate fast charging and pack-level SOC balancing. A model-based safety-constrained execution mechanism further screens the requested charging currents according to voltage, temperature, and SOC constraints before execution. The framework uses nonnegative charging-current commands and therefore avoids discharging high-SOC cells.
+
+Experimental results over 60 evaluations covering 12 unseen initial-SOC conditions and five independent training runs show that MBA-RL reduces accumulated SOC imbalance by 12.65% and 10.82% compared with shared independent Q-learning and centralized deep Q-learning, respectively. The proposed safety-constrained execution mechanism satisfies the sampled limits in all 52 safety tests and, when incorporated into training, enables all 52 tests to reach the charging objective.
 \end{abstract}
 \vspace{-0.55\baselineskip}
 \begin{IEEEkeywords}
