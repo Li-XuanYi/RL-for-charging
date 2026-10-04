@@ -45,7 +45,7 @@
     \label{fig:overall_figure}
 \end{figure*}
 
-\subsection{Parameter Identification for Batteries with Various Lifespans}
+\subsection{\newrev{Parameter Identification for Cells at Different Aging Levels}}
 \newrev{To obtain cells at different aging levels, Cells 2 and 3 were cycled for 140 and 260 charge-discharge cycles, respectively. The voltage and temperature measurements in Fig.~\ref{fig:three_aging} were then used to identify cell-specific SPMe parameters with PSO \cite{28}. Figs.~\ref{battery1}-\ref{battery3} compare the identified models with the measurements. The RMSEs in Table I show that the models reproduce the measured voltage and temperature profiles under the considered identification conditions.}
 
 
@@ -67,7 +67,7 @@ $T_{RMSE}$ & 0.068 & 0.091 & 0.093 \\
 \begin{table}[!t]
 \centering
 \color{red}
-\caption{Main experimental settings}
+\caption{\newrev{Control and evaluation settings}}
 \label{tab:experimental_settings}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -77,13 +77,10 @@ $T_{RMSE}$ & 0.068 & 0.091 & 0.093 \\
 \textbf{Setting} & \textbf{Value} \\
 \midrule
 Battery model & SPMe with lumped thermal model \\
-Control & $0$--$7.5$ A, 0.5 A step, 90 s interval \\
-Training & 2500 steps; replay 800; batch 32; $2\times10^{-4}$ learning rate; target update 50 episodes \\
-Exploration & $0.5\rightarrow0.05$ over the first 80\% of training \\
-Reward weights & $\lambda_{\mathrm{time}}=0.75$, $\lambda_{\mathrm{bal}}=50$, $\lambda_v=20$, $\lambda_T=2$ \\
+Current command & $0$--$7.5$ A, 0.5 A step, 90 s interval \\
 Task criterion & $SOC_i\geq0.90$, $\sigma\leq0.02$, 5400 s horizon, 270 s hold \\
-Safety & $V\leq4.2$ V, $T\leq309$ K, $SOC\leq0.95$; 0.03 V and 1 K margins \\
-Network widths & Agent/mixer/hypernetwork: 128/256/64 \\
+Operating limits & $V\leq4.2$ V, $T\leq309$ K, $SOC\leq0.95$ \\
+Safety margins & 0.03 V and 1 K \\
 Ambient temperature & 298.15 K \\
 \bottomrule
 \end{tabular}
@@ -138,17 +135,20 @@ Ambient temperature & 298.15 K \\
 \textbf{Method} & \textbf{Time score (s)} & $\boldsymbol{\int\sigma\,\mathrm{d}t}$ \\
  & & \textbf{(SOC fraction s)} \\
 \midrule
+\multicolumn{3}{@{}l}{\textit{Discrete-action methods}} \\
 MBA-RL & $2701.50\pm919.80$ & $205.42\pm57.03$ \\
 Shared IQL & $2641.50\pm439.42$ & $235.17\pm69.76$ \\
 Centralized DQN & $2673.00\pm73.98$ & $230.35\pm24.20$ \\
 Discrete MAPPO & $2340.00\pm347.96$ & $200.83\pm60.75$ \\
+\addlinespace[1pt]
+\multicolumn{3}{@{}l}{\textit{Continuous-action methods}} \\
 Continuous MAPPO & $2698.50\pm154.65$ & $240.36\pm27.58$ \\
 SAC & $2173.50\pm157.09$ & $156.04\pm30.74$ \\
 \bottomrule
 \end{tabular*}
 \end{table}
 
-\newrev{The learned methods were evaluated in 60 runs covering 12 fixed unseen initial-SOC conditions and five independent training runs. Failed tasks receive a time score of 5670 s, and $\pm$ denotes the standard deviation across the five training-run means. All methods completed 60/60 evaluations except continuous MAPPO, which completed 59/60. Under the common discrete action setting, MBA-RL reduces accumulated SOC imbalance by 12.65\% and 10.82\% relative to shared IQL and centralized DQN, respectively. Discrete MAPPO and SAC obtain lower numerical scores in Table~\ref{tab:modern_baselines}; the contribution of MBA-RL is the coordinated cell-level charging framework with topology-free balancing and model-based safety screening rather than numerical superiority over every RL baseline.}
+\newrev{The learned methods were evaluated in 60 runs covering 12 fixed unseen initial-SOC conditions and five independent training runs. Failed tasks receive a time score of 5670 s, and $\pm$ denotes the standard deviation across the five training-run means. All methods completed 60/60 evaluations except continuous MAPPO, which completed 59/60. Compared with shared IQL and centralized DQN, two value-based baselines using the same discrete current set, MBA-RL reduces accumulated SOC imbalance by 12.65\% and 10.82\%, respectively. Discrete MAPPO and SAC achieve lower numerical scores in Table~\ref{tab:modern_baselines}. MBA-RL jointly realizes independently regulated cell charging, topology-free pack balancing, and model-based safety screening within a unified framework.}
 
 \begin{figure}[!t]
     \centering
@@ -174,4 +174,4 @@ SAC & $2173.50\pm157.09$ & $156.04\pm30.74$ \\
 
 \newrev{The frozen policy completes all 100 tests under the specified $\pm10\%$ parameter variations, fixed sensor bias, a 15~$^\circ$C ambient condition, and a 30\% reduction in available current. Completion decreases under observation noise, a one-decision delay, and ambient temperatures of 34--35~$^\circ$C. Thus, the observed robustness is limited mainly to the examined model and actuation variations.}
 
-\newrev{The same MBA-RL architecture was trained separately for packs of 3, 6, and 12 independently controlled cells. Median training time increases from 1.715 to 6.450 h, while task completion decreases from 59/60 to 29/36. Policy calls remain approximately 2--3 ms, and safety processing increases from 1.706 to 7.549 s but remains below the 90 s decision interval. The computational cost is therefore compatible with the reported interval, whereas charging performance requires further improvement as the number of cells increases. These simulated packs repeat the three identified cell models without series-circuit, shared-power, or thermal coupling.}
+\newrev{The same MBA-RL architecture was trained separately for packs of 3, 6, and 12 independently controlled cells. Median training time increases from 1.715 to 6.450 h, while task completion decreases from 59/60 to 29/36. The 12-cell aggregate contains 12 conditions evaluated over three independent training runs, whereas the 3-cell aggregate uses five runs; the reduced number reflects the higher training and simulation cost at the largest scale. Policy calls remain approximately 2--3 ms, and safety processing increases from 1.706 to 7.549 s but remains below the 90 s decision interval. The computational cost is therefore compatible with the reported interval, whereas charging performance requires further improvement as the number of cells increases. These simulated packs repeat the three identified cell models without series-circuit, shared-power, or thermal coupling.}

@@ -8,6 +8,7 @@
 *.out
 *.synctex.gz
 *.toc
+tmp/
 
 # Compiled manuscript output is generated locally, not versioned.
 main.pdf

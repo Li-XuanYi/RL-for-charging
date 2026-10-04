@@ -1,0 +1,26 @@
+\appendices
+\section{Training Implementation Details}
+\newrev{The training settings used for the reported MBA-RL experiments are summarized in Table~\ref{tab:training_settings}.}
+
+\begin{table}[H]
+\centering
+\color{red}
+\caption{Training implementation settings}
+\label{tab:training_settings}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.03}
+\begin{tabular}{@{}p{0.38\columnwidth}p{0.56\columnwidth}@{}}
+\toprule
+\textbf{Setting} & \textbf{Value} \\
+\midrule
+Training horizon & 2500 steps \\
+Replay buffer / batch size & 800 episodes / 32 episodes \\
+Learning rate & $2\times10^{-4}$ \\
+Target-network update & Every 50 episodes \\
+Exploration schedule & $0.5\rightarrow0.05$ over the first 80\% of training \\
+Reward weights & $\lambda_{\mathrm{time}}=0.75$, $\lambda_{\mathrm{bal}}=50$, $\lambda_v=20$, $\lambda_T=2$ \\
+Network widths & Agent/mixer/hypernetwork: 128/256/64 \\
+\bottomrule
+\end{tabular}
+\end{table}

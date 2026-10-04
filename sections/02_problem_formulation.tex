@@ -38,7 +38,7 @@ with terminal conditions:
 \end{equation}
 \newrev{where $\bm{\mathbb{I}}(t) = \left[ I_1(t), \dots, I_n(t) \right]^{\mathrm{T}} \in \mathbb{R}^{n}$ represents the vector of currents for $n$ cells, $t_0$ and $t_b$ are the initial and final times, $\sigma$ is the standard deviation of the cell SOCs, $\beta$ is the balancing threshold, and $SOC_{ref}$ is the minimum terminal-SOC target. Thus, every cell must reach at least $SOC_{ref}$ while the pack-level SOC dispersion remains below $\beta$.}
 
-To prevent any cell within the battery pack $\mathcal{B}$ from violating safety and balance constraints, which could diminish the battery pack's lifespan and reduce charging efficiency, the $i$-th cell in $\mathcal{B}$ must comply with the following constraints:
+\newrev{To prevent any cell within the battery pack $\mathcal{B}$ from violating its operating and safety limits, the $i$-th cell must comply with the following constraints:}
 
 \begin{equation}\label{safty condition}
     \begin{array}{rl}

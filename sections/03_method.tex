@@ -3,15 +3,24 @@
 
 
 \subsection{MBA-RL Charging Control Framework}
-\newrev{The schematic of MBA-RL is presented in Fig.~\ref{fig:schematic_method}. MBA-RL comprises shared agent networks, a mixing network, and hypernetworks. For the $i$-th agent, a recurrent Q-network combines the current observation $o_t^i$ with the previous action $a_{t-1}^i$ to form the action-observation history $\tau_t^i$ and generate the local action value $Q_i$. The mixing network combines $Q_1,Q_2,\ldots,Q_n$ into the joint action value $Q_{\mathrm{tot}}$, and the hypernetworks generate its state-dependent weights. Target agent and mixing networks provide temporal-difference targets during training. The shared agent network receives the local voltage, temperature, and SOC together with the previous-action encoding and an agent identifier.}
+\newrev{The schematic of MBA-RL is presented in Fig.~\ref{fig:schematic_method}. MBA-RL comprises shared agent networks, a mixing network, and hypernetworks. For the $i$-th agent, a recurrent Q-network combines the current observation $o_t^i$ with the previous executed action $\tilde{a}_{t-1}^i$ to form the action-observation history $\tau_t^i$ and generate the local action value $Q_i$. The mixing network combines $Q_1,Q_2,\ldots,Q_n$ into the joint action value $Q_{\mathrm{tot}}$, and the hypernetworks generate its state-dependent weights. Target agent and mixing networks provide temporal-difference targets during training. The shared agent network receives the local voltage, temperature, and SOC together with the previous-action encoding and an agent identifier.}
 
-\newrev{We formulate the charging balancing problem as a Dec-POMDP \cite{27} described by the tuple \(T = \langle\mathcal{S}, \mathcal{A}, \mathcal{R}, \mathcal{S'}, \mathcal{P}, done\rangle\).}
+\newrev{We formulate the charging balancing problem as a Dec-POMDP \cite{27} described by the tuple}
+{\color{red}
+\begin{equation*}
+\begin{aligned}
+G=\langle &\mathcal{N},\mathcal{S},\{\mathcal{A}_i\}_{i=1}^{n},\mathcal{P},\mathcal{R},\\[-2pt]
+&\{\mathcal{O}_i\}_{i=1}^{n},\mathcal{O},\gamma\rangle .
+\end{aligned}
+\end{equation*}
+}
+\newrev{Here, $\mathcal{N}=\{1,\ldots,n\}$ is the agent set, $\mathcal{S}$ is the global state space, $\mathcal{A}_i$ and $\mathcal{O}_i$ are the action and observation spaces of agent $i$, $\mathcal{P}$ is the transition kernel, $\mathcal{R}$ is the shared reward function, $\mathcal{O}$ is the observation function, and $\gamma$ is the discount factor.}
 
-\subsubsection{State Space} The state space $\mathcal{S}$ encompasses all possible states of the battery pack, $\mathbf{s}_t \in \mathcal{S}$ is formed by the combination of the observations from all agents at the time step $t$:
+\subsubsection{\newrev{State and Observation Spaces}} \newrev{The global state $\mathbf{s}_t\in\mathcal{S}$ is formed by the observations of all agents at time step $t$:}
 \begin{equation}
    \mathbf{s}_t = \left[ o_t^1, o_t^2, \dots, o_t^n \right]^{\mathrm{T}}
 \end{equation}
-where the $i$-th agent’s observation $o_t^i$ consists of three components: the battery voltage (denoted as $V_i(t)$), average temperature (denoted as $T_i(t)$), and SOC (denoted as $SOC_i(t)$).
+\newrev{For agent $i$, the local observation $o_t^i\in\mathcal{O}_i$ consists of the cell voltage $V_i(t)$, average temperature $T_i(t)$, and $SOC_i(t)$. The observation function $\mathcal{O}$ maps the battery-pack state and joint action to the local observations available to the agents.}
 
 \subsubsection{Action Space} \newrev{Each agent selects a requested current from the discrete candidate set $\mathcal{A}_{\mathrm{cand}}=\{0,0.5,\ldots,7.5\}\,\mathrm{A}$. Before action selection, a state-dependent availability mask removes commands that conflict with the current sampled state. Only zero current is available when $SOC_i\geq0.95$, while currents above 1 A are excluded when $V_i\geq V_{\max}$ or $T_i\geq T_{\max}$. The mask restricts the actions considered by the policy but does not predict constraint satisfaction over the next interval; therefore, the selected action is subsequently processed by the safety-constrained execution mechanism.}
 \begingroup
@@ -63,7 +72,7 @@ where $\delta_{v,i}$ and $\delta_{t,i}$ represent the overvoltage and overtemper
 0, & \text{otherwise}
 \end{cases}  .
 \end{equation}
-\subsubsection{Others} $\mathbf{s}_{t+1} \in \mathcal{S'}$ is the states at the next time step of the battery pack after taking $\mathbf{a}_t$. $\mathcal{P}(\mathbf{s}_{t+1}|\mathbf{s}_t, \mathbf{a}_t)$ is the state transition function, representing the probability of transitioning from $\mathbf{s}_t$ to $\mathbf{s}_{t+1}$ given the joint action $\mathbf{a}_t$. $done$ denotes the indicator for the completion of the balancing process.
+\subsubsection{\newrev{Transition and Termination}} \newrev{The safety screen is treated as part of the action-execution interface. Given the requested joint action $\mathbf{a}_t$, it produces the executed action $\tilde{\mathbf{a}}_t$, and the transition kernel $\mathcal{P}(\mathbf{s}_{t+1}\mid\mathbf{s}_t,\mathbf{a}_t)$ is induced by this screening operation and the battery dynamics. The variable $done$ is defined separately as the episode-termination indicator.}
 
 \begin{algorithm}[t]
     \caption{MBA-RL charging control framework}
@@ -79,7 +88,7 @@ where $\delta_{v,i}$ and $\delta_{t,i}$ represent the overvoltage and overtemper
             // \textbf{Data Collection}
             \WHILE{$\neg done$}
                 \FOR{the $i$-th agent}
-                    \STATE $\tau_t^i \leftarrow \tau_{t-1}^i \cup \{(o_t^i, a_{t-1}^i)\}$
+                    \STATE \newrev{$\tau_t^i \leftarrow \tau_{t-1}^i \cup \{(o_t^i, \tilde{a}_{t-1}^i)\}$}
                     \STATE \newrev{Update $\epsilon$ according to the exploration schedule}
                     \STATE Select the requested action $a_t^i$ according to \eqref{epsilon-greedy}
                 \ENDFOR
@@ -155,7 +164,7 @@ Eq. \eqref{QMIX_constraints} enables each agent to greedily select the action th
 \end{equation}
 \newrev{where $d_t$ denotes the terminal flag.}
 
-\newrev{Complete episodes are stored in the replay buffer $\mathcal{D}$ together with the observations, availability masks, requested and executed actions, rewards, and terminal flags. During training, a batch of episodes is randomly sampled for network updates. The requested actions define the Q-value labels, whereas the executed actions are retained in the action-observation history because the safety screen may modify the requested currents.}
+\newrev{Complete episodes are stored in the replay buffer $\mathcal{D}$ together with the observations, availability masks, requested and executed actions, rewards, and terminal flags. During training, a batch of episodes is randomly sampled for network updates. The Q-function is indexed by the requested action selected by the policy, while the executed action is included in the subsequent action-observation history to account for intervention by the safety screen.}
 
 In summary, the details of the MBA-RL charging control framework are described in Algorithm 1, where $|\cdot|$ denotes the cardinality of a set.
 
