@@ -1,245 +1,271 @@
-\section{\texorpdfstring{\scalebox{0.84}[1]{Proposed MBA-RL for Charging Balancing Control}}{Proposed MBA-RL for Charging Balancing Control}}
-\newrev{As shown in Fig.~\ref{fig:MARL_Schematic}, each cell has a local state and an independently regulated charging current, while all cells share the objective of fast charging and pack-level SOC balancing. The resulting cooperative task uses a discrete current set and requires decentralized decisions during execution. QMIX is therefore adopted because its centralized mixing network learns a joint action value during training, while the monotonic value decomposition preserves decentralized greedy action selection \cite{26}. The QMIX controller is integrated with multiple SPMe-based cell models to form the MBA-RL framework described below.}
+\section{Proposed MBA-RL for Charging Control}
 
-
-\subsection{MBA-RL Charging Control Framework}
-\newrev{The schematic of MBA-RL is presented in Fig.~\ref{fig:schematic_method}. MBA-RL comprises shared agent networks, a mixing network, and hypernetworks. For the $i$-th agent, a recurrent Q-network combines the current observation $o_t^i$ with the previous executed action $\tilde{a}_{t-1}^i$ to form the action-observation history $\tau_t^i$ and generate the local action value $Q_i$. The mixing network combines $Q_1,Q_2,\ldots,Q_n$ into the joint action value $Q_{\mathrm{tot}}$, and the hypernetworks generate its state-dependent weights. Target agent and mixing networks provide temporal-difference targets during training. The shared agent network receives the local voltage, temperature, and SOC together with the previous-action encoding and an agent identifier.}
-
-\newrev{We formulate the charging balancing problem as a Dec-POMDP \cite{27} described by the tuple}
-{\color{red}
-\begin{equation*}
-\begin{aligned}
-G=\langle &\mathcal{N},\mathcal{S},\{\mathcal{A}_i\}_{i=1}^{n},\mathcal{P},\mathcal{R},\\[-2pt]
-&\{\mathcal{O}_i\}_{i=1}^{n},\mathcal{O},\gamma\rangle .
-\end{aligned}
-\end{equation*}
-}
-\newrev{Here, $\mathcal{N}=\{1,\ldots,n\}$ is the agent set, $\mathcal{S}$ is the global state space, $\mathcal{A}_i$ and $\mathcal{O}_i$ are the action and observation spaces of agent $i$, $\mathcal{P}$ is the transition kernel, $\mathcal{R}$ is the shared reward function, $\mathcal{O}$ is the observation function, and $\gamma$ is the discount factor.}
-
-\subsubsection{\newrev{State and Observation Spaces}} \newrev{The global state $\mathbf{s}_t\in\mathcal{S}$ is formed by the observations of all agents at time step $t$:}
-\begin{equation}
-   \mathbf{s}_t = \left[ o_t^1, o_t^2, \dots, o_t^n \right]^{\mathrm{T}}
-\end{equation}
-\newrev{For agent $i$, the local observation $o_t^i\in\mathcal{O}_i$ consists of the cell voltage $V_i(t)$, average temperature $T_i(t)$, and $SOC_i(t)$. The observation function $\mathcal{O}$ maps the battery-pack state and joint action to the local observations available to the agents.}
-
-\subsubsection{Action Space} \newrev{Each agent selects a requested current from the discrete candidate set $\mathcal{A}_{\mathrm{cand}}=\{0,0.5,\ldots,7.5\}\,\mathrm{A}$. Before action selection, a state-dependent availability mask removes commands that conflict with the current sampled state. Only zero current is available when $SOC_i\geq0.95$, while currents above 1 A are excluded when $V_i\geq V_{\max}$ or $T_i\geq T_{\max}$. The mask restricts the actions considered by the policy but does not predict constraint satisfaction over the next interval; therefore, the selected action is subsequently processed by the safety-constrained execution mechanism.}
-\begingroup
-\setlength{\abovedisplayskip}{3pt}
-\setlength{\belowdisplayskip}{3pt}
-\begin{equation}
-\newrev{\resizebox{0.91\columnwidth}{!}{$\displaystyle
-\mathbf{a}_t=\left[a_t^1,a_t^2,\dots,a_t^n\right]^{\mathrm{T}},\quad
-\mathcal{A}(\mathbf{s}_t)=\prod_{i=1}^{n}\mathcal{A}_i(\mathbf{s}_t),\quad
-\mathcal{A}_i(\mathbf{s}_t)\subseteq\mathcal{A}_{\mathrm{cand}}.$}}
-\end{equation}
-\endgroup
-\subsubsection{Reward Function} \newrev{The reward combines charging progress, pack-level SOC balance, and voltage and temperature penalties:}
-\begin{equation}
-    r_t = r_{\text{time}} + r_{\text{bal}} + r_{\text{safety}}
-\end{equation}
-\newrev{The time penalty is $r_{\text{time}}=-\lambda_{\text{time}}$ before the terminal condition is reached.}
-
-Then $r_{\text{bal}}$ can be calculated as follows:
-\begin{equation}
-  r_{\text{bal}} = 
-\begin{cases}
- -\lambda_{\text{bal}}(\sigma - \beta), & \text{if } \sigma \geq \beta \\
-0, & \text{otherwise}
-\end{cases}  
-\end{equation}
-where $\sigma$ denotes the standard deviation of the SOC across all cells in the battery pack, $\beta$ indicates the predefined threshold, and $r_{\text{bal}}$ characterizes the imbalance effects in the battery pack. 
-
-As shown in \eqref{safty condition}, $r_{\text{safety}}$ is divided into voltage safety constraints and temperature safety constraints:
-\begin{equation}
-    r_{\text{safety}} = r_{\text{volt}} + r_{\text{temp}}
-\end{equation}
-\begin{equation}
-    \quad r_{\text{volt}} = \sum_{i=1}^{n} \delta_{v,i}, \quad r_{\text{temp}} = \sum_{i=1}^{n} \delta_{t,i}
-\end{equation}
-where $\delta_{v,i}$ and $\delta_{t,i}$ represent the overvoltage and overtemperature penalties of the $i$-th cell, respectively:
-\begin{equation}
-    \delta_{v,i} = 
-\begin{cases}
- -\lambda_v(V_i(t) - V_{\text{max}}), & \text{if } V_i(t) \geq V_{\text{max}} \\
-0, & \text{otherwise}
-\end{cases}
-\end{equation}
-
-\begin{equation}
-  \delta_{t,i} = 
-\begin{cases}
- -\lambda_T(T_i(t) - T_{\text{max}}), & \text{if } T_i(t) \geq T_{\text{max}} \\
-0, & \text{otherwise}
-\end{cases}  .
-\end{equation}
-\subsubsection{\newrev{Transition and Termination}} \newrev{The safety screen is treated as part of the action-execution interface. Given the requested joint action $\mathbf{a}_t$, it produces the executed action $\tilde{\mathbf{a}}_t$, and the transition kernel $\mathcal{P}(\mathbf{s}_{t+1}\mid\mathbf{s}_t,\mathbf{a}_t)$ is induced by this screening operation and the battery dynamics. The variable $done$ is defined separately as the episode-termination indicator.}
-
-\begin{algorithm}[t]
-    \caption{MBA-RL charging control framework}
-    \label{alg:QMIX}
-    
-    \begin{algorithmic}[1]
-        \STATE Initialize $\theta, \theta', \bm{\theta}, \bm{\theta}'$ randomly
-        \STATE Set the learning rate $\alpha$, number of episodes $N_{episode}$, and replay buffer $\mathcal{D}$
-        \STATE $\theta' \leftarrow \theta, \bm{\theta}' \leftarrow \bm{\theta}$
-        \FOR{$episode =$ 1 to $N_{episode}$}
-            \STATE $t\leftarrow 0$, $\tau_t^i \leftarrow \emptyset$, and observe the initial state $\mathbf{s}_t$
-
-            // \textbf{Data Collection}
-            \WHILE{$\neg done$}
-                \FOR{the $i$-th agent}
-                    \STATE \newrev{$\tau_t^i \leftarrow \tau_{t-1}^i \cup \{(o_t^i, \tilde{a}_{t-1}^i)\}$}
-                    \STATE \newrev{Update $\epsilon$ according to the exploration schedule}
-                    \STATE Select the requested action $a_t^i$ according to \eqref{epsilon-greedy}
-                \ENDFOR
-                \STATE \newrev{Screen $\mathbf{a}_t$ to obtain $\tilde{\mathbf{a}}_t$, execute $\tilde{\mathbf{a}}_t$, observe $r_t$, and get $\mathbf{s}_{t+1}$}
-                \STATE \newrev{$\mathcal{D} \leftarrow \mathcal{D} \cup \{ \langle\mathbf{s}_t, \mathbf{m}_t, \mathbf{a}_t, \tilde{\mathbf{a}}_t, r_t, \mathbf{s}_{t+1}, \mathbf{m}_{t+1}, done\rangle \}$}
-            \ENDWHILE
-            
-            // \textbf{Network Update}
-            \IF{$|\mathcal{D}| > N$}
-                \STATE $B \leftarrow$ Randomly sample data from $N$ episodes in $\mathcal{D}$
-                \FOR{each time step $t$ in each episode in batch $B$}
-                    \STATE Calculate $Q_{tot}$ by \eqref{Q-value} based on the state $\mathbf{s}_t$
-                    \STATE Calculate $y^{\text{tot}}$ by \eqref{target Q} based on the state $\mathbf{s}_{t+1}$
-                \ENDFOR
-                \STATE Under the conditions given in \eqref{QMIX_constraints} and \eqref{QMIX_constraints_1}, utilize the RMSprop  optimizer \cite{zou2019sufficient} to update $\theta$ and $\bm{\theta}$ by minimizing the loss function: $\left( y_{\text{tot}} - Q_{\text{tot}} \right)^2$
-            \ENDIF
-            \IF{$episode$ \% $N_t$ == 0}
-                \STATE $\theta' \leftarrow \theta$, $\bm{\theta}' \leftarrow \bm{\theta}$ 
-            \ENDIF
-        \ENDFOR
-    \end{algorithmic}
-\end{algorithm}
-
-\subsection{Safety-Constrained Execution}
-\newrev{At each decision step, MBA-RL generates a requested current for every cell. Starting from this request, the safety screen evaluates successively lower candidate currents with the nominal SPMe over the next decision interval and a subsequent zero-current interval. Prediction corrections derived from the observed-model mismatch are added to the predicted SOC, voltage, and temperature peaks. The largest candidate satisfying the margins specified in Table~\ref{tab:experimental_settings} is executed. If no feasible candidate exists for any cell, the episode terminates without advancing the battery model. The same screen is used during training and execution. It provides a sampled finite-horizon check rather than a continuous-time safety guarantee.}
-
-\subsection{Balancing Mechanism of MBA-RL}
+Each cell is treated as an agent that observes its local voltage, temperature, and SOC and regulates its own charging current. All agents share the objectives of fast charging and SOC balancing across the battery pack. Since each agent makes decisions from local observations during execution while the charging currents must be coordinated toward a common objective, QMIX \cite{26} is adopted for centralized training and decentralized execution. The resulting MBA-RL framework combines the QMIX controller with the cell models introduced in Section II.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.95\linewidth]{experimental_platform.png}
-    \caption{Schematic of the experimental platform.}
-    \label{fig:experiment_Schematic}
+    \includegraphics[width=1\linewidth]{marl_control_framework.png}
+    \caption{MARL formulation of the battery charging control problem. Each agent regulates the charging current of one cell while sharing the objectives of fast charging and SOC balancing.}
+    \label{fig:MARL_Schematic}
 \end{figure}
 
-\newrev{MBA-RL uses global information during centralized training so that each agent accounts for the charging-time objective in \eqref{eqn:balancing objective} together with the pack-level balancing requirement in \eqref{terminal balance}.}
+\subsection{MBA-RL Framework}
 
-In MBA-RL, the $i$-th agent aims to optimize its local Q-value, denoted as $Q_i(\tau_t^i, a_t^i|\theta)$, to maximize the global Q-value $Q_{\text{tot}}$. This involves balancing the agent's own goals of safety and fast charging while simultaneously contributing to the rapid achievement of balance within the battery pack. Each agent chooses its current action $a_t^i$ using the $\epsilon$-greedy strategy, which can be described as follows:
-\begin{equation}\label{epsilon-greedy}
+The MBA-RL architecture is shown in Fig.~\ref{fig:schematic_method}. All agents share one recurrent Q-network. For agent $i$, the network takes the current observation $o_t^i$, the previous executed action $\tilde{a}_{t-1}^i$, and the agent identifier as inputs and estimates the local action value $Q_i$. A mixing network combines the local action values into the joint action value $Q_{\mathrm{tot}}$, with its weights generated by hypernetworks from the global state. Target agent and mixing networks are used to construct the temporal-difference targets during training.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.9\textwidth,height=\textheight,keepaspectratio]{mba_rl_architecture.png}
+    \caption{Architecture of the MBA-RL framework. The shared agent network consists of two multilayer perceptrons (MLPs) and a gated recurrent unit (GRU).}
+    \label{fig:schematic_method}
+\end{figure*}
+
+The charging control problem is formulated as a Dec-POMDP \cite{27}:
+
+\[
+G=
+\left\langle
+\mathcal{N},
+\mathcal{S},
+\{\mathcal{A}_i\}_{i=1}^{n},
+\mathcal{P},
+\mathcal{R},
+\{\mathcal{O}_i\}_{i=1}^{n},
+\mathcal{O},
+\gamma
+\right\rangle .
+\]
+
+Here, $\mathcal{N}=\{1,\ldots,n\}$ is the set of agents, $\mathcal{S}$ is the global state space, $\mathcal{A}_i$ and $\mathcal{O}_i$ are the action and observation spaces of agent $i$, $\mathcal{P}$ is the transition kernel, $\mathcal{R}$ is the shared reward function, $\mathcal{O}$ is the observation function, and $\gamma$ is the discount factor.
+
+\subsubsection{State and Observation Spaces}
+
+The global state at time step $t$ is formed by the observations of all cells:
+
+\begin{equation}
+\label{eq:global_state}
+\mathbf{s}_t
+=
+\left[
+o_t^1,o_t^2,\ldots,o_t^n
+\right]^{\mathrm{T}}.
+\end{equation}
+
+For agent $i$, the local observation is
+$o_t^i=[V_i(t),T_i(t),SOC_i(t)]$, where $V_i(t)$, $T_i(t)$, and $SOC_i(t)$ denote the voltage, temperature, and SOC of cell $i$, respectively. Each agent therefore makes its charging decision from local cell information, while the complete state is available during centralized training.
+
+\subsubsection{Action Space}
+
+Each agent selects a requested charging current from
+$\mathcal{A}_{\mathrm{cand}}=\{0,0.5,\ldots,7.5\}\,\mathrm{A}$.
+Before action selection, an availability mask removes actions that conflict with the current cell state. When $SOC_i\geq0.95$, only zero current is available. When $V_i\geq V_{\max}$ or $T_i\geq T_{\max}$, currents above 1 A are excluded.
+
+The requested joint action and the corresponding available action space are
+
+\begin{equation}
+\label{eq:joint_action}
+\mathbf{a}_t
+=
+\left[
+a_t^1,a_t^2,\ldots,a_t^n
+\right]^{\mathrm{T}},
+\qquad
+\mathcal{A}(\mathbf{s}_t)
+=
+\prod_{i=1}^{n}\mathcal{A}_i(\mathbf{s}_t),
+\end{equation}
+
+where $\mathcal{A}_i(\mathbf{s}_t)\subseteq\mathcal{A}_{\mathrm{cand}}$. Let $\mathbf{m}_t$ denote the corresponding availability masks. Since the mask only uses the current state, it does not determine whether a requested current will remain feasible over the next decision interval. The requested current is therefore checked by the model-based safety mechanism before execution.
+
+\subsubsection{Reward Function}
+
+The agents share a reward consisting of a time penalty, an SOC balancing penalty, and penalties for voltage and temperature violations:
+
+\begin{equation}
+\label{eq:reward}
+r_t
+=
+r_{\mathrm{time}}
++
+r_{\mathrm{bal}}
++
+r_{\mathrm{safety}}.
+\end{equation}
+
+Before the terminal condition is reached, the time penalty is $r_{\mathrm{time}}=-\lambda_{\mathrm{time}}$. The balancing term is
+
+\begin{equation}
+\label{eq:balance_reward}
+r_{\mathrm{bal}}
+=
+\begin{cases}
+-\lambda_{\mathrm{bal}}(\sigma-\beta),
+& \sigma\geq\beta,\\
+0,
+& \text{otherwise},
+\end{cases}
+\end{equation}
+
+where $\sigma$ is the standard deviation of the cell SOCs and $\beta$ is the balancing threshold defined in Section II.
+
+The safety term is
+$r_{\mathrm{safety}}=r_{\mathrm{volt}}+r_{\mathrm{temp}}$,
+where
+$r_{\mathrm{volt}}=\sum_{i=1}^{n}\delta_{v,i}$ and
+$r_{\mathrm{temp}}=\sum_{i=1}^{n}\delta_{t,i}$.
+The cell-level penalties are defined as
+
+\begin{equation}
+\label{eq:safety_reward}
+\begin{aligned}
+\delta_{v,i}
+&=
+\begin{cases}
+-\lambda_v\left(V_i(t)-V_{\max}\right),
+& V_i(t)\geq V_{\max},\\
+0,
+& \text{otherwise},
+\end{cases}
+\\[4pt]
+\delta_{t,i}
+&=
+\begin{cases}
+-\lambda_T\left(T_i(t)-T_{\max}\right),
+& T_i(t)\geq T_{\max},\\
+0,
+& \text{otherwise}.
+\end{cases}
+\end{aligned}
+\end{equation}
+
+\subsubsection{Transition and Termination}
+
+The current selected by the policy is referred to as the requested current, while the current applied after the safety check is referred to as the executed current. Their joint forms are denoted by $\mathbf{a}_t$ and $\tilde{\mathbf{a}}_t$, respectively.
+
+The transition to the next state is determined by the executed currents and the battery dynamics. The variable $d_t$ indicates whether the episode terminates. Both requested and executed actions are retained during training so that interventions by the safety mechanism are represented explicitly.
+
+\subsection{Cooperative Value Learning}
+
+MBA-RL uses centralized training to coordinate the charging decisions of different cells. Agent $i$ estimates the local action value $Q_i(\tau_t^i,a_t^i|\theta)$ from its action-observation history $\tau_t^i$. During data collection, each agent selects a requested action using an $\epsilon$-greedy policy:
+
+\begin{equation}
+\label{epsilon-greedy}
 a_t^i =
 \begin{cases}
-\text{random available action} & \text{with probability } \epsilon \\
-\arg\max_{a_t^i} Q_i(\tau_t^i, a_t^i|\theta) & \text{with probability } 1 - \epsilon
+\text{random available action},
+& \text{with probability }\epsilon,\\
+\displaystyle
+\arg\max_{a_t^i}
+Q_i(\tau_t^i,a_t^i|\theta),
+& \text{with probability }1-\epsilon.
 \end{cases}
 \end{equation}
-where $Q_i(\tau_t^i, a_t^i|\theta)$ is computed based on $\tau_t^i$ and $a_t^i$. \rev{All agents share a common set of parameters $\theta$. A one-hot agent identifier is appended to each network input so that the shared network can represent cell-specific action values.}
 
-\newrev{The mixing network takes the outputs of all agent networks as inputs and combines them monotonically to generate $Q_{tot}(\boldsymbol{\tau}_t, \mathbf{a}_t|\bm{\theta})$:}
-\begin{equation}\label{Q-value}
-    Q_{tot}(\boldsymbol{\tau}_t, \mathbf{a}_t|\bm{\theta}) = f(Q_1(\tau_t^1, a_t^1|\theta), ..., Q_n(\tau_t^n, a_t^n|\theta))
-\end{equation}
-where $\boldsymbol{\tau}_t$ denotes the joint action-observation history at the time step $t$, and $\bm{\theta}$ represents the parameters of the mixing network. 
+All agents share the same network parameters $\theta$. A one-hot agent identifier is included in the network input so that the shared network can distinguish among cells.
 
-The final objective of MBA-RL is to maximize the global Q-value $Q_{tot}(\boldsymbol{\tau}_t, \mathbf{a}_t|\bm{\theta})$. \newrev{The mixing network enforces a monotonicity constraint between the joint and local action values, so decentralized greedy action selection is consistent with joint greedy selection:}
-\begin{equation}\label{QMIX_constraints}
-\arg\max_{\mathbf{a}_t} Q_{tot}(\boldsymbol{\tau}_t, \mathbf{a}_t|\bm{\theta}) =
-\begin{pmatrix}
-\arg\max_{a_t^1} Q_1(\tau_t^1, a_t^1|\theta) \\
-\vdots \\
-\arg\max_{a_t^n} Q_n(\tau_t^n, a_t^n|\theta)
-\end{pmatrix}.
-\end{equation}
-Eq. \eqref{QMIX_constraints} enables each agent to greedily select the action that maximizes $Q_i(\tau_t^i, a_t^i|\theta)$ for decentralized execution. 
+The mixing network combines the local action values into the joint action value
 
-\newrev{The hypernetworks receive the state $s_t$ and generate nonnegative weights for the mixing network, enforcing}
-\begin{equation}\label{QMIX_constraints_1}
-\frac{\partial Q_{tot}}{\partial Q_i} \geq 0, \, i = 1, 2, ..., n.
+\begin{equation}
+\label{Q-value}
+Q_{\mathrm{tot}}
+(\boldsymbol{\tau}_t,\mathbf{a}_t|\phi)
+=
+f\left(
+Q_1(\tau_t^1,a_t^1|\theta),
+\ldots,
+Q_n(\tau_t^n,a_t^n|\theta)
+\right),
 \end{equation}
 
-\newrev{The target agent and mixing networks are initialized from their corresponding online networks and synchronized every $N_t$ training episodes. Considering the terminal flag and the availability mask at the next state, the global target Q-value is computed as}
-\begin{equation}\label{target Q}
-\newrev{y_t^{\text{tot}} = r_t + \gamma(1-d_t) \max_{\mathbf{a}_{t+1}\in\mathcal{A}(\mathbf{s}_{t+1})} Q_{\text{tot}}(\boldsymbol{\tau}_{t+1}, \mathbf{a}_{t+1}|\bm{\theta}'),}
+where $\boldsymbol{\tau}_t$ denotes the joint action-observation history and $\phi$ denotes the parameters of the mixing network.
+
+QMIX imposes the monotonicity constraint
+
+\begin{equation}
+\label{QMIX_constraints}
+\frac{\partial Q_{\mathrm{tot}}}{\partial Q_i}
+\geq 0,
+\qquad
+i=1,2,\ldots,n.
 \end{equation}
-\newrev{where $d_t$ denotes the terminal flag.}
 
-\newrev{Complete episodes are stored in the replay buffer $\mathcal{D}$ together with the observations, availability masks, requested and executed actions, rewards, and terminal flags. During training, a batch of episodes is randomly sampled for network updates. The Q-function is indexed by the requested action selected by the policy, while the executed action is included in the subsequent action-observation history to account for intervention by the safety screen.}
+This constraint makes decentralized greedy action selection consistent with maximizing the joint action value, allowing each agent to select its action independently during execution.
 
-In summary, the details of the MBA-RL charging control framework are described in Algorithm 1, where $|\cdot|$ denotes the cardinality of a set.
+The target agent and mixing networks are synchronized with their online counterparts every $N_t$ training episodes. Considering the terminal flag and the available actions at the next state, the target value is
 
-\begin{figure}[t]
-    \centering
+\begin{equation}
+\label{target Q}
+y_t^{\mathrm{tot}}
+=
+r_t
++
+\gamma(1-d_t)
+\max_{\mathbf{a}_{t+1}\in\mathcal{A}(\mathbf{s}_{t+1})}
+Q_{\mathrm{tot}}
+(
+\boldsymbol{\tau}_{t+1},
+\mathbf{a}_{t+1}
+|\phi'
+).
+\end{equation}
 
-    \begin{subfigure}[t]{0.24\textwidth} 
-        \centering
-        \includegraphics[width=\textwidth]{aging_voltage.png}
-        \caption{}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.24\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{aging_temperature.png} 
-        \caption{}
-    \end{subfigure}
+The shared reward couples the local charging decisions through $Q_{\mathrm{tot}}$. The time penalty encourages faster charging, while the balancing term penalizes SOC differences among cells. The agents are therefore trained to coordinate their charging currents toward the common objectives of fast charging and SOC balancing.
 
-    \caption{Voltage and temperature curves of the three cells at 1 C discharging current. (a) Voltage curve. (b) Temperature curve.}
-    \label{fig:three_aging}
-\end{figure}
+\subsection{Model-Based Safety Mechanism}
 
-\begin{figure}[t]
-    \centering
+At each decision step, MBA-RL first generates a requested current for each cell. Starting from this value, the safety mechanism evaluates the requested current and successively lower candidates using the nominal SPMe over the next decision interval, followed by an interval with zero current.
 
-    \begin{subfigure}[t]{0.24\textwidth} 
-        \centering
-        \includegraphics[width=\textwidth]{cell1_voltage_fit.png}
-        \caption{}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.24\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{cell1_temperature_fit.png} 
-        \caption{}
-    \end{subfigure}
+A correction based on the mismatch between the model prediction and the observed cell response is applied to the predicted peaks of SOC, voltage, and temperature. The largest candidate that satisfies the safety margins in Table~\ref{tab:experimental_settings} is selected as the executed current.
 
-    \caption{Parameter identification results for Cell 1. (a) Electrochemical model parameter identification. (b) Thermal model parameter identification.}
-    \label{battery1}
-\end{figure}
+If no feasible current is found for any cell, the episode terminates without advancing the battery model. The same safety mechanism is used during training and testing. In this way, requested currents are checked over the prediction interval before they are executed.
 
-\begin{figure}[t]
-    \centering
+\subsection{Training Procedure}
 
-    \begin{subfigure}[t]{0.24\textwidth} 
-        \centering
-        \includegraphics[width=\textwidth]{cell2_voltage_fit.png}
-        \caption{}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.24\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{cell2_temperature_fit.png} 
-        \caption{}
-    \end{subfigure}
+Complete episodes are stored in the replay buffer $\mathcal{D}$. Each transition contains the state, availability mask, requested action, executed action, reward, next state, next availability mask, and terminal flag. During training, batches of complete episodes are sampled from the replay buffer.
 
-    \caption{Parameter identification results for Cell 2. (a) Electrochemical model parameter identification. (b) Thermal model parameter identification.}
-    \label{battery2}
-\end{figure}
+The Q-function is evaluated using the requested action selected by the policy, while the executed action is included in the subsequent action-observation history. This allows the agent network to account for modifications made by the safety mechanism.
 
-\begin{figure}[t]
-    \centering
+The overall training procedure is summarized in Algorithm~\ref{alg:QMIX}.
 
-    \begin{subfigure}[t]{0.24\textwidth} 
-        \centering
-        \includegraphics[width=\textwidth]{cell3_voltage_fit.png}
-        \caption{}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.24\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{cell3_temperature_fit.png} 
-        \caption{}
-    \end{subfigure}
+\begin{algorithm}[t]
+\caption{MBA-RL training procedure}
+\label{alg:QMIX}
 
-    \caption{Parameter identification results for Cell 3. (a) Electrochemical model parameter identification. (b) Thermal model parameter identification.}
-    \label{battery3}
-\end{figure}
+\begin{algorithmic}[1]
+\STATE Initialize the agent network $\theta$, mixing network $\phi$, and replay buffer $\mathcal{D}$
+\STATE Set $\theta'\leftarrow\theta$ and $\phi'\leftarrow\phi$
+\FOR{$episode=1$ to $N_{\mathrm{episode}}$}
+    \STATE Initialize $\tau_0^i$ for all agents and observe $\mathbf{s}_0$
+    \STATE $t\leftarrow0$, $done\leftarrow\mathrm{False}$
+    \WHILE{$\neg done$}
+        \STATE Compute the availability mask $\mathbf{m}_t$
+        \STATE Update $\epsilon$ according to the exploration schedule
+        \FOR{each agent $i$}
+            \STATE Update $\tau_t^i$ using $o_t^i$ and $\tilde{a}_{t-1}^i$
+            \STATE Select requested action $a_t^i$ according to \eqref{epsilon-greedy}
+        \ENDFOR
+        \STATE Apply the safety mechanism to obtain $\tilde{\mathbf{a}}_t$
+        \STATE Execute $\tilde{\mathbf{a}}_t$ and observe $r_t$, $\mathbf{s}_{t+1}$, and $done$
+        \STATE Compute the next availability mask $\mathbf{m}_{t+1}$
+        \STATE Store $\langle
+        \mathbf{s}_t,\mathbf{m}_t,\mathbf{a}_t,
+        \tilde{\mathbf{a}}_t,r_t,
+        \mathbf{s}_{t+1},\mathbf{m}_{t+1},done
+        \rangle$ in $\mathcal{D}$
+        \STATE $t\leftarrow t+1$
+    \ENDWHILE
+
+    \IF{$|\mathcal{D}|\geq N_{\mathrm{batch}}$}
+        \STATE Sample a batch of $N_{\mathrm{batch}}$ episodes from $\mathcal{D}$
+        \STATE Compute $Q_{\mathrm{tot}}$ using \eqref{Q-value}
+        \STATE Compute $y_t^{\mathrm{tot}}$ using \eqref{target Q}
+        \STATE Update $\theta$ and $\phi$ using RMSprop \cite{zou2019sufficient} by minimizing
+        $\left(y_t^{\mathrm{tot}}-Q_{\mathrm{tot}}\right)^2$
+    \ENDIF
+
+    \IF{$episode \bmod N_t=0$}
+        \STATE $\theta'\leftarrow\theta$, $\phi'\leftarrow\phi$
+    \ENDIF
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
