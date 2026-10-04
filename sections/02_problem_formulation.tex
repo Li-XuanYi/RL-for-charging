@@ -1,0 +1,66 @@
+\section{Problem Formulation}
+First, the electrochemical-thermal model used for charging balancing control is described. Next, the charging balancing control is formulated as a constrained optimization problem.
+
+\subsection{Electrochemical-Thermal Model}
+\subsubsection{Electrochemical Model}
+The electrochemical model characterizes the electrochemical dynamic behaviors of the lithium-ion battery. \rev{The simulations use the single particle model with electrolyte dynamics (SPMe) in PyBaMM \cite{23,25}, which retains a representative particle for each electrode while accounting for electrolyte dynamics. The following relation describes the difference between the positive- and negative-electrode equilibrium potentials based on their surface concentrations.}
+\begin{equation}\label{eqn:voltage}
+    \rev{V_{\mathrm{eq}}(t)} = U^{ref}_{p} \left( \frac{c_{s,\text{surf},p}(r,t)}{c_{s,\text{max},p}} \right) - U^{ref}_{n} \left( \frac{c_{s,\text{surf},n}(r,t)}{c_{s,\text{max},n}} \right)
+\end{equation}
+where $t$ is the temporal coordinate, $r$ is the radial coordinate, $U^{ref}_{p}$ and $U^{ref}_{n}$ represent the reference voltages of the positive and negative electrodes, respectively, the terms \(c_{s,\text{surf},p}(r,t)\) and \(c_{s,\text{surf},n}(r,t)\) denote the lithium-ion concentrations at the surfaces of the positive and negative electrodes, respectively, and $c_{s,\text{max},p}$ and $c_{s,\text{max},n}$ indicate the maximum lithium-ion concentrations within the positive and negative electrodes, respectively. Next, the SOC of the battery model can be estimated as follows:
+\begin{equation}
+ \rev{SOC(t)= \frac{\bar{c}_{s,n}(t) - C_{n,\min}}{C_{n,\max} - C_{n,\min}}}
+\end{equation}
+\newrev{where $\bar{c}_{s,n}(t)$ is the volume-averaged lithium concentration in the negative-electrode particles, $C_{n,\min}$ and $C_{n,\max}$ are the corresponding concentrations at 0\% and 100\% SOC, respectively, and the simulated terminal voltage is taken from the SPMe model output.}
+
+\subsubsection{Thermal Model}
+The thermal model describes the thermal dynamics of the battery. \rev{The simulations use PyBaMM's lumped thermal option, which represents the cell temperature with a spatially averaged state. The following equation gives a general heat-balance description:}
+{\color{red}
+\begin{equation}\label{eqn:thermal}
+    m c_p \frac{\mathrm{d}T}{\mathrm{d}t}=\dot{Q}_{\mathrm{gen}}-hA_s\left(T-T_{\mathrm{amb}}\right)
+\end{equation}
+where $m$ and $c_p$ denote the cell mass and specific heat capacity, respectively, $\dot{Q}_{\mathrm{gen}}$ is the total heat-generation rate returned by the electrochemical model, $hA_s\left(T-T_{\mathrm{amb}}\right)$ represents heat transfer to the ambient environment, and $T_{\mathrm{amb}}$ is the ambient temperature. This lumped balance is consistent with the spatially averaged temperature used in the simulations.
+}
+
+
+\subsection{Charging Balancing Control Problem}
+The objective of charging balancing control is to minimize the time required to reach the terminal conditions, which can be described as follows:
+
+\begin{equation}\label{eqn:balancing objective}
+    \displaystyle \max\limits_{\bm{\mathbb{I}}(t)} \quad - (t_b-t_0) 
+\end{equation}
+with terminal conditions:
+\begin{equation}\label{terminal balance}
+    \sigma = \sqrt{\frac{1}{n} \sum_{i=1}^{n} \left(SOC_i(t_b) - \overline{SOC}(t_b)\right)^2} \leq \beta
+\end{equation}
+\begin{equation}\label{terminal condition}
+    SOC_i(t_b) \geq SOC_{ref}, \, i = 1,2,...,n
+\end{equation}
+\newrev{where $\bm{\mathbb{I}}(t) = \left[ I_1(t), \dots, I_n(t) \right]^{\mathrm{T}} \in \mathbb{R}^{n}$ represents the vector of currents for $n$ cells, $t_0$ and $t_b$ are the initial and final times, $\sigma$ is the standard deviation of the cell SOCs, $\beta$ is the balancing threshold, and $SOC_{ref}$ is the minimum terminal-SOC target. Thus, every cell must reach at least $SOC_{ref}$ while the pack-level SOC dispersion remains below $\beta$.}
+
+To prevent any cell within the battery pack $\mathcal{B}$ from violating safety and balance constraints, which could diminish the battery pack's lifespan and reduce charging efficiency, the $i$-th cell in $\mathcal{B}$ must comply with the following constraints:
+
+\begin{equation}\label{safty condition}
+    \begin{array}{rl}
+    & \quad I_{\min} \leq I_i(t) \leq I_{\max} \\[4pt]
+    & \quad T_i(t) \leq T_{\max}, \quad V_i(t) \leq V_{\max} \\[4pt]
+    & \quad SOC_i(t) \leq SOC_{\max}
+    \end{array}
+\end{equation}
+\newrev{where the charging current of each cell $I_i(t)$ is constrained between $I_{\min}=0$ and $I_{\max}=7.5$ A, and $T_{\max}$, $V_{\max}$, and $SOC_{\max}=0.95$ are the operating limits of temperature, voltage, and SOC, respectively. A positive value denotes charging current in the controller; the sign is converted internally when the command is supplied to the PyBaMM model.}
+
+\newrev{Charging balancing control must coordinate cell-level charging progress with the pack-level balancing requirement while satisfying the operating constraints in \eqref{safty condition}. The MBA-RL formulation used to address this problem is presented in the following section.}
+
+ \begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{marl_control_framework.png}
+    \caption{Schematic of using the MARL-based framework to solve the charging balancing control problem.}
+     \label{fig:MARL_Schematic}
+ \end{figure}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.9\textwidth,height=\textheight,keepaspectratio]{mba_rl_architecture.png}
+    \caption{Schematic of the MBA-RL charging control framework. The left diagram depicts an agent network structure, which includes two multilayer perceptrons (MLP) and a gated recurrent unit (GRU). $\theta$ represents the parameters of the agent network. \newrev{The right diagram illustrates the mixing network, where the hypernetworks (in blue) generate the weights and biases for its layers (shown in red), and $W_1$ and $W_2$ represent the two MLP layers.}}
+    \label{fig:schematic_method}
+\end{figure*}

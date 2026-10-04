@@ -1,0 +1,19 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+
+# Compiled manuscript output is generated locally, not versioned.
+main.pdf
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+*.bak
+*.swp
