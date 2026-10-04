@@ -27,51 +27,42 @@ To introduce differences in cycling history, Cells 2 and 3 were subjected to 140
 \label{fig:three_aging}
 \end{figure}
 
-Figs.~\ref{battery1}-\ref{battery3} compare the model outputs with the corresponding measurements. The RMSE values in Table~\ref{tab:cell_rmse} show that the identified models reproduce the measured voltage and temperature profiles under the identification conditions.
+Fig.~\ref{fig:cell_validation} compare the model outputs with the corresponding measurements. The RMSE values in Table~\ref{tab:cell_rmse} show that the identified models reproduce the measured voltage and temperature profiles under the identification conditions.
 
 \begin{figure}[!t]
 \centering
-\begin{minipage}[t]{0.48\columnwidth}
+\begin{subfigure}[t]{0.48\columnwidth}
 \centering
 \includegraphics[width=\linewidth]{cell1_voltage_fit.png}
-\subcaption{Cell 1 voltage}
-\end{minipage}
-\begin{minipage}[t]{0.48\columnwidth}
+\caption{Cell 1 voltage}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
 \centering
 \includegraphics[width=\linewidth]{cell1_temperature_fit.png}
-\subcaption{Cell 1 temperature}
-\end{minipage}
-\caption{Cell 1 model validation}
-\label{battery1}
-\end{figure}
-
-\begin{figure}[!t]
-\centering
-\begin{minipage}[t]{0.48\columnwidth}
+\caption{Cell 1 temperature}
+\end{subfigure}\par\smallskip
+\begin{subfigure}[t]{0.48\columnwidth}
 \centering
 \includegraphics[width=\linewidth]{cell2_voltage_fit.png}
-\subcaption{Cell 2 voltage}
-\end{minipage}
-\begin{minipage}[t]{0.48\columnwidth}
-\includegraphics[width=\linewidth]{cell2_temperature_fit.png}
-\subcaption{Cell 2 temperature}
-\end{minipage}
-\caption{Cell 2 model validation}
-\label{battery2}
-\end{figure}
-
-\begin{figure}[!t]
+\caption{Cell 2 voltage}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
 \centering
-\begin{minipage}[t]{0.48\columnwidth}
+\includegraphics[width=\linewidth]{cell2_temperature_fit.png}
+\caption{Cell 2 temperature}
+\end{subfigure}\par\smallskip
+\begin{subfigure}[t]{0.48\columnwidth}
+\centering
 \includegraphics[width=\linewidth]{cell3_voltage_fit.png}
-\subcaption{Cell 3 voltage}
-\end{minipage}
-\begin{minipage}[t]{0.48\columnwidth}
+\caption{Cell 3 voltage}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\columnwidth}
+\centering
 \includegraphics[width=\linewidth]{cell3_temperature_fit.png}
-\subcaption{Cell 3 temperature}
-\end{minipage}
-\caption{Cell 3 model validation}
-\label{battery3}
+\caption{Cell 3 temperature}
+\end{subfigure}
+\caption{Measured and SPMe-predicted voltage and temperature for the three cells.}
+\label{fig:cell_validation}
 \end{figure}
 
 \begin{table}[!t]
