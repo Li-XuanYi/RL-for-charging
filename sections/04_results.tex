@@ -27,7 +27,7 @@ To introduce differences in cycling history, Cells 2 and 3 were subjected to 140
 \label{fig:three_aging}
 \end{figure}
 
-Fig.~\ref{fig:cell_validation} compare the model outputs with the corresponding measurements. The RMSE values in Table~\ref{tab:cell_rmse} show that the identified models reproduce the measured voltage and temperature profiles under the identification conditions.
+Fig.~\ref{fig:cell_validation} \newrev{compares} the model outputs with the corresponding measurements. The RMSE values in Table~\ref{tab:cell_rmse} show that the identified models reproduce the measured voltage and temperature profiles under the identification conditions.
 
 \begin{figure}[!t]
 \centering
@@ -71,7 +71,7 @@ Fig.~\ref{fig:cell_validation} compare the model outputs with the corresponding 
 \label{tab:cell_rmse}
 \begin{tabular}{@{}lcc@{}}
 \toprule
-Cell & Voltage RMSE & Temperature RMSE \\
+Cell & \newrev{Voltage RMSE (V)} & \newrev{Temperature RMSE ($^\circ$C)} \\
 \midrule
 Cell 1 & 0.026 & 0.068 \\
 Cell 2 & 0.035 & 0.091 \\
@@ -84,7 +84,7 @@ Cell 3 & 0.029 & 0.093 \\
 
 \subsection{Performance Evaluation of MBA-RL}
 
-The identified parameters were incorporated into the PyBaMM models \cite{29}, which were used for policy training and evaluation. The policy weights were fixed during testing. A task was considered complete when every cell reached the reference SOC and the SOC standard deviation remained below the balancing threshold for 270 s without violating the operating limits. The two initial SOC vectors, $Set\;A=[10,20,30]^{\mathrm{T}}$ and $Set\;B=[30,50,70]^{\mathrm{T}}$, are used as representative examples in Fig.~\ref{fig:overall_figure} and Table~\ref{tab:soc_vectors}.
+\newrev{For the charging-control experiments, cell-specific SPMe parameters were fitted to the same measured profiles and incorporated into PyBaMM models \cite{29}. The charging limits and training hyperparameters are given in Tables~\ref{tab:experimental_settings} and \ref{tab:training_settings}, respectively. Each trained policy is evaluated without further weight updates, with the safety mechanism active. A task is complete when all cells reach $SOC_{\mathrm{ref}}=0.90$ and $\sigma\leq\beta=0.02$ within 5400 s, followed by a 270 s zero-current hold during which these conditions and the operating limits remain satisfied.} The two initial SOC vectors, $Set\;A=[10,20,30]^{\mathrm{T}}$ and $Set\;B=[30,50,70]^{\mathrm{T}}$ \newrev{(in percent)}, are used as representative examples in Fig.~\ref{fig:overall_figure} and Table~\ref{tab:soc_vectors}.
 
 During execution, each MBA-RL agent selects the charging current of its cell from its local observation and action-observation history. In the comparison, DQL additionally controls a cell-to-cell energy-transfer topology, while the CC-CV baseline activates the equalization topology during the CV phase.
 
@@ -146,7 +146,7 @@ We first isolate the effect of the safety mechanism during execution by applying
 
 \subsubsection{Comparative Charging Performance}
 
-The learned methods were evaluated over 60 cases, consisting of 12 unseen initial SOC conditions for each of five independent training runs. A failed task is assigned a time score of 5670 s, and $\pm$ denotes the standard deviation across the five training-run means. All methods complete 60/60 evaluations except continuous MAPPO, which completes 59/60.
+\newrev{MBA-RL is compared with shared independent Q-learning (IQL), centralized DQN \cite{mnih2015dqn}, discrete and continuous MAPPO \cite{yu2022mappo}, and SAC \cite{haarnoja2018sac}. Centralized DQN is a single-agent controller that observes the complete battery pack and selects one of $16^3$ joint current commands; shared IQL uses local recurrent agents without a mixing network. The learned methods use the same cell models, safety mechanism, and budget of 2500 training steps.} The learned methods were evaluated over 60 cases, consisting of 12 unseen initial SOC conditions for each of five independent training runs. \newrev{For a successful task, the time score is the charging duration before the zero-current hold. A failed task receives a score of $5400+270=5670$ s. Accumulated SOC imbalance is computed by trapezoidal integration of $\sigma(t)$ from the start to the end of the recorded charging phase, including failed trajectories; no artificial imbalance penalty is added. The 270 s hold is excluded from both charging duration and accumulated imbalance.} The symbol \newrev{$\pm$} denotes the standard deviation across the five training-run means. All methods complete 60/60 evaluations except continuous MAPPO, which completes 59/60.
 
 Among the value-based methods using the same discrete current set, MBA-RL reduces accumulated SOC imbalance by 12.65\% relative to shared IQL and by 10.82\% relative to centralized DQN. Discrete MAPPO and SAC obtain lower numerical scores in Table~\ref{tab:modern_baselines}. Overall, MBA-RL achieves competitive charging performance while combining independently controlled cell currents, SOC balancing without a dedicated equalization topology, and the model-based safety mechanism in a single framework.
 
@@ -185,18 +185,18 @@ SAC & $2173.50\pm157.09$ & $156.04\pm30.74$ \\
 
 \subsubsection{Ablation and Sensitivity Analysis}
 
-Figure~\ref{fig:component_ablation} summarizes the component ablations. Operating variations and pack size are examined below.
+\newrev{The ablations examine whether joint value learning, shared cell policies, and the balancing reward contribute to cooperative charging. Starting from MBA-RL, the mixing network, local-network parameter sharing, or balancing reward is removed separately. Removing the mixer gives shared IQL, which retains local agents but does not use QMIX joint value learning. Independent IQL removes both mixing and parameter sharing and is included as a combined reference, rather than as a single-component ablation. Every variant is retrained with the same five seeds, 2500 training steps, safety mechanism, and 12 unseen initial SOC conditions. The single-agent DQN comparison is given in Fig.~\ref{fig:discrete_trajectories} and Table~\ref{tab:modern_baselines}.} Figure~\ref{fig:component_ablation} summarizes \newrev{the ablation results}. Operating variations and pack size are examined below.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.95\columnwidth]{component_ablation.pdf}
-\caption{Ablation results over 12 unseen conditions and five training runs.}
+\caption{\newrev{Ablation results. Open circles denote training-run means and diamonds overall means; blue diamonds indicate 60/60 completion and red diamonds fewer completed tasks. Counts give completed tasks out of 60; the dashed line marks the MBA-RL mean.}}
 \label{fig:component_ablation}
 \end{figure}
 
-Removing either parameter sharing or the balancing reward causes one of the five training runs to fail across all 12 test conditions, reducing task completion from 60/60 to 48/60. The mean accumulated SOC imbalance increases by 80.47\% without parameter sharing and by 59.07\% without the balancing reward. Removing the mixing network retains 60/60 completion but increases the accumulated imbalance by 14.48\%. These results show that parameter sharing and the balancing reward are important for consistent performance, while the mixing network further improves SOC balancing.
+Removing either parameter sharing or the balancing reward causes one of the five training runs to fail across all 12 test conditions, reducing task completion from 60/60 to 48/60. The mean accumulated SOC imbalance increases by 80.47\% without parameter sharing and by 59.07\% without the balancing reward. Removing the mixing network retains 60/60 completion but increases the accumulated imbalance by 14.48\%. \newrev{Independent IQL completes 59/60 tasks with a mean accumulated imbalance of 234.11 SOC fraction s, compared with 205.42 SOC fraction s for MBA-RL.} These results show that parameter sharing and the balancing reward are important for consistent performance, while the mixing network further improves SOC balancing.
 
-The frozen policy completes all 100 tests covering the specified $\pm10\%$ parameter variations, fixed sensor bias, a 15~$^\circ$C ambient condition, and a 30\% reduction in available current. Task completion decreases in the presence of observation noise, a one-decision delay, and ambient temperatures of 34--35~$^\circ$C. The policy is therefore more sensitive to observation errors, delay, and high ambient temperature than to the tested model and actuation variations.
+\newrev{To examine performance under operating variations without adaptation, the MBA-RL policies trained under nominal conditions are tested without retraining. Their weights remain fixed while cell parameters, observations, ambient temperature, or available current are varied, with the same safety mechanism active.} The \newrev{fixed policies complete all 100 tests for each of the tested conditions involving} the specified $\pm10\%$ parameter variations, fixed sensor bias, a 15~$^\circ$C ambient condition, and a 30\% reduction in available current. Task completion decreases in the presence of observation noise, a one-decision delay, and ambient temperatures of 34--35~$^\circ$C. The policy is therefore more sensitive to observation errors, delay, and high ambient temperature than to the tested model and actuation variations.
 
 The same MBA-RL architecture was trained separately for battery packs with 3, 6, and 12 independently controlled cells. The median training time increases from 1.715 to 6.450 h as the pack size increases, while task completion decreases from 59/60 for the three-cell setting to 29/36 for the 12-cell setting. The 12-cell evaluation contains 12 conditions over three independent training runs, whereas the three-cell evaluation uses five runs because of the higher simulation and training cost at the larger scale.
 
