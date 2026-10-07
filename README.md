@@ -15,7 +15,7 @@ LaTeX source for *Multi-Balancing-Agent Reinforcement Learning for Charging Cont
 `-- README.md
 ```
 
-The review version uses black for the original text, blue for earlier revisions, and red for the current author-review revisions (updated October 6, 2026).
+The review version uses black for the original text and current author-review revisions, and blue for earlier revisions (updated October 7, 2026). Hyperlinks remain active without visible borders or link coloring.
 
 ## Compile
 

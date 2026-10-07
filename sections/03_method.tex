@@ -15,8 +15,8 @@ The MBA-RL architecture is shown in Fig.~\ref{fig:schematic_method}. All agents 
 
 \begin{figure*}[t]
     \centering
-    \includegraphics[width=0.9\textwidth,height=\textheight,keepaspectratio]{mba_rl_architecture_safety.pdf}
-    \caption{Architecture of the MBA-RL framework. The shared agent network consists of two multilayer perceptrons (MLPs) and a gated recurrent unit (GRU). \newrev{The safety mechanism maps requested currents $\mathbf{a}_t$ to executed currents $\tilde{\mathbf{a}}_t$, which are fed back in the action-observation history.}}
+    \includegraphics[width=0.9\textwidth,height=\textheight,keepaspectratio]{MBA_RL_Fig2.png}
+    \caption{Architecture of the proposed MBA-RL framework. Shared recurrent agents generate cell-level charging currents from local histories, while QMIX enables centralized cooperative value learning. An SPMe-based safety mechanism screens requested currents before execution, and the executed currents are fed back for subsequent decisions.}
     \label{fig:schematic_method}
 \end{figure*}
 
