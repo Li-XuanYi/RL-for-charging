@@ -1,4 +1,16 @@
-\documentclass[journal]{IEEEtran}
+% IEEE T-ASE regular-paper format: 10 pt, US Letter, two columns.
+\documentclass[10pt,journal,letterpaper]{IEEEtran}
+
+% The default build is anonymous for T-ASE review. Author information is
+% retained below; main-authors.tex enables the version with author names.
+\newif\ifTASEanonymous
+\ifdefined\TASEwithauthors
+  \TASEanonymousfalse
+\else
+  \TASEanonymoustrue
+\fi
+\newif\ifTASEshowrevisions
+\TASEshowrevisionsfalse
 
 \hyphenation{op-tical net-works semi-conduc-tor}
 \usepackage{graphicx}
@@ -11,21 +23,34 @@
 \usepackage{bm}
 \usepackage{amsfonts}
 \usepackage{xcolor}
-\usepackage[labelfont=bf]{caption}
-\usepackage{subcaption}
+% Keep IEEEtran's figure/table captions; caption=false is essential here.
+\usepackage[caption=false,font=footnotesize]{subfig}
 \usepackage{float}
 \usepackage{multirow}
 \usepackage[hidelinks]{hyperref}
 \usepackage{orcidlink}
-\newcommand{\rev}[1]{\textcolor{blue}{#1}}
-\newcommand{\newrev}[1]{\textcolor{black}{#1}}
-\renewcommand{\thesubfigure}{\alph{subfigure}} 
+\newcommand{\rev}[1]{\ifTASEshowrevisions\textcolor{blue}{#1}\else#1\fi}
+\newcommand{\newrev}[1]{#1}
+\renewcommand{\thesubfigure}{\alph{subfigure}}
+% Reuse IEEEtran's abstract typography for the required practitioner note.
+\newenvironment{IEEEpractitioners}
+  {\renewcommand{\abstractname}{Note to Practitioners}\begin{abstract}}
+  {\end{abstract}}
+\hypersetup{
+  pdftitle={Multi-Balancing-Agent Reinforcement Learning for Charging Control of Lithium-ion Batteries},
+  pdfauthor={},
+  pdfsubject={IEEE Transactions on Automation Science and Engineering manuscript},
+  pdfkeywords={Charging control, lithium-ion batteries, multi-agent reinforcement learning, state-of-charge balancing}
+}
 
 \begin{document}
 
 \title{Multi-Balancing-Agent Reinforcement Learning for Charging Control of Lithium-ion Batteries}
 
 
+\ifTASEanonymous
+\author{}
+\else
 \author{%
         Xuanyi~Li\,\orcidlink{0009-0009-9775-1612},
         Zihao~Zheng,
@@ -39,6 +64,7 @@
 Zhongmei Li is with the Key Laboratory of Smart Manufacturing in Energy Chemical Process, Ministry of Education, East China University of Science and Technology, Shanghai 200237, China (e-mail: zhongmeili@ecust.edu.cn).
 }
 }
+\fi
 
 \maketitle
 \begin{abstract}
@@ -50,11 +76,12 @@ MBA-RL formulates cell-level charging as a cooperative multi-agent control probl
 Extensive experiments show that MBA-RL reduces accumulated SOC imbalance by 12.65\% and 10.82\% compared with shared independent Q-learning and centralized deep Q-learning, respectively. 
 The safety mechanism satisfies the prescribed constraints in all tested cases, while incorporating it during training further improves task completion and SOC balancing.
 \end{abstract}
+\begin{IEEEpractitioners}
+This work aims to support the practical development of intelligent charging strategies for lithium-ion battery packs with independently controllable cell currents. In real applications, cell-to-cell differences in aging and operating conditions can cause uneven charging progress, making it difficult to achieve fast charging and SOC balance simultaneously. Conventional balancing approaches typically rely on dedicated equalization circuits to redistribute or dissipate energy among cells. The proposed MBA-RL framework provides an alternative by coordinating the charging current of each cell directly through multi-agent reinforcement learning. Engineers can use the learned controller to adjust cell-level charging currents according to local voltage, temperature, and SOC information, while a model-based safety mechanism screens the requested currents before execution. The controller is trained offline and can then be deployed without online parameter updates. This framework is suitable for intelligent battery management and fast-charging systems that support independent cell-current regulation, particularly when cell inconsistency becomes significant during operation. In future work, we will further validate the proposed approach on hardware platforms and extend the framework to larger battery packs with coupled electrical, power, and thermal constraints.
+\end{IEEEpractitioners}
 \begin{IEEEkeywords}
-Charging control, SOC balancing, lithium-ion battery, multi-agent reinforcement learning
+Charging control, lithium-ion batteries, multi-agent reinforcement learning, state-of-charge (SOC) balancing.
 \end{IEEEkeywords}
-
-\IEEEpeerreviewmaketitle
 
 \input{sections/01_introduction}
 \input{sections/02_problem_formulation}

@@ -31,36 +31,42 @@ Fig.~\ref{fig:cell_validation} compares the identified-model outputs with the co
 
 \begin{figure}[!t]
 \centering
-\begin{subfigure}[t]{0.48\columnwidth}
+\subfloat[Cell 1 voltage]{%
+\begin{minipage}[t]{0.48\columnwidth}
 \centering
 \includegraphics[width=\linewidth]{cell1_voltage_fit.png}
-\caption{Cell 1 voltage}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.48\columnwidth}
+\end{minipage}%
+}\hfill
+\subfloat[Cell 1 temperature]{%
+\begin{minipage}[t]{0.48\columnwidth}
 \centering
 \includegraphics[width=\linewidth]{cell1_temperature_fit.png}
-\caption{Cell 1 temperature}
-\end{subfigure}\par\smallskip
-\begin{subfigure}[t]{0.48\columnwidth}
+\end{minipage}%
+}\par\smallskip
+\subfloat[Cell 2 voltage]{%
+\begin{minipage}[t]{0.48\columnwidth}
 \centering
 \includegraphics[width=\linewidth]{cell2_voltage_fit.png}
-\caption{Cell 2 voltage}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.48\columnwidth}
+\end{minipage}%
+}\hfill
+\subfloat[Cell 2 temperature]{%
+\begin{minipage}[t]{0.48\columnwidth}
 \centering
 \includegraphics[width=\linewidth]{cell2_temperature_fit.png}
-\caption{Cell 2 temperature}
-\end{subfigure}\par\smallskip
-\begin{subfigure}[t]{0.48\columnwidth}
+\end{minipage}%
+}\par\smallskip
+\subfloat[Cell 3 voltage]{%
+\begin{minipage}[t]{0.48\columnwidth}
 \centering
 \includegraphics[width=\linewidth]{cell3_voltage_fit.png}
-\caption{Cell 3 voltage}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.48\columnwidth}
+\end{minipage}%
+}\hfill
+\subfloat[Cell 3 temperature]{%
+\begin{minipage}[t]{0.48\columnwidth}
 \centering
 \includegraphics[width=\linewidth]{cell3_temperature_fit.png}
-\caption{Cell 3 temperature}
-\end{subfigure}
+\end{minipage}%
+}
 \caption{Measured and SPMe-predicted voltage and temperature for the three cells.}
 \label{fig:cell_validation}
 \end{figure}
@@ -86,30 +92,36 @@ The identified cell models were implemented in PyBaMM \cite{29} for the charging
 
 \begin{figure}[!t]
 \centering
-\begin{subfigure}[t]{0.48\columnwidth}
+\subfloat[MBA-RL, Set A]{%
+\begin{minipage}[t]{0.48\columnwidth}
 \includegraphics[width=\linewidth]{mba_rl_set_a.png}
-\caption{MBA-RL, Set A}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.48\columnwidth}
+\end{minipage}%
+}\hfill
+\subfloat[MBA-RL, Set B]{%
+\begin{minipage}[t]{0.48\columnwidth}
 \includegraphics[width=\linewidth]{mba_rl_set_b.png}
-\caption{MBA-RL, Set B}
-\end{subfigure}\par\smallskip
-\begin{subfigure}[t]{0.48\columnwidth}
+\end{minipage}%
+}\par\smallskip
+\subfloat[DQL, Set A]{%
+\begin{minipage}[t]{0.48\columnwidth}
 \includegraphics[width=\linewidth]{dql_set_a.png}
-\caption{DQL, Set A}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.48\columnwidth}
+\end{minipage}%
+}\hfill
+\subfloat[DQL, Set B]{%
+\begin{minipage}[t]{0.48\columnwidth}
 \includegraphics[width=\linewidth]{dql_set_b.png}
-\caption{DQL, Set B}
-\end{subfigure}\par\smallskip
-\begin{subfigure}[t]{0.48\columnwidth}
+\end{minipage}%
+}\par\smallskip
+\subfloat[CC-CV, Set A]{%
+\begin{minipage}[t]{0.48\columnwidth}
 \includegraphics[width=\linewidth]{cc_cv_set_a.png}
-\caption{CC-CV, Set A}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.48\columnwidth}
+\end{minipage}%
+}\hfill
+\subfloat[CC-CV, Set B]{%
+\begin{minipage}[t]{0.48\columnwidth}
 \includegraphics[width=\linewidth]{cc_cv_set_b.png}
-\caption{CC-CV, Set B}
-\end{subfigure}
+\end{minipage}%
+}
 \caption{Charging trajectories for MBA-RL, DQL, and CC-CV. The green dashed line indicates the first time at which $\sigma\leq\beta$; the yellow dashed line marks the end of the CC phase.}
 \label{fig:overall_figure}
 \end{figure}

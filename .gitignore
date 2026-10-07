@@ -13,6 +13,7 @@ tmp/
 
 # Compiled manuscript output is generated locally, not versioned.
 main.pdf
+main-authors.pdf
 
 # Editor and operating-system files
 .DS_Store
