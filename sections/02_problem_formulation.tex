@@ -65,14 +65,14 @@ The control objective is to minimize the time required for the battery pack to r
 subject to the terminal balancing condition
 
 \begin{equation}\label{terminal balance}
-    \sigma
+    \sigma(t_b)
     =
     \sqrt{
-    \frac{1}{n}
-    \sum_{i=1}^{n}
-    \left(
-    SOC_i(t_b)-\overline{SOC}(t_b)
-    \right)^2
+        \frac{1}{n}
+        \sum_{i=1}^{n}
+        \left(
+            SOC_i(t_b)-\overline{SOC}(t_b)
+        \right)^2
     }
     \leq \beta,
 \end{equation}
