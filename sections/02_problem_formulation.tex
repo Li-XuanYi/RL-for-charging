@@ -6,9 +6,9 @@ This section introduces the electrochemical-thermal model used to describe the c
 
 \subsubsection{Electrochemical Model}
 
-The cell dynamics are modeled using the single particle model with electrolyte dynamics (SPMe) implemented in PyBaMM \cite{23,25}. SPMe represents each electrode with a representative particle while accounting for electrolyte dynamics. The equilibrium potential difference between the positive and negative electrodes is expressed as
+The cell dynamics are modeled using the single particle model with electrolyte (SPMe) implemented in PyBaMM \cite{23,25}. SPMe represents each electrode with a representative particle while accounting for electrolyte dynamics. The equilibrium potential difference between the positive and negative electrodes is expressed as
 
-\begin{equation}\label{eqn:voltage}
+\begin{equation}\label{eq:voltage}
     V_{\mathrm{eq}}(t)
     =
     U^{ref}_{p}
@@ -21,50 +21,46 @@ The cell dynamics are modeled using the single particle model with electrolyte d
     \left(
     \frac{c_{s,\mathrm{surf},n}(r,t)}
     {c_{s,\mathrm{max},n}}
-    \right).
+    \right),
 \end{equation}
-
-where $t$ and $r$ denote time and the radial coordinate, respectively. 
-$U^{ref}_{p}$ and $U^{ref}_{n}$ are the equilibrium-potential functions of the positive and negative electrodes. 
+where $t$ and $r$ denote time and the radial coordinate, respectively.
+$U^{ref}_{p}$ and $U^{ref}_{n}$ are the equilibrium-potential functions of the positive and negative electrodes.
 The terms $c_{s,\mathrm{surf},p}$ and $c_{s,\mathrm{surf},n}$ denote the corresponding surface lithium concentrations, while $c_{s,\mathrm{max},p}$ and $c_{s,\mathrm{max},n}$ are the maximum lithium concentrations in the solid phase.
 
 The SOC is calculated from the volume-averaged lithium concentration in the negative electrode as
 
-\begin{equation}
+\begin{equation}\label{eq:soc}
     SOC(t)
     =
     \frac{\bar{c}_{s,n}(t)-C_{n,\min}}
     {C_{n,\max}-C_{n,\min}},
 \end{equation}
-
 where $\bar{c}_{s,n}(t)$ is the volume-averaged lithium concentration in the negative-electrode particles, and $C_{n,\min}$ and $C_{n,\max}$ are the corresponding concentrations at 0\% and 100\% SOC, respectively. The terminal voltage used for control is obtained directly from the SPMe output.
 
 \subsubsection{Thermal Model}
 
 The cell temperature is modeled using the lumped thermal model in PyBaMM, where the temperature is represented by a spatially averaged state. The corresponding heat balance is given by
 
-\begin{equation}\label{eqn:thermal}
+\begin{equation}\label{eq:thermal}
     m c_p \frac{\mathrm{d}T}{\mathrm{d}t}
     =
     \dot{Q}_{\mathrm{gen}}
     -
     hA_s\left(T-T_{\mathrm{amb}}\right),
 \end{equation}
-
-where $m$ and $c_p$ denote the cell mass and specific heat capacity, respectively. 
+where $m$ and $c_p$ denote the cell mass and specific heat capacity, respectively.
 $\dot{Q}_{\mathrm{gen}}$ is the heat-generation rate obtained from the electrochemical model, $hA_s(T-T_{\mathrm{amb}})$ represents heat transfer to the ambient environment, and $T_{\mathrm{amb}}$ is the ambient temperature.
 
 \subsection{Charging Control Problem}
 
 The control objective is to minimize the time required for the battery pack to reach the target SOC while satisfying the SOC balancing condition. The optimization problem is written as
 
-\begin{equation}\label{eqn:balancing objective}
+\begin{equation}\label{eq:balancing_objective}
     \min_{\mathbf{I}(t)} \quad \left(t_b-t_0\right),
 \end{equation}
-
 subject to the terminal balancing condition
 
-\begin{equation}\label{terminal balance}
+\begin{equation}\label{eq:terminal_balance}
     \sigma(t_b)
     =
     \sqrt{
@@ -76,40 +72,42 @@ subject to the terminal balancing condition
     }
     \leq \beta,
 \end{equation}
-
 and the terminal SOC condition
 
-\begin{equation}\label{terminal condition}
+\begin{equation}\label{eq:terminal_soc}
     SOC_i(t_b)\geq SOC_{\mathrm{ref}},
     \quad i=1,2,\ldots,n.
 \end{equation}
 
 Here,
-
-\begin{equation*}
-    \mathbf{I}(t)
+$   \mathbf{I}(t)
     =
     \left[
     I_1(t),\ldots,I_n(t)
     \right]^{\mathrm{T}}
-    \in \mathbb{R}^{n}
-\end{equation*}
-
-is the charging-current vector for the $n$ cells. 
-$t_0$ and $t_b$ denote the initial and terminal times, respectively. 
+    \in \mathbb{R}^{n}$
+is the charging-current vector for the $n$ cells. A positive value of $I_i(t)$ denotes charging current in the control formulation.
+$t_0$ and $t_b$ denote the initial and terminal times, respectively.
 $\overline{SOC}(t_b)$ is the mean SOC of the battery pack at $t_b$, $\sigma$ is the standard deviation of the cell SOCs, $\beta$ is the balancing threshold, and $SOC_{\mathrm{ref}}$ is the minimum terminal SOC. Thus, all cells must reach at least $SOC_{\mathrm{ref}}$, while the SOC standard deviation remains below $\beta$.
 
 During charging, each cell must also satisfy the operating constraints
 
-\begin{equation}\label{safty condition}
-    \begin{array}{rl}
-    & I_{\min} \leq I_i(t) \leq I_{\max} \\[4pt]
-    & T_i(t) \leq T_{\max}, \quad V_i(t) \leq V_{\max} \\[4pt]
-    & SOC_i(t) \leq SOC_{\max},
-    \end{array}
+\begin{equation}\label{eq:safety_constraints}
+    \begin{gathered}
+    \left\{
+    \begin{aligned}
+    I_{\min} &\leq I_i(t) \leq I_{\max},\\
+    T_i(t) &\leq T_{\max}, \quad V_i(t) \leq V_{\max},\\
+    SOC_i(t) &\leq SOC_{\max},
+    \end{aligned}
+    \right.\\[4pt]
+    i=1,2,\ldots,n,\;
+    t\in[t_0,t_b],
+    \end{gathered}
 \end{equation}
-
-where $I_{\min}=0$ and $I_{\max}=7.5$ A define the allowable charging-current range. 
+where $I_{\min}=0$ and $I_{\max}=7.5$ A define the allowable charging-current range.
 $T_{\max}$, $V_{\max}$, and $SOC_{\max}=0.95$ denote the upper limits on cell temperature, voltage, and SOC, respectively.
 
-The charging control problem therefore requires the currents of individual cells to be coordinated so that the battery pack reaches the target SOC rapidly while maintaining SOC balance and satisfying the operating constraints in \eqref{safty condition}. 
+The formulation above treats the charging-current range as continuous. In the MBA-RL controller introduced in Section III, this range is discretized into a finite set of candidate currents. The terminal conditions above define the charging objective, while the additional zero-current hold introduced in Section IV is used only as an evaluation criterion and is not part of the optimization problem.
+
+The charging control problem therefore requires the currents of individual cells to be coordinated so that the battery pack reaches the target SOC rapidly while maintaining SOC balance and satisfying the operating constraints in \eqref{eq:safety_constraints}.

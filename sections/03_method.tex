@@ -259,7 +259,7 @@ Complete episodes are stored in the replay buffer $\mathcal{D}$. Each transition
 
 The Q-function is evaluated using the requested action selected by the policy, while the executed action is included in the subsequent action-observation history. This allows the agent network to account for modifications made by the safety mechanism. \newrev{After training, the learned network parameters are held fixed and the agents select the available actions greedily during evaluation; the same safety mechanism remains active.}
 
-The training hyperparameters are summarized in Table~\ref{tab:training_settings}, and the overall procedure is given in Algorithm~\ref{alg:QMIX}.
+The training hyperparameters are summarized in Table~\ref{tab:training_settings}, and the overall procedure is given in Algorithm~\ref{alg:QMIX}. In Algorithm~\ref{alg:QMIX}, $\bm{\theta}$ denotes the mixing-network parameters $\phi$.
 
 \begin{table}[!t]
 \centering
@@ -283,45 +283,40 @@ Network widths & Agent/mixer/hypernetwork: 128/256/64 \\
 \end{tabular}
 \end{table}
 
-\begin{algorithm}[!t]
-\caption{MBA-RL training procedure}
-\label{alg:QMIX}
+\begin{algorithm}[t]
+    \caption{MBA-RL charging control framework}
+    \label{alg:QMIX}
 
-\begin{algorithmic}[1]
-\STATE Initialize the agent network $\theta$, mixing network $\phi$, and replay buffer $\mathcal{D}$
-\STATE Set $\theta'\leftarrow\theta$ and $\phi'\leftarrow\phi$
-\FOR{$episode=1$ to $N_{\mathrm{episode}}$}
-    \STATE Initialize $\tau_0^i$ for all agents and observe $\mathbf{s}_0$
-    \STATE $t\leftarrow0$, $done\leftarrow\mathrm{False}$
-    \WHILE{$\neg done$}
-        \STATE Compute the availability mask $\mathbf{m}_t$
-        \STATE Update $\epsilon$ according to the exploration schedule
-        \FOR{each agent $i$}
-            \STATE Update $\tau_t^i$ using $o_t^i$ and $\tilde{a}_{t-1}^i$
-            \STATE Select requested action $a_t^i$ according to \eqref{epsilon-greedy}
+    \begin{algorithmic}[1]
+        \STATE Initialize $\theta, \theta', \bm{\theta}, \bm{\theta}'$ randomly
+        \STATE Set the learning rate $\alpha$, number of episodes $N_{episode}$, and replay buffer $\mathcal{D}$
+        \STATE $\theta' \leftarrow \theta, \bm{\theta}' \leftarrow \bm{\theta}$
+        \FOR{$episode =$ 1 to $N_{episode}$}
+            \STATE $t\leftarrow 0$, $\tau_t^i \leftarrow \emptyset$, and observe the initial state $\mathbf{s}_t$
+
+            // \textbf{Data Collection}
+            \WHILE{$\neg done$}
+                \FOR{the $i$-th agent}
+                    \STATE $\tau_t^i \leftarrow \tau_{t-1}^i \cup \{(o_t^i, a_{t-1}^i)\}$
+                    \STATE $\epsilon \gets 0.5 (1 - \frac{episode}{N_{episode}})$
+                    \STATE Select $a_t^i$ according to \eqref{epsilon-greedy}
+                \ENDFOR
+                \STATE Execute the joint action $\mathbf{a}_t$, observe the reward $r_t$, and get the next state $\mathbf{s}_{t+1}$
+                \STATE $\mathcal{D} \leftarrow \mathcal{D} \cup \{ \langle\mathbf{s}_t, \mathbf{a}_t, r_t, \mathbf{s}_{t+1}, done\rangle \}$
+            \ENDWHILE
+
+            // \textbf{Network Update}
+            \IF{$|\mathcal{D}| > N$}
+                \STATE $B \leftarrow$ Randomly sample data from $N$ episodes in $\mathcal{D}$
+                \FOR{each time step $t$ in each episode in batch $B$}
+                    \STATE Calculate $Q_{tot}$ by \eqref{Q-value} based on the state $\mathbf{s}_t$
+                    \STATE Calculate $y^{\text{tot}}$ by \eqref{target Q} based on the state $\mathbf{s}_{t+1}$
+                \ENDFOR
+                \STATE Under the monotonicity condition given in \eqref{QMIX_constraints}, utilize the RMSprop  optimizer \cite{zou2019sufficient} to update $\theta$ and $\bm{\theta}$ by minimizing the loss function: $\left( y_{\text{tot}} - Q_{\text{tot}} \right)^2$
+            \ENDIF
+            \IF{$episode$ \% $N_t$ == 0}
+                \STATE $\theta' \leftarrow \theta$, $\bm{\theta}' \leftarrow \bm{\theta}$
+            \ENDIF
         \ENDFOR
-        \STATE Apply the safety mechanism to obtain $\tilde{\mathbf{a}}_t$
-        \STATE Execute $\tilde{\mathbf{a}}_t$ and observe $r_t$, $\mathbf{s}_{t+1}$, and $done$
-        \STATE Compute the next availability mask $\mathbf{m}_{t+1}$
-        \STATE Store $\langle
-        \mathbf{s}_t,\mathbf{m}_t,\mathbf{a}_t,
-        \tilde{\mathbf{a}}_t,r_t,
-        \mathbf{s}_{t+1},\mathbf{m}_{t+1},done
-        \rangle$ in $\mathcal{D}$
-        \STATE $t\leftarrow t+1$
-    \ENDWHILE
-
-    \IF{$|\mathcal{D}|\geq N_{\mathrm{batch}}$}
-        \STATE Sample a batch of $N_{\mathrm{batch}}$ episodes from $\mathcal{D}$
-        \STATE Compute $Q_{\mathrm{tot}}$ using \eqref{Q-value}
-        \STATE Compute $y_t^{\mathrm{tot}}$ using \eqref{target Q}
-        \STATE Update $\theta$ and $\phi$ using RMSprop \cite{zou2019sufficient} by minimizing
-        $\left(y_t^{\mathrm{tot}}-Q_{\mathrm{tot}}\right)^2$
-    \ENDIF
-
-    \IF{$episode \bmod N_t=0$}
-        \STATE $\theta'\leftarrow\theta$, $\phi'\leftarrow\phi$
-    \ENDIF
-\ENDFOR
-\end{algorithmic}
+    \end{algorithmic}
 \end{algorithm}
