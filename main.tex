@@ -80,7 +80,7 @@ The safety mechanism satisfies the prescribed constraints in all tested cases, w
 This work aims to support the practical development of intelligent charging strategies for lithium-ion battery packs with independently controllable cell currents. In real applications, cell-to-cell differences in aging and operating conditions can cause uneven charging progress, making it difficult to achieve fast charging and SOC balance simultaneously. Conventional balancing approaches typically rely on dedicated equalization circuits to redistribute or dissipate energy among cells. The proposed MBA-RL framework provides an alternative by coordinating the charging current of each cell directly through multi-agent reinforcement learning. Engineers can use the learned controller to adjust cell-level charging currents according to local voltage, temperature, and SOC information, while a model-based safety mechanism screens the requested currents before execution. The controller is trained offline and can then be deployed without online parameter updates. This framework is suitable for intelligent battery management and fast-charging systems that support independent cell-current regulation, particularly when cell inconsistency becomes significant during operation. In future work, we will further validate the proposed approach on hardware platforms and extend the framework to larger battery packs with coupled electrical, power, and thermal constraints.
 \end{IEEEpractitioners}
 \begin{IEEEkeywords}
-Charging control, lithium-ion batteries, multi-agent reinforcement learning, state-of-charge (SOC) balancing.
+Charging control, lithium-ion batteries, multi-agent reinforcement learning, SOC balancing.
 \end{IEEEkeywords}
 
 \input{sections/01_introduction}
